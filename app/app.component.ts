@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { GoogleMapDirective } from '../app/directives/google-map.directive';
 import { GoogleMapMarkerDirective } from '../app/directives/google-map-marker.directive';
@@ -11,7 +11,7 @@ import { GeocodingService } from '../app/services/geocoding.service';
     selector: 'app-component',
     templateUrl: './app/app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
     // Center map. Required.
     center: google.maps.LatLng;
@@ -56,6 +56,7 @@ export class AppComponent {
         this.minZoom = 4;
         // Styled Maps: https://developers.google.com/maps/documentation/javascript/styling
         // You can use the Styled Maps Wizard: http://googlemaps.github.io/js-samples/styledmaps/wizard/index.html 
+        
         // this.styles = [
         //     {
         //         featureType: 'landscape',
@@ -71,6 +72,10 @@ export class AppComponent {
 
         this.warning = false;
         this.message = "";
+    }
+
+    ngOnInit() {
+        this.getCurrentPosition();
     }
 
     getCurrentPosition() {
