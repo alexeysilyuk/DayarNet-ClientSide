@@ -12,11 +12,16 @@ import { GeocodingService } from '../app/services/geocoding.service';
 
 import { AppComponent } from './app.component';
 
+import {HttpClientModule} from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+
 @NgModule({
     imports: [
         BrowserModule,
         CommonModule,
-        FormsModule
+        FormsModule,
+        HttpModule,
+        HttpClientModule
     ],
     declarations: [
         AppComponent,

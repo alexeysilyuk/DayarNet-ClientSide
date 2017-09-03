@@ -7,9 +7,16 @@ import { MapsService } from '../app/services/maps.service';
 import { GeolocationService } from '../app/services/geolocation.service';
 import { GeocodingService } from '../app/services/geocoding.service';
 
+
+import { HttpClient } from '@angular/common/http';
+
+import {City } from './city.model';
+import {Neighborhood } from './neighborhood.model';
+
+
 @Component({
     selector: 'app-component',
-    templateUrl: './app/app.component.html'
+    templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
 
@@ -44,7 +51,13 @@ export class AppComponent implements OnInit {
     warning: boolean;
     message: string;
 
-    constructor(public maps: MapsService, private geolocation: GeolocationService, private geocoding: GeocodingService) {
+
+    // json object
+    cities: City[] =  [];
+    neighborhoods: Neighborhood[] = [];
+    
+
+    constructor(public maps: MapsService, private geolocation: GeolocationService, private geocoding: GeocodingService, private http: HttpClient) {
         this.center = new google.maps.LatLng(41.910943, 12.476358);
         this.zoom = 4;
 
@@ -54,6 +67,7 @@ export class AppComponent implements OnInit {
         this.mapTypeId = google.maps.MapTypeId.ROADMAP;
         this.maxZoom = 15;
         this.minZoom = 4;
+
         // Styled Maps: https://developers.google.com/maps/documentation/javascript/styling
         // You can use the Styled Maps Wizard: http://googlemaps.github.io/js-samples/styledmaps/wizard/index.html 
         
@@ -61,7 +75,7 @@ export class AppComponent implements OnInit {
         //     {
         //         featureType: 'landscape',
         //         stylers: [
-        //             { color: '#000000' }
+        //             { color: '#ffffff' }
         //         ]
         //     }
         // ];
@@ -76,6 +90,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.getCurrentPosition();
+        this.loadCity();
     }
 
     getCurrentPosition() {
@@ -158,5 +173,63 @@ export class AppComponent implements OnInit {
         // Sets the info window.
         this.content = content;
     }
+
+    loadCity() {
+        // Make the HTTP request:
+        this.http.get('http://localhost:8080/Cities/findAll').subscribe(data => {
+         // Read the result field from the JSON response.
+         
+         var i = 0;
+         for(i=0; i<data['result'].length; i++) {
+            this.cities.push( new City(data['result'][i]['code'], data['result'][i]['lng'], data['result'][i]['lat'], data['result'][i]['name']) );
+         }
+       });
+      }
+
+      callCity(value){
+        console.log(value);
+        this.searchCityByCode(value);
+      }
+
+      callNeighborhood(value){
+        console.log(value);
+        this.zoom = 14;
+      }
+
+
+      searchCityByCode(code) {
+        // Make the HTTP request:
+        this.http.get('http://localhost:8080/Cities/find?by=code&value='+code).subscribe(data => {
+            console.log(data);
+         // Read the result field from the JSON response.
+
+         this.center = new google.maps.LatLng(data['city'][0]['lat'], data['city'][0]['lng']);
+         this.setMarker(this.center, "search result", "Test");
+         this.zoom = 12;
+
+         this.loadNeibrhoodByCityCode(code);
+       });
+      }
+
+
+      loadNeibrhoodByCityCode(code) {
+        // Make the HTTP request:
+        this.http.get('http://localhost:8080/Cities/Neighborhood/find?by=city&value='+code).subscribe(data2 => {
+         // Read the result field from the JSON response.
+         this.neighborhoods = [];
+         var i = 0;
+         for(i=0; i<data2['result'].length; i++) {
+             console.log(data2['result'][i]);
+         this.neighborhoods.push( 
+             new Neighborhood(
+                 data2['result'][i]['neighborhood_code'],
+                 data2['result'][i]['lng'],
+                 data2['result'][i]['lat'],
+                 data2['result'][i]['name'],
+                 data2['result'][i]['city_code']
+                ));
+         }
+       });
+      }
 
 }

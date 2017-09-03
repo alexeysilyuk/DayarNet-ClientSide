@@ -1,43 +1,52 @@
 {
-    "name": "angular-maps",
-    "version": "1.0.0",
-    "description": "Google Maps JavaScript API in the Angular applications using TypeScript",
-    "main": "",
-    "scripts": {
-        "start": "concurrently \"npm run tsc:w\" \"npm run lite\" ",
-        "lite": "lite-server",
-        "tsc": "tsc",
-        "tsc:w": "tsc -w"
-    },
-    "keywords": [],
-    "author": "Roberto Simonetti",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/robisim74/angular-maps.git"
-    },
-    "bugs": {
-        "url": "https://github.com/robisim74/angular-maps/issues"
-    },
-    "homepage": "https://github.com/robisim74/angular-maps",
-    "dependencies": {
-        "@angular/common": "4.0.0",
-        "@angular/compiler": "4.0.0",
-        "@angular/core": "4.0.0",
-        "@angular/forms": "4.0.0",
-        "@angular/platform-browser": "4.0.0",
-        "@angular/platform-browser-dynamic": "4.0.0",
-        "core-js": "2.4.1",
-        "reflect-metadata": "0.1.10",
-        "rxjs": "5.2.0",
-        "systemjs": "0.19.47",
-        "zone.js": "0.8.5"
-    },
-    "devDependencies": {
-        "@types/node": "7.0.11",
-        "@types/googlemaps":"3.26.7",
-        "concurrently": "3.4.0",
-        "lite-server": "2.3.0",
-        "typescript": "2.2.1"
-    }
+  "name": "dayrnet",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "private": true,
+  "dependencies": {
+    "@agm/core": "^1.0.0-beta.1",
+    "@angular/animations": "^4.0.0",
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
+    "@angular/core": "^4.0.0",
+    "@angular/forms": "^4.0.0",
+    "@angular/http": "^4.0.0",
+    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/router": "^4.0.0",
+    "@types/googlemaps": "^3.26.20",
+    "bootstrap": "^3.3.7",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.4.1",
+    "zone.js": "^0.8.14"
+  },
+  "devDependencies": {
+    "@angular/cli": "1.2.6",
+    "@angular/compiler-cli": "^4.0.0",
+    "@angular/language-service": "^4.0.0",
+    "@types/jasmine": "~2.5.53",
+    "@types/jasminewd2": "~2.0.2",
+    "@types/node": "~6.0.60",
+    "codelyzer": "~3.0.1",
+    "jasmine-core": "~2.6.2",
+    "jasmine-spec-reporter": "~4.1.0",
+    "karma": "~1.7.0",
+    "karma-chrome-launcher": "~2.1.1",
+    "karma-cli": "~1.0.1",
+    "karma-coverage-istanbul-reporter": "^1.2.1",
+    "karma-jasmine": "~1.1.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "protractor": "~5.1.2",
+    "ts-node": "~3.0.4",
+    "tslint": "~5.3.2",
+    "typescript": "~2.3.3"
+  }
 }
