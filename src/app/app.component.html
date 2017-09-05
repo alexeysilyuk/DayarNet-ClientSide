@@ -50,8 +50,8 @@
 
 
                 <label>Neighborhood</label>
-                  <select class="form-control" #t2 (change)="callNeighborhood(t2.value)">
-                       <option *ngFor=" let neighborhood of neighborhoods" [value]="neighborhood.code">{{neighborhood.name}}</option> 
+                  <select class="form-control" #neighborhood (change)="callNeighborhood(neighborhood.value)">
+                       <option *ngFor=" let n of neighborhoods" [value]="n.neighborhood_code">{{n.name}}</option> 
                     </select>
 
             </div>

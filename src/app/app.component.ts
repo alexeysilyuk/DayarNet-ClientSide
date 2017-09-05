@@ -187,12 +187,13 @@ export class AppComponent implements OnInit {
       }
 
       callCity(value){
-        console.log(value);
+        //console.log(value);
         this.searchCityByCode(value);
       }
 
       callNeighborhood(value){
         console.log(value);
+        this.putNeughOnMap(value)
         this.zoom = 14;
       }
 
@@ -219,7 +220,7 @@ export class AppComponent implements OnInit {
          this.neighborhoods = [];
          var i = 0;
          for(i=0; i<data2['result'].length; i++) {
-             console.log(data2['result'][i]);
+            //  console.log(data2['result'][i]);
          this.neighborhoods.push( 
              new Neighborhood(
                  data2['result'][i]['neighborhood_code'],
@@ -230,6 +231,16 @@ export class AppComponent implements OnInit {
                 ));
          }
        });
+      }
+
+      putNeughOnMap(code)
+      {
+        this.http.get('http://localhost:8080/Cities/Neighborhood/find?by=n&value='+code).subscribe(data3 => {
+
+         this.center = new google.maps.LatLng(data3['result'][0]['lat'], data3['result'][0]['lng']);
+         this.setMarker(this.center, "search result", "Test");
+         this.zoom = 14;
+      });
       }
 
 }
