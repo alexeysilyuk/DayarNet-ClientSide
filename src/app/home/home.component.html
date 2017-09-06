@@ -1,0 +1,52 @@
+<main>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="warning">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Warning!</strong> {{ message }}
+        </div>
+
+        <!--these properties are required: center, zoom-->
+        <google-map [center]="center" [zoom]="zoom" [disableDefaultUI]="disableDefaultUI" [disableDoubleClickZoom]="disableDoubleClickZoom"
+                    [mapTypeId]="mapTypeId" [maxZoom]="maxZoom" [minZoom]="minZoom" [styles]="styles">
+          <!--this property is required: position-->
+          <google-map-marker [position]="position" [title]="title" [content]="content">
+          </google-map-marker>
+        </google-map>
+
+      </div>
+
+      <div class="col-sm-12">
+
+        <div class="form-group">
+          <label class="control-label" for="input-search">Address</label>
+          <div class="input-group">
+            <input type="text" id="input-search" class="form-control" [(ngModel)]="address" (keyup.enter)="search(address)" placeholder="Address">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-fab btn-fab-mini" title="search" (click)="search(address)">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <input class="btn btn-default btn-block" type="button" value="Get current position" (click)="getCurrentPosition()">
+
+        <label>Cities</label>
+        <select class="form-control" #c (change)="callCity(c.value)">
+          <option value="" disabled selected hidden>Please Choose...</option>
+          <option *ngFor=" let city of cities" [value]="city.code">{{city.name}}</option>
+        </select>
+
+
+        <label>Neighborhood</label>
+        <select class="form-control" #neighborhood (change)="callNeighborhood(neighborhood.value)">
+          <option value="" disabled selected hidden>Please Choose...</option>
+          <option *ngFor=" let n of neighborhoods" [value]="n.neighborhood_code">{{n.name}}</option>
+        </select>
+
+      </div>
+    </div>
+  </div>
+</main>
