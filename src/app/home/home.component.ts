@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit {
     // Other options.
     this.disableDefaultUI = true;
     this.disableDoubleClickZoom = false;
-    this.mapTypeId = google.maps.MapTypeId.TERRAIN;
+    this.mapTypeId = google.maps.MapTypeId.ROADMAP;
     this.maxZoom = 18;
     this.minZoom = 4;
 

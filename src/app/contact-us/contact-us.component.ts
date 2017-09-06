@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-contact-us',
@@ -7,23 +9,19 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./contact-us.component.css']
 })
 export class ContactUsComponent implements OnInit {
-  myform: FormGroup;
+  name:  '';
+  email: '';
+  subject: '';
+  messageSend: '';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  ngOnInit() {
-    // this.myform = new FormGroup({
-    //   // name: email: new FormControl(),
-    //   // email: new FormControl(),
-    //   // password: new FormControl(),
-    //   // language: new FormControl()
-    // });
-  }
+  ngOnInit() {}
 
   onSubmit() {
-    // if (this.myform.valid) {
-    //   console.log("Form Submitted!");
-    // }
+    this.http.get('http://localhost:8080/Mail/send?from='+this.email+'&subject='+this.subject+'&message='+this.messageSend).subscribe(data => {
+      console.log(data);
+    });
   }
 
 }
