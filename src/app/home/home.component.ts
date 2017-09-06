@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import {City } from '../city.model';
 import {Neighborhood } from '../neighborhood.model';
 
+declare var $: any; // jQuery
 
 @Component({
   selector: 'app-home',
@@ -63,7 +64,6 @@ export class HomeComponent implements OnInit {
   cityHasNeighborhoods:boolean;
 
 
-
   componentDisplay = 'home';
 
   onNavigate(coponent: string) {
@@ -71,6 +71,10 @@ export class HomeComponent implements OnInit {
   }
 
   constructor(public maps: MapsService, private geolocation: GeolocationService, private geocoding: GeocodingService, private http: HttpClient) {
+
+    this.selectedCity = 0;
+    this.selectedNeighborhood = 0;
+
     this.center = new google.maps.LatLng(41.910943, 12.476358);
     this.zoom = 4;
 
@@ -80,18 +84,6 @@ export class HomeComponent implements OnInit {
     this.mapTypeId = google.maps.MapTypeId.ROADMAP;
     this.maxZoom = 18;
     this.minZoom = 4;
-
-    // Styled Maps: https://developers.google.com/maps/documentation/javascript/styling
-    // You can use the Styled Maps Wizard: http://googlemaps.github.io/js-samples/styledmaps/wizard/index.html
-
-    // this.styles = [
-    //     {
-    //         featureType: 'landscape',
-    //         stylers: [
-    //             { color: '#ffffff' }
-    //         ]
-    //     }
-    // ];
 
     // Initially the marker isn't set.
 
@@ -105,8 +97,6 @@ export class HomeComponent implements OnInit {
     this.getCurrentPosition();
     this.loadCity();
   }
-
-
 
 
   getCurrentPosition() {
@@ -146,15 +136,15 @@ export class HomeComponent implements OnInit {
           }
         });
     } else {
-      this.message = "browser doesn't support geolocation";
+      this.message = 'browser doesn\'t support geolocation';
       this.warning = true;
     }
   }
 
   search(address: string) {
-    if (address != "") {
+    if (address != '') {
       this.warning = false;
-      this.message = "";
+      this.message = '';
       // Converts the address into geographic coordinates.
       this.geocoding.codeAddress(address).forEach(
         (results: google.maps.GeocoderResult[]) => {
@@ -168,12 +158,12 @@ export class HomeComponent implements OnInit {
         }
       ).then(
         () => {
-          this.address = "";
+          this.address = '';
           console.log('Geocoding service: completed.');
         }).catch(
         (status: google.maps.GeocoderStatus) => {
           if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
-            this.message = "zero results";
+            this.message = 'zero results';
             this.warning = true;
           }
         });
@@ -203,31 +193,36 @@ export class HomeComponent implements OnInit {
   }
 
   callCity(value){
-    //console.log(value);
-    this.selectedCity=value;
-    this.searchCityByCode(value);
+
+    // Make the HTTP request:
+    this.http.get('http://localhost:8080/Cities/find?by=code&value='+value).subscribe(data => {
+      if (data['status'] === 'success') {
+        console.log(data);
+        this.selectedCity = value;
+        console.log(this.selectedCity);
+
+
+        // Read the result field from the JSON response.
+
+        this.center = new google.maps.LatLng(data['city'][0]['lat'], data['city'][0]['lng']);
+        this.setMarker(this.center, data['city'][0]['name'], data['city'][0]['name']);
+        this.zoom = 12;
+
+        this.loadNeibrhoodByCityCode(value);
+      }
+    });
   }
 
   callNeighborhood(value){
-    console.log(value);
     this.selectedNeighborhood=value;
-    this.putNeughOnMap(value);
-    this.zoom = 14;
-  }
+    this.http.get('http://localhost:8080/Cities/Neighborhood/find?by=n&value='+value).subscribe(data => {
 
-
-  searchCityByCode(code) {
-    // Make the HTTP request:
-    this.http.get('http://localhost:8080/Cities/find?by=code&value='+code).subscribe(data => {
-      console.log(data);
-      // Read the result field from the JSON response.
-
-      this.center = new google.maps.LatLng(data['city'][0]['lat'], data['city'][0]['lng']);
-      this.setMarker(this.center, data['city'][0]['name'], data['city'][0]['name']);
-      this.zoom = 12;
-
-      this.loadNeibrhoodByCityCode(code);
+      this.center = new google.maps.LatLng(data['neighborhood'][0]['lat'], data['neighborhood'][0]['lng']);
+      this.setMarker(this.center, data['neighborhood'][0]['name'], data['neighborhood'][0]['name']);
+      this.zoom = 15;
     });
+
+    $('.addFlat').slideDown();
   }
 
 
@@ -237,14 +232,17 @@ export class HomeComponent implements OnInit {
       // Read the result field from the JSON response.
       this.neighborhoods = [];
 
-      if (data['neighborhoods'].length>0)
-        this.cityHasNeighborhoods=true;
-      else
-        this.cityHasNeighborhoods=false;
+      if (data['neighborhoods'].length>0) {
+        this.cityHasNeighborhoods = true;
+        $('.addFlat').slideUp();
+      }
+      else {
+        this.cityHasNeighborhoods = false;
+        $('.addFlat').slideDown();
+      }
 
       var i = 0;
       for(i=0; i<data['neighborhoods'].length; i++) {
-        //  console.log(data2['result'][i]);
         this.neighborhoods.push(
           new Neighborhood(
             data['neighborhoods'][i]['neighborhood_code'],
@@ -257,14 +255,5 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  putNeughOnMap(code)
-  {
-    this.http.get('http://localhost:8080/Cities/Neighborhood/find?by=n&value='+code).subscribe(data => {
-
-      this.center = new google.maps.LatLng(data['neighborhood'][0]['lat'], data['neighborhood'][0]['lng']);
-      this.setMarker(this.center, data['neighborhood'][0]['name'], data['neighborhood'][0]['name']);
-      this.zoom = 15;
-    });
-  }
 
 }

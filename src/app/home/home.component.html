@@ -1,37 +1,40 @@
 <main>
   <div class="container">
     <div class="row">
-      <div class="col-sm-12">
-        <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="warning">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <strong>Warning!</strong> {{ message }}
-        </div>
+      <div class="col-sm-8">
+
+        <!--<div class="alert alert-warning alert-dismissible" role="alert" *ngIf="warning">-->
+          <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+          <!--<strong>Warning!</strong> {{ message }}-->
+        <!--</div>-->
 
         <!--these properties are required: center, zoom-->
+        <div class="mapper">
         <google-map [center]="center" [zoom]="zoom" [disableDefaultUI]="disableDefaultUI" [disableDoubleClickZoom]="disableDoubleClickZoom"
                     [mapTypeId]="mapTypeId" [maxZoom]="maxZoom" [minZoom]="minZoom" [styles]="styles">
           <!--this property is required: position-->
           <google-map-marker [position]="position" [title]="title" [content]="content">
           </google-map-marker>
         </google-map>
+        </div>
 
       </div>
 
-      <div class="col-sm-12">
+      <div class="col-sm-4">
 
-        <div class="form-group">
-          <label class="control-label" for="input-search">Address</label>
-          <div class="input-group">
-            <input type="text" id="input-search" class="form-control" [(ngModel)]="address" (keyup.enter)="search(address)" placeholder="Address">
-            <div class="input-group-btn">
-              <button type="button" class="btn btn-fab btn-fab-mini" title="search" (click)="search(address)">
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-              </button>
-            </div>
-          </div>
-        </div>
+        <!--<div class="form-group">-->
+          <!--<label class="control-label" for="input-search">Address</label>-->
+          <!--<div class="input-group">-->
+            <!--<input type="text" id="input-search" class="form-control" [(ngModel)]="address" (keyup.enter)="search(address)" placeholder="Address">-->
+            <!--<div class="input-group-btn">-->
+              <!--<button type="button" class="btn btn-fab btn-fab-mini" title="search" (click)="search(address)">-->
+                <!--<span class="glyphicon glyphicon-search" aria-hidden="true"></span>-->
+              <!--</button>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
 
-        <input class="btn btn-default btn-block" type="button" value="Get current position" (click)="getCurrentPosition()">
+        <!--<input class="btn btn-default btn-block" type="button" value="Get current position" (click)="getCurrentPosition()">-->
 
         <label>Cities</label>
         <select class="form-control" #c (change)="callCity(c.value)">
@@ -39,12 +42,42 @@
           <option *ngFor=" let city of cities" [value]="city.code">{{city.name}}</option>
         </select>
 
-
+        <div *ngIf="cityHasNeighborhoods" class="neibrhoodBLock">
         <label>Neighborhood</label>
         <select class="form-control" #neighborhood (change)="callNeighborhood(neighborhood.value)">
           <option value="" disabled selected hidden>Please Choose...</option>
           <option *ngFor=" let n of neighborhoods" [value]="n.neighborhood_code">{{n.name}}</option>
         </select>
+        </div>
+
+        <div class="addFlat">
+          <label>Adress:</label>
+          <input type="text" id="street" class="form-control" placeholder="Jabotinski 44/25">
+
+          <label>Rooms:</label>
+          <input type="text" id="rooms" class="form-control" placeholder="3">
+
+          <label>Area:</label>
+          <input type="text" id="area" class="form-control" placeholder="Area...">
+
+          <label>Arnona:</label>
+          <input type="text" id="arnona" class="form-control" placeholder="in ₪...">
+
+          <label>Price Per Month:</label>
+          <input type="text" id="price" class="form-control" placeholder="in ₪...">
+
+          <label>Name owner:</label>
+          <input type="text" id="owner" class="form-control" placeholder="Boby Jones">
+
+          <label>Phone number:</label>
+          <input type="phone" id="phone" class="form-control" placeholder="05266544345">
+
+          <label>Contact email:</label>
+          <input type="email" id="email" class="form-control" placeholder="gmail@chucknorris.com">
+
+          <br>
+          <button class="btn btn-success btn-block">Add Flat</button>
+        </div>
 
       </div>
     </div>
