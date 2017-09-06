@@ -58,6 +58,10 @@ export class HomeComponent implements OnInit {
   // json object
   cities: City[] =  [];
   neighborhoods: Neighborhood[] = [];
+  selectedCity: number;
+  selectedNeighborhood: number;
+  cityHasNeighborhoods:boolean;
+
 
 
   componentDisplay = 'home';
@@ -200,11 +204,13 @@ export class HomeComponent implements OnInit {
 
   callCity(value){
     //console.log(value);
+    this.selectedCity=value;
     this.searchCityByCode(value);
   }
 
   callNeighborhood(value){
     console.log(value);
+    this.selectedNeighborhood=value;
     this.putNeughOnMap(value);
     this.zoom = 14;
   }
@@ -230,6 +236,12 @@ export class HomeComponent implements OnInit {
     this.http.get('http://localhost:8080/Cities/Neighborhood/find?by=city&value='+code).subscribe(data => {
       // Read the result field from the JSON response.
       this.neighborhoods = [];
+
+      if (data['neighborhoods'].length>0)
+        this.cityHasNeighborhoods=true;
+      else
+        this.cityHasNeighborhoods=false;
+
       var i = 0;
       for(i=0; i<data['neighborhoods'].length; i++) {
         //  console.log(data2['result'][i]);
