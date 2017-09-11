@@ -9,9 +9,9 @@ import { GeolocationService } from '../../app/services/geolocation.service';
 import { GeocodingService } from '../../app/services/geocoding.service';
 
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-import { Http, Headers } from '@angular/http';
+//import { Http, Headers } from '@angular/http';
 
 import {City } from '../city.model';
 import {Neighborhood } from '../neighborhood.model';
@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
     this.componentDisplay = coponent;
   }
 
-  constructor(public maps: MapsService, private geolocation: GeolocationService, private geocoding: GeocodingService, private http: Http, private diraService: DiraService) {
+  constructor(public maps: MapsService, private geolocation: GeolocationService, private geocoding: GeocodingService, private http: HttpClient, private diraService: DiraService) {
 
     this.selectedCity = 0;
     this.selectedNeighborhood = 0;
@@ -188,20 +188,17 @@ export class HomeComponent implements OnInit {
   }
 
   loadCity() {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Allow-Control-Allow-Origin', '*');
 
-    // Make the HTTP request:
-    this.http.get('http://localhost:8080/Cities/findAll', {headers: headers}).subscribe(data => {
-      // Read the result field from the JSON response.
+   // Make the HTTP request:
+   this.http.get('http://localhost:8080/Cities/findAll').subscribe(data => {
+    // Read the result field from the JSON response.
 
-      var i = 0;
-      for(i=0; i<data['result'].length; i++) {
-        this.cities.push( new City(data['result'][i]['code'], data['result'][i]['lng'], data['result'][i]['lat'], data['result'][i]['name']) );
-      }
-    });
-  }
+    var i = 0;
+    for(i=0; i<data['result'].length; i++) {
+      this.cities.push( new City(data['result'][i]['code'], data['result'][i]['lng'], data['result'][i]['lat'], data['result'][i]['name']) );
+    }
+  });
+}
 
   callCity(value){
 
