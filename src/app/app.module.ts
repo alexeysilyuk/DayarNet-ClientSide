@@ -18,6 +18,7 @@ import { HttpModule } from '@angular/http';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import {DiraService} from './services/dira.service';
 
 @NgModule({
     imports: [
@@ -38,7 +39,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     providers: [
         MapsService,
         GeolocationService,
-        GeocodingService
+        GeocodingService,
+        DiraService
     ],
     bootstrap: [AppComponent]
 })

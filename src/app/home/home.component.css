@@ -1,4 +1,4 @@
 select:invalid { color: gray; }
 
 label { margin-bottom: 5px;}
-.addFlat {  display: none;}
+.addFlat {  display: block;}

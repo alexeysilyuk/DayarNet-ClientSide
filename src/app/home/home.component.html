@@ -22,19 +22,6 @@
 
       <div class="col-sm-4">
 
-        <!--<div class="form-group">-->
-          <!--<label class="control-label" for="input-search">Address</label>-->
-          <!--<div class="input-group">-->
-            <!--<input type="text" id="input-search" class="form-control" [(ngModel)]="address" (keyup.enter)="search(address)" placeholder="Address">-->
-            <!--<div class="input-group-btn">-->
-              <!--<button type="button" class="btn btn-fab btn-fab-mini" title="search" (click)="search(address)">-->
-                <!--<span class="glyphicon glyphicon-search" aria-hidden="true"></span>-->
-              <!--</button>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-
-        <!--<input class="btn btn-default btn-block" type="button" value="Get current position" (click)="getCurrentPosition()">-->
 
         <label>Cities</label>
         <select class="form-control" #c (change)="callCity(c.value)">
@@ -52,31 +39,31 @@
 
         <div class="addFlat">
           <label>Adress:</label>
-          <input type="text" id="street" class="form-control" placeholder="Jabotinski 44/25">
+          <input type="text" id="street" [(ngModel)]="dira.street" class="form-control" placeholder="Jabotinski 44/25">
 
           <label>Rooms:</label>
-          <input type="text" id="rooms" class="form-control" placeholder="3">
+          <input type="text" id="rooms" [(ngModel)]="dira.rooms" class="form-control" placeholder="3">
 
           <label>Area:</label>
-          <input type="text" id="area" class="form-control" placeholder="Area...">
+          <input type="text" id="area" [(ngModel)]="dira.area" class="form-control" placeholder="Area...">
 
           <label>Arnona:</label>
-          <input type="text" id="arnona" class="form-control" placeholder="in ₪...">
+          <input type="text" id="arnona" [(ngModel)]="dira.arnona" class="form-control" placeholder="in ₪...">
 
           <label>Price Per Month:</label>
-          <input type="text" id="price" class="form-control" placeholder="in ₪...">
+          <input type="text" id="price" [(ngModel)]="dira.price" class="form-control" placeholder="in ₪...">
 
           <label>Name owner:</label>
-          <input type="text" id="owner" class="form-control" placeholder="Boby Jones">
+          <input type="text" id="owner" [(ngModel)]="dira.baal" class="form-control" placeholder="Boby Jones">
 
           <label>Phone number:</label>
-          <input type="phone" id="phone" class="form-control" placeholder="05266544345">
+          <input type="phone" id="phone" [(ngModel)]="dira.phoneNumber" class="form-control" placeholder="05266544345">
 
           <label>Contact email:</label>
-          <input type="email" id="email" class="form-control" placeholder="gmail@chucknorris.com">
+          <input type="email" id="email" [(ngModel)]="dira.contactEmail" class="form-control" placeholder="gmail@chucknorris.com">
 
           <br>
-          <button class="btn btn-success btn-block">Add Flat</button>
+          <button class="btn btn-success btn-block" (click)="saveDira()">Add Flat</button>
         </div>
 
       </div>

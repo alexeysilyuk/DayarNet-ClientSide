@@ -9,10 +9,14 @@ import { GeolocationService } from '../../app/services/geolocation.service';
 import { GeocodingService } from '../../app/services/geocoding.service';
 
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { Http, Headers } from '@angular/http';
 
 import {City } from '../city.model';
 import {Neighborhood } from '../neighborhood.model';
+import {Dira} from '../dira.model';
+import {DiraService} from '../services/dira.service';
 
 declare var $: any; // jQuery
 
@@ -59,6 +63,7 @@ export class HomeComponent implements OnInit {
   // json object
   cities: City[] =  [];
   neighborhoods: Neighborhood[] = [];
+  dira: Dira;
   selectedCity: number;
   selectedNeighborhood: number;
   cityHasNeighborhoods:boolean;
@@ -70,7 +75,7 @@ export class HomeComponent implements OnInit {
     this.componentDisplay = coponent;
   }
 
-  constructor(public maps: MapsService, private geolocation: GeolocationService, private geocoding: GeocodingService, private http: HttpClient) {
+  constructor(public maps: MapsService, private geolocation: GeolocationService, private geocoding: GeocodingService, private http: Http, private diraService: DiraService) {
 
     this.selectedCity = 0;
     this.selectedNeighborhood = 0;
@@ -91,6 +96,8 @@ export class HomeComponent implements OnInit {
 
     this.warning = false;
     this.message = '';
+
+    this.dira = new Dira('Jabotinsky 145/15', 5,89,650, 2000, 'Avi', '0525545352', 'avi@chucknorris.com');
   }
 
   ngOnInit() {
@@ -181,8 +188,12 @@ export class HomeComponent implements OnInit {
   }
 
   loadCity() {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Allow-Control-Allow-Origin', '*');
+
     // Make the HTTP request:
-    this.http.get('http://localhost:8080/Cities/findAll').subscribe(data => {
+    this.http.get('http://localhost:8080/Cities/findAll', {headers: headers}).subscribe(data => {
       // Read the result field from the JSON response.
 
       var i = 0;
@@ -196,7 +207,7 @@ export class HomeComponent implements OnInit {
 
     // Make the HTTP request:
     this.http.get('http://localhost:8080/Cities/find?by=code&value='+value).subscribe(data => {
-      if (data['status'] === 'success') {
+    //  if (data['status'] == 'success') {
         console.log(data);
         this.selectedCity = value;
         console.log(this.selectedCity);
@@ -209,7 +220,7 @@ export class HomeComponent implements OnInit {
         this.zoom = 12;
 
         this.loadNeibrhoodByCityCode(value);
-      }
+     // }
     });
   }
 
@@ -255,5 +266,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  saveDira() {
+    this.diraService.saveDira(this.dira).subscribe(
+      (responce) => console.log(responce),
+      (error) => console.log(error)
+    );
+  }
 
 }
