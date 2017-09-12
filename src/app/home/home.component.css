@@ -1,4 +1,4 @@
 select:invalid { color: gray; }
 
 label { margin-bottom: 5px;}
-.addFlat {  display: block;}
+.step1, .step2, .step3 {display: none; z-index: 11;}

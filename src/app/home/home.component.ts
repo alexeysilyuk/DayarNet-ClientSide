@@ -17,6 +17,7 @@ import {City } from '../city.model';
 import {Neighborhood } from '../neighborhood.model';
 import {Dira} from '../dira.model';
 import {DiraService} from '../services/dira.service';
+import {and} from "@angular/router/src/utils/collection";
 
 declare var $: any; // jQuery
 
@@ -60,12 +61,27 @@ export class HomeComponent implements OnInit {
   message: string;
 
 
+  basicActionsActive: boolean;
+
   // json object
   cities: City[] =  [];
   neighborhoods: Neighborhood[] = [];
   dira: Dira;
+
+  // dira params
+  street:'';
+  rooms:number;
+  area:number;
+  arnona:number;
+  price:number;
+  baal:'';
+  phone:'';
+  email:'';
+
+
   selectedCity: number;
   selectedNeighborhood: number;
+
   cityHasNeighborhoods:boolean;
 
 
@@ -96,8 +112,6 @@ export class HomeComponent implements OnInit {
 
     this.warning = false;
     this.message = '';
-
-    this.dira = new Dira('Jabotinsky 145/15', 5,89,650, 2000, 'Avi', '0525545352', 'avi@chucknorris.com');
   }
 
   ngOnInit() {
@@ -188,69 +202,45 @@ export class HomeComponent implements OnInit {
   }
 
   loadCity() {
-
    // Make the HTTP request:
    this.http.get('http://localhost:8080/Cities/findAll').subscribe(data => {
     // Read the result field from the JSON response.
-
     var i = 0;
-    for(i=0; i<data['result'].length; i++) {
+    for(i = 0; i < data['result'].length; i++) {
       this.cities.push( new City(data['result'][i]['code'], data['result'][i]['lng'], data['result'][i]['lat'], data['result'][i]['name']) );
     }
   });
 }
 
-  callCity(value){
-
+  callCity(value) {
     // Make the HTTP request:
-    this.http.get('http://localhost:8080/Cities/find?by=code&value='+value).subscribe(data => {
-    //  if (data['status'] == 'success') {
-        console.log(data);
+    this.http.get('http://localhost:8080/Cities/find?by=code&value=' + value).subscribe(data => {
         this.selectedCity = value;
-        console.log(this.selectedCity);
-
-
         // Read the result field from the JSON response.
-
         this.center = new google.maps.LatLng(data['city'][0]['lat'], data['city'][0]['lng']);
         this.setMarker(this.center, data['city'][0]['name'], data['city'][0]['name']);
         this.zoom = 12;
-
         this.loadNeibrhoodByCityCode(value);
-     // }
     });
   }
-
-  callNeighborhood(value){
-    this.selectedNeighborhood=value;
-    this.http.get('http://localhost:8080/Cities/Neighborhood/find?by=n&value='+value).subscribe(data => {
-
-      this.center = new google.maps.LatLng(data['neighborhood'][0]['lat'], data['neighborhood'][0]['lng']);
-      this.setMarker(this.center, data['neighborhood'][0]['name'], data['neighborhood'][0]['name']);
-      this.zoom = 15;
-    });
-
-    $('.addFlat').slideDown();
-  }
-
 
   loadNeibrhoodByCityCode(code) {
     // Make the HTTP request:
-    this.http.get('http://localhost:8080/Cities/Neighborhood/find?by=city&value='+code).subscribe(data => {
+    this.http.get('http://localhost:8080/Cities/Neighborhood/find?by=city&value='+ code).subscribe(data => {
       // Read the result field from the JSON response.
       this.neighborhoods = [];
 
-      if (data['neighborhoods'].length>0) {
+      if (data['neighborhoods'].length > 0) {
         this.cityHasNeighborhoods = true;
-        $('.addFlat').slideUp();
       }
       else {
         this.cityHasNeighborhoods = false;
-        $('.addFlat').slideDown();
       }
 
+      this.openBasicActions();
+
       var i = 0;
-      for(i=0; i<data['neighborhoods'].length; i++) {
+      for(i=0; i < data['neighborhoods'].length; i++) {
         this.neighborhoods.push(
           new Neighborhood(
             data['neighborhoods'][i]['neighborhood_code'],
@@ -261,13 +251,73 @@ export class HomeComponent implements OnInit {
           ));
       }
     });
+
   }
 
+  callNeighborhood(value) {
+    this.selectedNeighborhood = value;
+    this.openBasicActions();
+
+    this.http.get('http://localhost:8080/Cities/Neighborhood/find?by=n&value='+value).subscribe(data => {
+
+      this.center = new google.maps.LatLng(data['neighborhood'][0]['lat'], data['neighborhood'][0]['lng']);
+      this.setMarker(this.center, data['neighborhood'][0]['name'], data['neighborhood'][0]['name']);
+      this.zoom = 15;
+    });
+
+  }
+
+
+openBasicActions() {
+  if (this.selectedCity !== 0 && this.cityHasNeighborhoods === false ) {
+    this.basicActionsActive = true;
+  }
+  else {
+    if  (this.selectedNeighborhood !== 0) {
+      this.basicActionsActive = true;
+    } else {  this.basicActionsActive = false; }
+  }
+}
+
+
   saveDira() {
+    this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email);
     this.diraService.saveDira(this.dira).subscribe(
       (responce) => console.log(responce),
       (error) => console.log(error)
     );
+  }
+
+  closeModal() {
+    $('.step1, .step2, .step3').fadeOut();
+    $('.shadow').fadeOut();
+  }
+
+  startSteps() {
+    $('.shadow').fadeIn();
+    $('.step1').fadeIn();
+  }
+
+
+  step2Start() {
+    $('.step1').fadeOut();
+    $('.step2').fadeIn();
+  }
+
+  step2Back() {
+    $('.step2').fadeOut();
+    $('.step1').fadeIn();
+  }
+
+
+  step3Start() {
+    $('.step2').fadeOut();
+    $('.step3').fadeIn();
+  }
+
+  step3Back() {
+    $('.step3').fadeOut();
+    $('.step2').fadeIn();
   }
 
 }
