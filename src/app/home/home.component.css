@@ -2,3 +2,7 @@ select:invalid { color: gray; }
 
 label { margin-bottom: 5px;}
 .step1, .step2, .step3 {display: none; z-index: 11;}
+.clear { clear: both }
+
+.fixed_block {   position: fixed; z-index: 9;}
+.standart_block {   position: static; z-index: 1;}

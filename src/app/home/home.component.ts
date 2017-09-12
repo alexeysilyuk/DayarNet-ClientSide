@@ -62,10 +62,12 @@ export class HomeComponent implements OnInit {
 
 
   basicActionsActive: boolean;
+  searchDirot: boolean;
 
   // json object
   cities: City[] =  [];
   neighborhoods: Neighborhood[] = [];
+  dirot: Dira[] = [];
   dira: Dira;
 
   // dira params
@@ -95,6 +97,7 @@ export class HomeComponent implements OnInit {
 
     this.selectedCity = 0;
     this.selectedNeighborhood = 0;
+    this.searchDirot = false;
 
     this.center = new google.maps.LatLng(41.910943, 12.476358);
     this.zoom = 4;
@@ -112,6 +115,13 @@ export class HomeComponent implements OnInit {
 
     this.warning = false;
     this.message = '';
+
+    // temp dirot
+    this.dirot =  [
+      new Dira('Jabotinski 145/45', 4, 90, 480, 2200, 'Avi', '050887896', 'avi@mail.com'),
+      new Dira('Ayalon 225/13', 6, 190, 1480, 5000, 'Rony', '052887896', 'rony@mail.com'),
+      new Dira('Jabotinski 145/45', 4, 90, 480, 2200, 'Avi', '050887896', 'avi@mail.com'),
+      new Dira('Ayalon 225/13', 6, 190, 1480, 5000, 'Rony', '052887896', 'rony@mail.com')];
   }
 
   ngOnInit() {
@@ -320,4 +330,13 @@ openBasicActions() {
     $('.step2').fadeIn();
   }
 
+
+  startSearchDirot() {
+    this.searchDirot = true;
+    // JSON send request
+  }
+
+  closeSearchDirot() {
+    this.searchDirot = false;
+  }
 }

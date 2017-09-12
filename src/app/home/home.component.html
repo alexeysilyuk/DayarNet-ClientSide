@@ -20,8 +20,9 @@
 
       </div>
 
+ <!--     <div class="col-sm-4" [ngClass]="[searchDirot === true ? 'fixed_block' : 'standart_block']">-->
       <div class="col-sm-4">
-
+        <div [ngClass]="[searchDirot === true ? 'affix' : '']">-->
 
         <label>Cities</label>
         <select class="form-control" #c (change)="callCity(c.value)">
@@ -40,7 +41,7 @@
         <br>
 
         <div class="basicActions" *ngIf="basicActionsActive">
-        <button class="btn btn-success btn-block">Search</button>
+        <button class="btn btn-success btn-block" (click)="startSearchDirot()">Search</button>
         <button class="btn btn-primary btn-block" (click)="startSteps()">Add new</button>
         </div>
 
@@ -111,6 +112,7 @@
           </div>
         </div>
 
+        </div>
 
 
         <!-- STEP 3 -->
@@ -148,12 +150,49 @@
         </div>
 
 
-
-
-
-
-
         </div>
+
+      <div class="dirotSearch col-sm-8" *ngIf="searchDirot">
+        <h2>Search Result:</h2>
+
+
+        <ul class="nav nav-pills">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              Options <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Display Approved</a></li>
+              <li><a href="#">Display New</a></li>
+              <li><a href="#">Display All</a></li>
+              <li class="divider"></li>
+              <li><a href="#" (click)="closeSearchDirot()">Close Search</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <br>
+
+        <div class="searchResult" *ngFor="let d of dirot">
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <p class="text-warning">{{d.street}}</p>
+            <p>{{d.rooms}} rooms</p>
+            <div class="col-lg-4 col-md-4">Arnona: {{d.arnona}} ₪</div>
+            <div class="col-lg-4 col-md-4">Price: {{d.price}} ₪/month</div>
+          </div>
+
+          <div class="panel-footer">
+            <div class="col-lg-4 col-md-4"><b>{{d.baal}}</b> </div>
+            <div class="col-lg-4 col-md-4 text-info">{{d.phoneNumber}}</div>
+            <div class="col-lg-4 col-md-4 text-primary">{{d.contactEmail}} </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+
+      </div>
+      </div>
 
       </div>
     </div>
