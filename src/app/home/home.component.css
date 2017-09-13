@@ -4,5 +4,5 @@ label { margin-bottom: 5px;}
 .step1, .step2, .step3 {display: none; z-index: 11;}
 .clear { clear: both }
 
-.fixed_block {   position: fixed; z-index: 9;}
+.fixed_block {   position: fixed; z-index: 9; top:5%; left: 0%; display: block; width: 50%; height: 200px;}
 .standart_block {   position: static; z-index: 1;}
