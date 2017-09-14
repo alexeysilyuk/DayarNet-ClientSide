@@ -25,9 +25,10 @@ export class GoogleMapMarkerDirective implements OnChanges {
     /**
      * This method is invoked when the marker properties change.
      */
-    ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
-        // Creates the marker and the info window.
-        if (changes['position']) { this.maps.addMarker(this.position, this.title, this.content); };
-    }
+
+     ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
+    //     // Creates the marker and the info window.
+    //     if (changes['position']) { this.maps.addMarker(this.position, this.title, this.content); };
+     }
 
 }

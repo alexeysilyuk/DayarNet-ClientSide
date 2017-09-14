@@ -245,7 +245,9 @@ export class HomeComponent implements OnInit {
     this.maps.deleteMarkers();
     // Sets the marker.
     this.position = latLng;
-    this.positions.push(this.position);
+
+    //this.positions.push(this.position);
+
     this.title = title;
     // Sets the info window.
     this.content = content;
@@ -438,8 +440,15 @@ openBasicActions() {
           data['result'][i]['type'],
           new Location(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), data['result'][i]['neighborhood_code']),
            );
+
+        // this.positions.push(new google.maps.LatLng(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']));
+
+        let adress = this.dirot[i].street + ' ' + this.dirot[i].houseNumber;
+        console.log(adress);
+        this.maps.addMarker(new google.maps.LatLng(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), adress, adress);
       }
       this.misparDirot = data['result'].length;
+
     }
   });
 
