@@ -444,8 +444,22 @@ openBasicActions() {
         // this.positions.push(new google.maps.LatLng(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']));
 
         let adress = this.dirot[i].street + ' ' + this.dirot[i].houseNumber;
-        console.log(adress);
-        this.maps.addMarker(new google.maps.LatLng(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), adress, adress);
+        let info = '<h4>' + adress + '</h4> <br /> Price: <i>'
+         + this.dirot[i].pricePerMonth
+         + '₪/month</i> <br /> Arnona: <i>' 
+         + this.dirot[i].arnona 
+         + '₪</i> <br /> Rooms: <i>' 
+         + this.dirot[i].rooms
+         + '</i> <br /> Area: <i>'
+         + this.dirot[i].area
+         + 'm<sup>2</sup></i> <br /> Floor: <i>'
+         + this.dirot[i].floor
+         + '</i> <br />Type: <i>'
+         + this.dirot[i].type
+         + '</i>';
+
+
+        this.maps.addMarker(new google.maps.LatLng(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), adress, info);
       }
       this.misparDirot = data['result'].length;
 
