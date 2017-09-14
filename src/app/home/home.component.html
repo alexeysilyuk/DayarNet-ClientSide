@@ -38,17 +38,15 @@
 
       <div class="col-sm-4">
         
-
-        <label>Cities</label>
         <select class="form-control" #c (change)="callCity(c.value)">
-          <option value="" disabled selected hidden>Please Choose...</option>
+          <option value="" disabled selected hidden>Please Choose City...</option>
           <option *ngFor=" let city of cities" [value]="city.code">{{city.name}}</option>
         </select>
 
+        <br>
         <div *ngIf="cityHasNeighborhoods">
-        <label>Neighborhood</label>
         <select class="form-control" #neighborhood (change)="callNeighborhood(neighborhood.value)">
-          <option value="" disabled selected hidden>Please Choose...</option>
+          <option value="" disabled selected hidden>Please Choose Neighborhood...</option>
           <option *ngFor=" let n of neighborhoods" [value]="n.neighborhood_code">{{n.name}}</option>
         </select>
 
