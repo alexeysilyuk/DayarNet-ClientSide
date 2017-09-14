@@ -7,9 +7,9 @@ import {Dira} from '../dira.model';
 export class DiraService {
   constructor (private http: HttpClient) {}
     saveDira(dira: Dira) {
-      const headers = new HttpHeaders();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Allow-Control-Allow-Origin', 'http://localhost:4200');
+      // const headers = new HttpHeaders();
+      // headers.append('Content-Type', 'application/json');
+      // headers.append('Allow-Control-Allow-Origin', 'http://localhost:4200');
 
       return this.http.post('http://localhost:8080/Properties/new', dira);
 

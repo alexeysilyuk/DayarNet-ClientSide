@@ -12,4 +12,8 @@ export class HeaderComponent {
     this.featureSelected.emit(feature);
 
   }
+
+  openContact() {
+    $('.shadow, .contacts').fadeIn();
+  }
 }

@@ -17,7 +17,10 @@ import {City } from '../city.model';
 import {Neighborhood } from '../neighborhood.model';
 import {Dira} from '../dira.model';
 import {DiraService} from '../services/dira.service';
-import {and} from "@angular/router/src/utils/collection";
+import {Location} from '../location.model';
+
+
+// import {and} from "@angular/router/src/utils/collection";
 
 declare var $: any; // jQuery
 
@@ -69,6 +72,11 @@ export class HomeComponent implements OnInit {
   neighborhoods: Neighborhood[] = [];
   dirot: Dira[] = [];
   dira: Dira;
+
+
+  // user location
+  user_lat: number;
+  user_lng: number;
 
   // dira params
   street:string;
@@ -164,6 +172,13 @@ export class HomeComponent implements OnInit {
             // New center object: triggers OnChanges.
             this.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             this.zoom = 11;
+
+             // save user location
+             this.user_lat = position.coords.latitude;
+             this.user_lng = position.coords.longitude;
+
+             console.log(this.user_lat + '\n' + this.user_lng);
+
             // Translates the location into address.
             this.geocoding.geocode(this.center).forEach(
               (results: google.maps.GeocoderResult[]) => {
@@ -314,7 +329,7 @@ openBasicActions() {
 
 
   saveDira() {
-    this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type);
+    this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat));
     this.diraService.saveDira(this.dira).subscribe(
       (responce) => {
        console.log(responce)
@@ -404,7 +419,8 @@ openBasicActions() {
           data['result'][i]['houseNumber'],
           data['result'][i]['floor'],
           data['result'][i]['entranceDate'],
-          data['result'][i]['type']),
+          data['result'][i]['type'],
+          new Location(data['result'][i]['location']['lat'], data['result'][i]['location']['lng'])),
            );
       }
       this.misparDirot = data['result'].length;
@@ -419,7 +435,9 @@ openBasicActions() {
   }
 
 
-  openContact() {
-    $('.shadow, .contacts').fadeIn();
-  }
+
+    getPropertyType(v) { this.type = v;}
+
+
+  
 }

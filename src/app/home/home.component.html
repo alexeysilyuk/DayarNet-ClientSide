@@ -1,7 +1,3 @@
-<div (click)=openContact() class="openConctacts">
-  >>
-</div>
-
 <!-- Contact us -->
         <div class="contacts modal">
           <div class="modal-dialog">
@@ -36,8 +32,8 @@
 
       </div>
 
+    <br>
       <div class="col-sm-4">
-        
         <select class="form-control" #c (change)="callCity(c.value)">
           <option value="" disabled selected hidden>Please Choose City...</option>
           <option *ngFor=" let city of cities" [value]="city.code">{{city.name}}</option>

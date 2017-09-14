@@ -1,3 +1,5 @@
+import {Location} from './location.model';
+
 export class Dira {
   public street: string;
   public rooms: number;
@@ -9,9 +11,10 @@ export class Dira {
   public contactEmail: string;
   public city_code: number;
   public houseNumber: number;
-  public floot: number;
+  public floor: number;
   public entranceDate: string;
   public type: string;
+  public tenantLocation: Location;
 
   constructor (street: string,
                rooms: number,
@@ -25,7 +28,8 @@ export class Dira {
                houseNumber: number,
                floor: number,
                entranceDate: string, 
-               type: string) {
+               type: string,
+               location: Location) {
     this.street = street;
     this.rooms = rooms;
     this.area = area;
@@ -36,9 +40,10 @@ export class Dira {
     this.contactEmail = contactEmail;
     this.city_code = city_code;
     this.houseNumber = houseNumber;
-    this.floot = floor;
+    this.floor = floor;
     this.entranceDate = entranceDate;
     this.type = type;
+    this.tenantLocation = location;
 
   }
 }
