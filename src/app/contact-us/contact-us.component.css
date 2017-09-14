@@ -1,0 +1,30 @@
+.captha {
+	font-size: 20px;
+	background: #efefef;
+	border-radius: 6px;
+	border: 1px dashed #ceccec;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.captha:before { /* pink boxes */
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  z-index: -1;
+  display: block;
+  height: 100%; width: 100%;
+  background-image: -webkit-repeating-linear-gradient(right, pink, pink 50px, transparent 50px, transparent 55px, pink 55px, pink 105px, transparent 105px, transparent 110px, pink 110px, pink 160px, transparent 160px, transparent 176px);
+  background-image: -moz-repeating-linear-gradient(right, pink, pink 50px, transparent 50px, transparent 55px, pink 55px, pink 105px, transparent 105px, transparent 110px, pink 110px, pink 160px, transparent 160px, transparent 176px);
+}
+
+.captha:after { /* pink boxes */
+  content: '*';
+  position: absolute;
+  top: 0; left: 0;
+  z-index: -1;
+  display: block;
+  height: 100%; width: 100%;
+  background-image: -webkit-repeating-linear-gradient(right, pink, pink 50px, transparent 50px, transparent 55px, pink 55px, pink 105px, transparent 105px, transparent 110px, pink 110px, pink 160px, transparent 160px, transparent 176px);
+  background-image: -moz-repeating-linear-gradient(right, pink, pink 50px, transparent 50px, transparent 55px, pink 55px, pink 105px, transparent 105px, transparent 110px, pink 110px, pink 160px, transparent 160px, transparent 176px);
+}

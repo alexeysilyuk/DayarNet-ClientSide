@@ -14,6 +14,10 @@ export class ContactUsComponent implements OnInit {
   subject: string;
   messageSend: string;
 
+  captha: string;
+  capthaStr: string;
+  capthaGenerate: number;
+
   warning: boolean = true;
   message: string = 'Please fill all fields';
 
@@ -22,26 +26,72 @@ export class ContactUsComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.generateProtection();
+  }
+
+  generateProtection() {
+    let a = Math.round(Math.random() * 100) + 1;
+    let b = Math.round(Math.random() * 100) + 1;
+
+    let op = Math.floor(Math.random() * 2) + 1;
+      if (op === 1) {
+    this.capthaStr = a.toString() + ' + ' + b.toString() + ' = ';
+    this.capthaGenerate = a + b;
+    }
+
+     if (op === 2) {
+    this.capthaStr = a.toString() + ' - ' + b.toString() + ' = ';
+    this.capthaGenerate = a - b;
+    }
+
+  }
+
+  robotCheck() : boolean {
+      let robotTest = 0;
+      if (typeof(this.captha) != "number") {
+        return false;
+      }
+      else {
+      robotTest = parseInt(this.captha);
+        if (robotTest !== this.capthaGenerate) {
+          this.generateProtection();
+          return false;
+      }
+      return true;
+    }
+  }
 
   onSubmit() {
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-     
 
-    if (this.name === undefined || this.email === undefined || this.subject === undefined || this.messageSend === undefined || this.messageSend === '' ) {
+  
+
+  
+     
+    // fill fields
+    if (this.name === undefined || this.email === undefined || this.subject === undefined || this.messageSend === undefined || this.messageSend === '' || this.captha === '' ) {
       this.message = 'All fields is required to fill';
       this.error = true;
       this.warning = false;
       this.sucsses = false;
     }
 
+    // email
     else if( !(re.test(this.email)) ) {
-      console.log(this.email);
       this.message = 'Email is incorrect';
       this.error = true;
       this.warning = false;
       this.sucsses = false;
     }
+
+    // captha
+     else if (! this.robotCheck()) {
+      this.message = 'Your unsver is incorrect please try again';
+      this.error = true;
+      this.warning = false;
+      this.sucsses = false;
+      } 
 
 
     else {
