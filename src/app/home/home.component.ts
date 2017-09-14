@@ -71,20 +71,47 @@ export class HomeComponent implements OnInit {
   dira: Dira;
 
   // dira params
-  street:'';
+  street:string;
+  houseNumber: number;
   rooms:number;
   area:number;
   arnona:number;
   price:number;
-  baal:'';
-  phone:'';
-  email:'';
+  baal:string;
+  phone:string;
+  email:string;
+  floor: number;
+  type: string;
+  entranceDate: string;
 
-
+  searchRes: string
+  misparDirot: number = 0;
   selectedCity: number;
   selectedNeighborhood: number;
 
   cityHasNeighborhoods:boolean;
+
+  diraAdded: boolean = false;
+  DiraMessage: string;
+
+  propertyTypes: string[] = [
+'דירה',
+'דירת גן',
+'בית מלון',
+'גג/פנטהאוז',
+'סטודיו/לופט',
+'דירת נופש',
+'מרתף/פרטר',
+'דופלקס',
+'טריפלקס',
+'פרטי/קוטג',
+'דו משפחתי',
+'יחידת דיור',
+'משק חקלאי/נחלה',
+'מחסן',
+'מגרש',
+'דיור מוגן',
+'בניין מגורים'];
 
 
   componentDisplay = 'home';
@@ -117,11 +144,7 @@ export class HomeComponent implements OnInit {
     this.message = '';
 
     // temp dirot
-    this.dirot =  [
-      new Dira('Jabotinski 145/45', 4, 90, 480, 2200, 'Avi', '050887896', 'avi@mail.com'),
-      new Dira('Ayalon 225/13', 6, 190, 1480, 5000, 'Rony', '052887896', 'rony@mail.com'),
-      new Dira('Jabotinski 145/45', 4, 90, 480, 2200, 'Avi', '050887896', 'avi@mail.com'),
-      new Dira('Ayalon 225/13', 6, 190, 1480, 5000, 'Rony', '052887896', 'rony@mail.com')];
+    this.dirot =  [];
   }
 
   ngOnInit() {
@@ -291,9 +314,26 @@ openBasicActions() {
 
 
   saveDira() {
-    this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email);
+    this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type);
     this.diraService.saveDira(this.dira).subscribe(
-      (responce) => console.log(responce),
+      (responce) => {
+       console.log(responce)
+       if (responce['status'] === 'OK') { 
+         this.diraAdded = true;
+         this.DiraMessage = 'Your Data is added. Thanks for using our service. This windows will automaticly close after 5 seconds';
+         setTimeout(function () {
+          $('.modal, .shadow').fadeOut();  
+          this.diraAdded = false;
+
+           if(this.searchDirot == true) {
+             this.startSearchDirot();
+           }
+
+        }, 5000);
+
+         
+       }
+     },
       (error) => console.log(error)
     );
   }
@@ -304,9 +344,13 @@ openBasicActions() {
 
   startSteps() {
     $('.shadow').fadeIn();
-    $('.step1').fadeIn();
+    $('.step0').fadeIn();
   }
 
+  step1Start() {
+    $('.step0').fadeOut();
+    $('.step1').fadeIn();
+  }
 
   step2Start() {
     $('.step1').fadeOut();
@@ -332,7 +376,42 @@ openBasicActions() {
 
   startSearchDirot() {
     this.searchDirot = true;
-    // JSON send request
+
+    this.http.get('http://localhost:8080/Properties/findAll').subscribe(data => {
+    // Read the result field from the JSON response.
+
+    if (data["status"] === "failure") {
+      this.searchDirot = true;
+      this.searchRes = 'No dirot are found for your request';
+    }
+
+    else {
+ 
+      let i = 0;
+      data['result'] = data['result'].reverse();
+      for(i = 0; i < data['result'].length; i++) {
+        this.dirot.push( 
+          new Dira(
+          data['result'][i]['street'],
+          data['result'][i]['rooms'], 
+          data['result'][i]['area'],
+          data['result'][i]['arnona'],
+          data['result'][i]['pricePerMonth'],
+          'test',
+          '05299988777', 
+          'mail@test.com',
+          data['result'][i]['city_code'], 
+          data['result'][i]['houseNumber'],
+          data['result'][i]['floor'],
+          data['result'][i]['entranceDate'],
+          data['result'][i]['type']),
+           );
+      }
+      this.misparDirot = data['result'].length;
+    }
+  });
+
+    
   }
 
   closeSearchDirot() {
