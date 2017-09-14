@@ -1,13 +1,28 @@
+<div (click)=openContact() class="openConctacts">
+  >>
+</div>
+
+<!-- STEP 2 -->
+        <div class="contacts modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" (click)="closeModal()" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                <h4 class="modal-title">Contact us</h4>
+              </div>
+              <div class="modal-body">
+                  <app-contact-us ></app-contact-us>
+              </div>
+            </div>
+          </div>
+        </div>
+
 <main>
   <div class="container">
 
     <div class="row">
       <div class="col-sm-8">
-
-        <!--<div class="alert alert-warning alert-dismissible" role="alert" *ngIf="warning">-->
-          <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-          <!--<strong>Warning!</strong> {{ message }}-->
-        <!--</div>-->
 
         <!--these properties are required: center, zoom-->
         <div class="mapper">
@@ -73,7 +88,7 @@
 
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-default" (click)="closeModal()" data-dismiss="modal">Cancel</button>
                   <button type="button" (click)="step2Start()" class="btn btn-primary">Next Step →</button>
                 </div>
               </div>
@@ -104,7 +119,7 @@
 
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default" (click)="closeModal()" data-dismiss="modal">Cancel</button>
 
                 <button type="button" (click)="step2Back()" class="btn btn-primary">← Back Step </button>
                 <button type="button" (click)="step3Start()" class="btn btn-primary">Next Step →</button>
@@ -141,7 +156,7 @@
 
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default" (click)="closeModal()" data-dismiss="modal">Cancel</button>
 
                 <button type="button" (click)="step3Back()" class="btn btn-primary">← Back Step </button>
                 <button type="button" (click)="saveDira()" class="btn btn-success">Save</button>

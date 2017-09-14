@@ -299,8 +299,7 @@ openBasicActions() {
   }
 
   closeModal() {
-    $('.step1, .step2, .step3').fadeOut();
-    $('.shadow').fadeOut();
+    $('.shadow, .modal').fadeOut();
   }
 
   startSteps() {
@@ -338,5 +337,10 @@ openBasicActions() {
 
   closeSearchDirot() {
     this.searchDirot = false;
+  }
+
+
+  openContact() {
+    $('.shadow, .contacts').fadeIn();
   }
 }
