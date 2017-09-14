@@ -15,6 +15,7 @@ export class Dira {
   public entranceDate: string;
   public type: string;
   public tenantLocation: Location;
+  public neighborhood_code: number;
 
   constructor (street: string,
                rooms: number,
@@ -29,7 +30,8 @@ export class Dira {
                floor: number,
                entranceDate: string, 
                type: string,
-               location: Location) {
+               location: Location,
+               neighborhood_code: number) {
     this.street = street;
     this.rooms = rooms;
     this.area = area;
@@ -44,6 +46,7 @@ export class Dira {
     this.entranceDate = entranceDate;
     this.type = type;
     this.tenantLocation = location;
+    this.neighborhood_code = neighborhood_code;
 
   }
 }

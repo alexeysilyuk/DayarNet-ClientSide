@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit {
   styles: Array<google.maps.MapTypeStyle>;
 
   // Marker position. Required.
+  positions: google.maps.LatLng[] = [];
   position: google.maps.LatLng;
 
   // Marker title.
@@ -244,6 +245,7 @@ export class HomeComponent implements OnInit {
     this.maps.deleteMarkers();
     // Sets the marker.
     this.position = latLng;
+    this.positions.push(this.position);
     this.title = title;
     // Sets the info window.
     this.content = content;
@@ -264,6 +266,7 @@ export class HomeComponent implements OnInit {
     // Make the HTTP request:
     this.http.get('http://localhost:8080/Cities/find?by=code&value=' + value).subscribe(data => {
         this.selectedCity = value;
+        this.selectedNeighborhood = 0;
         // Read the result field from the JSON response.
         this.center = new google.maps.LatLng(data['city'][0]['lat'], data['city'][0]['lng']);
         this.setMarker(this.center, data['city'][0]['name'], data['city'][0]['name']);
@@ -329,7 +332,7 @@ openBasicActions() {
 
 
   saveDira() {
-    this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat));
+    this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood);
     this.diraService.saveDira(this.dira).subscribe(
       (responce) => {
        console.log(responce)
@@ -346,8 +349,10 @@ openBasicActions() {
 
         }, 5000);
 
-         
        }
+
+        else {}
+
      },
       (error) => console.log(error)
     );
@@ -391,19 +396,30 @@ openBasicActions() {
 
   startSearchDirot() {
     this.searchDirot = true;
+    let code = 0;
+    if (this.selectedCity!==0){
+      code=this.selectedCity;
+    }
+    if (this.selectedNeighborhood !== 0) {
+        code = this.selectedNeighborhood;
+    }
+    
 
-    this.http.get('http://localhost:8080/Properties/findAll').subscribe(data => {
+    this.http.get('http://localhost:8080/Properties/find?code='+code).subscribe(data => {
     // Read the result field from the JSON response.
+
+    console.log(data['result']);
+    this.dirot = [];
+     this.misparDirot = 0;
 
     if (data["status"] === "failure") {
       this.searchDirot = true;
       this.searchRes = 'No dirot are found for your request';
+
     }
 
     else {
- 
       let i = 0;
-      data['result'] = data['result'].reverse();
       for(i = 0; i < data['result'].length; i++) {
         this.dirot.push( 
           new Dira(
@@ -420,7 +436,7 @@ openBasicActions() {
           data['result'][i]['floor'],
           data['result'][i]['entranceDate'],
           data['result'][i]['type'],
-          new Location(data['result'][i]['location']['lat'], data['result'][i]['location']['lng'])),
+          new Location(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), data['result'][i]['neighborhood_code']),
            );
       }
       this.misparDirot = data['result'].length;

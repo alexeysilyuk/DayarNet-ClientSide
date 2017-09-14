@@ -25,14 +25,13 @@
         <google-map [center]="center" [zoom]="zoom" [disableDefaultUI]="disableDefaultUI" [disableDoubleClickZoom]="disableDoubleClickZoom"
                     [mapTypeId]="mapTypeId" [maxZoom]="maxZoom" [minZoom]="minZoom" [styles]="styles">
           <!--this property is required: position-->
-          <google-map-marker [position]="position" [title]="title" [content]="content">
+          <google-map-marker *ngFor= "let p of positions" [position]="p" [title]="title" [content]="content">
           </google-map-marker>
         </google-map>
         </div>
 
       </div>
 
-    <br>
       <div class="col-sm-4">
         <select class="form-control" #c (change)="callCity(c.value)">
           <option value="" disabled selected hidden>Please Choose City...</option>
@@ -235,11 +234,6 @@
       <div class="dirotSearch col-sm-8" *ngIf="searchDirot">
         <h2>Search Result ( {{ misparDirot }}):</h2>
 
-         <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="searchRes !== undefined">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          {{ searchRes }}
-        </div>
-
         <ul class="nav nav-pills">
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -254,6 +248,11 @@
             </ul>
           </li>
         </ul>
+
+        <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="misparDirot === 0">
+          {{ searchRes }}
+        </div>
+
 
         <br>
 
