@@ -1,4 +1,4 @@
-<!-- Contact us -->
+<!-- Contact us modal windows -->
         <div class="contacts modal">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -14,43 +14,71 @@
           </div>
         </div>
 
-  <div class="container-full">
 
-    <div class="row">
+
+        <header>
+          <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+
+              <div class="navbar-header">
+                <a href="#" class="navbar-brand">
+                    <img src="/assets/images/logo5.png" class="navbar-left" width="30" height="30" alt="">Dayar.net</a>
+              </div>
+          
+              
+              <div class="mainParams">
+
+                <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+                <select class="form-control" #c (change)="callCity(c.value)">
+                    <option value="" disabled selected hidden>Choose City...</option>
+                    <option *ngFor=" let city of cities" [value]="city.code">{{city.name}}</option>
+                  </select>
+                </div> 
+
+           
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12" *ngIf="cityHasNeighborhoods">
+                    <select class="form-control" #neighborhood (change)="callNeighborhood(neighborhood.value)">
+                      <option value="" disabled selected hidden>and Neighborhood...</option>
+                      <option *ngFor=" let n of neighborhoods" [value]="n.neighborhood_code">{{n.name}}</option>
+                    </select>
+                    </div>
+                  
+          
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12" *ngIf="basicActionsActive">
+                    <button class="btn btn-default" (click)="startSearchDirot()">Search</button>
+                    <button class="btn btn-default" (click)="startSteps()">Add new</button>
+                    </div>
+
+                 
+                </div>
+
+                <ul class="nav navbar-nav pull-right">
+                    <!-- <li><a href="#" (click)="onSelect('home')">Home</a></li> -->
+                    <li><a href="#" (click)="openContact()" title="Contact us"><img src="/assets/images/contact.png"></a></li>
+                    <!-- <li><a href="#" title="Facebook"><img src="/assets/images/facebook.png"></a></li>
+                    <li><a href="#" title="FAQ"><img src="/assets/images/icon_help.svg"></a></li> -->
+                  </ul>
+                
+                
+            </div>
+          </nav>
+          </header>
+          
+
+<!-- Main container with map -->
+  <div class="row">
+          
       <div class="col-sm-12">
-
         <!--these properties are required: center, zoom-->
-        <div class="mapper">
         <google-map [center]="center" [zoom]="zoom" [disableDefaultUI]="disableDefaultUI" [disableDoubleClickZoom]="disableDoubleClickZoom"
                     [mapTypeId]="mapTypeId" [maxZoom]="maxZoom" [minZoom]="minZoom" [styles]="styles">
           <!--this property is required: position-->
           <google-map-marker *ngFor= "let p of positions" [position]="p" [title]="title" [content]="content">
           </google-map-marker>
         </google-map>
-        </div>
+      </div> 
 
-      </div>
 
-      <div class="col-sm-3">
-        <select class="form-control" #c (change)="callCity(c.value)">
-          <option value="" disabled selected hidden>Please Choose City...</option>
-          <option *ngFor=" let city of cities" [value]="city.code">{{city.name}}</option>
-        </select>
-
-        <br>
-        <div *ngIf="cityHasNeighborhoods">
-        <select class="form-control" #neighborhood (change)="callNeighborhood(neighborhood.value)">
-          <option value="" disabled selected hidden>Please Choose Neighborhood...</option>
-          <option *ngFor=" let n of neighborhoods" [value]="n.neighborhood_code">{{n.name}}</option>
-        </select>
-
-        </div>
-        <br>
-
-        <div class="basicActions" *ngIf="basicActionsActive">
-        <button class="btn btn-success btn-block" (click)="startSearchDirot()">Search</button>
-        <button class="btn btn-primary btn-block" (click)="startSteps()">Add new</button>
-        </div>
 
 
 
@@ -228,7 +256,6 @@
         </div>
 
 
-        </div>
 
       <div class="dirotSearch col-sm-8" *ngIf="searchDirot">
         <h2>Search Result ( {{ misparDirot }}):</h2>
@@ -276,7 +303,6 @@
       </div>
       </div>
 
-      </div>
+
 
     </div>
-

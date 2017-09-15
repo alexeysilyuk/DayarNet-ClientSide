@@ -15,7 +15,6 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
-import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import {DiraService} from './services/dira.service';
@@ -30,7 +29,6 @@ import {DiraService} from './services/dira.service';
     ],
     declarations: [
         AppComponent,
-        HeaderComponent,
         GoogleMapDirective,
         GoogleMapMarkerDirective,
         HomeComponent,

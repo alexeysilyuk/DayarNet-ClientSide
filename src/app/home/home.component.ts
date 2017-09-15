@@ -476,6 +476,8 @@ openBasicActions() {
 
 
     getPropertyType(v) { this.type = v;}
+    
+    openContact() { $('.shadow, .contacts').fadeIn(); }
 
 
   
