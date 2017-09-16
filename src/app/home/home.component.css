@@ -1,7 +1,7 @@
 select:invalid { color: gray; }
 
 label { margin-bottom: 5px;}
-.step1, .step2, .step3 {display: none; z-index: 11;}
+
 .clear { clear: both }
 
 
@@ -26,4 +26,4 @@ label { margin-bottom: 5px;}
 	 padding-left: 0px;
  } 
 
- .modal { z-index: 1100;}
+ .modal { z-index: 1101;}
