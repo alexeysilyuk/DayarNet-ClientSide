@@ -25,5 +25,8 @@ label { margin-bottom: 5px;}
   .mainParams div {
 	 padding-left: 0px;
  } 
+.mailLink {
+	padding-top: 0px;
+}
 
  .modal { z-index: 1101;}

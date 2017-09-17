@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 
 import { GoogleMapDirective } from '../../app/directives/google-map.directive';
 import { GoogleMapMarkerDirective } from '../../app/directives/google-map-marker.directive';
+
+import { Noty } from '../../app/directives/noty.directive';
 
 import { MapsService } from '../../app/services/maps.service';
 import { GeolocationService } from '../../app/services/geolocation.service';
@@ -20,8 +22,6 @@ import {DiraService} from '../services/dira.service';
 import {Location} from '../location.model';
 
 
-// import {and} from "@angular/router/src/utils/collection";
-
 declare var $: any; // jQuery
 
 @Component({
@@ -31,6 +31,8 @@ declare var $: any; // jQuery
 })
 
 export class HomeComponent implements OnInit {
+  @Output() noty = new EventEmitter<{type:string, mess:string}>();
+
 
   // Center map. Required.
   center: google.maps.LatLng;
@@ -103,24 +105,8 @@ export class HomeComponent implements OnInit {
   diraAdded: boolean = false;
   DiraMessage: string;
 
-  propertyTypes: string[] = [
-'דירה',
-'דירת גן',
-'בית מלון',
-'גג/פנטהאוז',
-'סטודיו/לופט',
-'דירת נופש',
-'מרתף/פרטר',
-'דופלקס',
-'טריפלקס',
-'פרטי/קוטג',
-'דו משפחתי',
-'יחידת דיור',
-'משק חקלאי/נחלה',
-'מחסן',
-'מגרש',
-'דיור מוגן',
-'בניין מגורים'];
+  propertyTypes: string[] = ['דירה','דירת גן','בית מלון','גג/פנטהאוז','סטודיו/לופט','דירת נופש',
+'מרתף/פרטר','דופלקס','טריפלקס','פרטי/קוטג','דו משפחתי','יחידת דיור','משק חקלאי/נחלה','מחסן','מגרש','דיור מוגן','בניין מגורים'];
 
 
   componentDisplay = 'home';
@@ -415,8 +401,7 @@ openBasicActions() {
      this.misparDirot = 0;
 
     if (data["status"] === "failure") {
-      this.searchDirot = true;
-      this.searchRes = 'No dirot are found for your request';
+      this.noty.next({type:"error", mess:"No dirot are found for your request"});
 
     }
 
@@ -462,6 +447,7 @@ openBasicActions() {
         this.maps.addMarker(new google.maps.LatLng(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), adress, info);
       }
       this.misparDirot = data['result'].length;
+      this.noty.next({type:"success", mess:"For your request we found: "+this.misparDirot+" results"});
 
     }
   });
@@ -476,9 +462,9 @@ openBasicActions() {
 
 
     getPropertyType(v) { this.type = v;}
+
+    openNoty(notyObj) { this.noty.next(notyObj); }
     
     openContact() { $('.shadow, .contacts').fadeIn(); }
-
-
   
 }

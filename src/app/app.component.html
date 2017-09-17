@@ -1,1 +1,4 @@
-<app-home *ngIf=" componentDisplay === 'home' "></app-home>
+<!-- Noty -->
+<noty [notyMessage] = "notyMessage" [notyType] = "notyType" (close) = "closeNoty($event)" [notyShow] = "notyShow"></noty>
+
+<app-home (noty)="openNoty($event)" *ngIf=" componentDisplay === 'home' "></app-home>

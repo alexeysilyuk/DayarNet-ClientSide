@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { GoogleMapDirective } from '../app/directives/google-map.directive';
 import { GoogleMapMarkerDirective } from '../app/directives/google-map-marker.directive';
+import { Noty } from '../app/directives/noty.directive';
 
 import { MapsService } from '../app/services/maps.service';
 import { GeolocationService } from '../app/services/geolocation.service';
@@ -31,6 +32,7 @@ import {DiraService} from './services/dira.service';
         AppComponent,
         GoogleMapDirective,
         GoogleMapMarkerDirective,
+        Noty,
         HomeComponent,
         ContactUsComponent
     ],
