@@ -164,8 +164,6 @@ export class HomeComponent implements OnInit {
              this.user_lat = position.coords.latitude;
              this.user_lng = position.coords.longitude;
 
-             console.log(this.user_lat + '\n' + this.user_lng);
-
             // Translates the location into address.
             this.geocoding.geocode(this.center).forEach(
               (results: google.maps.GeocoderResult[]) => {
@@ -174,18 +172,19 @@ export class HomeComponent implements OnInit {
             ).then(() => console.log('Geocoding service: completed.'));
           }
         }
-      ).then(() => console.log('Geolocation service: completed.')).catch(
+      ).then(() =>  console.log('Geolocation service: completed.')).catch(
         (error: PositionError) => {
           if (error.code > 0) {
             switch (error.code) {
               case error.PERMISSION_DENIED:
-                this.message = 'permission denied';
+                
+                this.noty.next({type: "warning", mess: " Geolocation: permission denied"});
                 break;
               case error.POSITION_UNAVAILABLE:
-                this.message = 'position unavailable';
+              this.noty.next({type: "warning", mess: " Geolocation: position unavailable"});
                 break;
               case error.TIMEOUT:
-                this.message = 'position timeout';
+              this.noty.next({type: "warning", mess: " Geolocation: position timeout"});
                 break;
             }
             this.warning = true;
