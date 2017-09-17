@@ -272,7 +272,7 @@ export class HomeComponent implements OnInit {
         // Read the result field from the JSON response.
         this.center = new google.maps.LatLng(data['city'][0]['lat'], data['city'][0]['lng']);
         this.setMarker(this.center, data['city'][0]['name'], data['city'][0]['name']);
-        this.zoom = 12;
+        this.zoom = 13;
         this.loadNeibrhoodByCityCode(value);
     });
   }
