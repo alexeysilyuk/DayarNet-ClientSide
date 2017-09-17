@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 
 
 import { GoogleMapDirective } from '../../app/directives/google-map.directive';
@@ -12,6 +12,7 @@ import { GeocodingService } from '../../app/services/geocoding.service';
 
 
 import { HttpClient } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 //import { Http, Headers } from '@angular/http';
 
@@ -82,19 +83,19 @@ export class HomeComponent implements OnInit {
   user_lng: number;
 
   // dira params
-  street:string;
-  houseNumber: number;
-  rooms:number;
-  area:number;
-  arnona:number;
-  price:number;
-  baal:string;
-  phone:string;
-  email:string;
-  floor: number;
-  type: string;
-  entranceDate: string;
-
+    street:string;
+    houseNumber: number;
+    rooms:number;
+    area:number;
+    arnona:number;
+    price:number;
+    baal:string;
+    phone:string;
+    email:string;
+    floor: number;
+    type: string;
+    entranceDate: string;
+  
   searchRes: string
   misparDirot: number = 0;
   selectedCity: number;
@@ -109,11 +110,17 @@ export class HomeComponent implements OnInit {
 'מרתף/פרטר','דופלקס','טריפלקס','פרטי/קוטג','דו משפחתי','יחידת דיור','משק חקלאי/נחלה','מחסן','מגרש','דיור מוגן','בניין מגורים'];
 
 
+// step by step add flat property
+currentStep : number = 0;
+maxStep: number = 3;
+progress: number = 0;
+leftMovePosition:number = 0;
+stepTitle: string = 'תנאי שימוש באתר';
+@ViewChild('addform') flatForm : NgForm;
+
+// navigation header
   componentDisplay = 'home';
 
-  onNavigate(coponent: string) {
-    this.componentDisplay = coponent;
-  }
 
   constructor(public maps: MapsService, private geolocation: GeolocationService, private geocoding: GeocodingService, private http: HttpClient, private diraService: DiraService) {
 
@@ -147,6 +154,7 @@ export class HomeComponent implements OnInit {
     this.loadCity();
   }
 
+  onNavigate(coponent: string) { this.componentDisplay = coponent; }
 
   getCurrentPosition() {
     this.warning = false;
@@ -345,41 +353,6 @@ openBasicActions() {
     );
   }
 
-  closeModal() {
-    $('.shadow, .modal').fadeOut();
-  }
-
-  startSteps() {
-    $('.shadow').fadeIn();
-    $('.step0').fadeIn();
-  }
-
-  step1Start() {
-    $('.step0').fadeOut();
-    $('.step1').fadeIn();
-  }
-
-  step2Start() {
-    $('.step1').fadeOut();
-    $('.step2').fadeIn();
-  }
-
-  step2Back() {
-    $('.step2').fadeOut();
-    $('.step1').fadeIn();
-  }
-
-
-  step3Start() {
-    $('.step2').fadeOut();
-    $('.step3').fadeIn();
-  }
-
-  step3Back() {
-    $('.step3').fadeOut();
-    $('.step2').fadeIn();
-  }
-
 
   startSearchDirot() {
     this.searchDirot = true;
@@ -427,6 +400,7 @@ openBasicActions() {
 
         // this.positions.push(new google.maps.LatLng(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']));
 
+        // display on a google map
         let adress = this.dirot[i].street + ' ' + this.dirot[i].houseNumber;
         let info = '<h4>' + adress + '</h4> <br /> Price: <i>'
          + this.dirot[i].pricePerMonth
@@ -459,11 +433,89 @@ openBasicActions() {
   }
 
 
+  closeModal() { $('.shadow, .modal').fadeOut(); }
+  startSteps() {  $('.shadow, .step0').fadeIn(); }
+  openContact() { $('.shadow, .contacts').fadeIn(); }
+  getPropertyType(v) { this.type = v;}
 
-    getPropertyType(v) { this.type = v;}
-
-    openNoty(notyObj) { this.noty.next(notyObj); }
+  openNoty(notyObj) { this.noty.next(notyObj); }
     
-    openContact() { $('.shadow, .contacts').fadeIn(); }
+
+  validateFlatForm(form: NgForm) {
+    switch (this.currentStep) {
+      case 0: {
+        this.progress = 10;
+        this.leftMovePosition = -100;
+        this.currentStep++;
+      break;
+      }
+
+      case 1: {
+        if (form.controls.step1.valid) {
+        this.progress = 40;
+        this.leftMovePosition = -201;
+        this.currentStep++;
+        }
+        else {
+          this.noty.next({type:"error", mess:"Please fill all fields correct"});
+        }
+      break;
+      }
+
+      case 2: {
+        if (form.controls.step2.valid) {
+        this.progress = 75;
+        this.leftMovePosition = -301;
+        this.currentStep++;
+        }
+        else {
+          this.noty.next({type:"error", mess:"Please fill all fields correct"});
+        }
+      break;
+      }
+
+      default: {
+        this.currentStep = 0;
+        this.progress = 0;
+        this.leftMovePosition = -0;
+      }
+
+    }
+    
+  }
+
+
+  backTrackFlatForm(form: NgForm) {
+    switch (this.currentStep) {
+      case 1: {
+        this.progress = 0;
+        this.leftMovePosition = 0;
+        this.currentStep--;
+      break;
+      }
+
+      case 2: {
+        this.progress = 10;
+        this.leftMovePosition = -100;
+        this.currentStep--;
+      break;
+      }
+
+      case 3: {
+        this.progress = 40;
+        this.leftMovePosition = -201;
+        this.currentStep--;
+      break;
+      }
+
+      default: {
+        this.currentStep = 0;
+        this.progress = 0;
+        this.leftMovePosition = 0;
+      }
+
+    }
+    
+  }
   
 }
