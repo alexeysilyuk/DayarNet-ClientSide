@@ -29,7 +29,7 @@
               <div class="mainParams">
 
                 <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
-                <select class="form-control input-sm" #c (change)="callCity(c.value)">
+                <select class="form-control" #c (change)="callCity(c.value)">
                     <option value="" disabled selected hidden>Choose City...</option>
                     <option *ngFor=" let city of cities" [value]="city.code">{{city.name}}</option>
                   </select>
@@ -37,7 +37,7 @@
 
            
                     <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12" *ngIf="cityHasNeighborhoods">
-                    <select class="form-control input-sm" #neighborhood (change)="callNeighborhood(neighborhood.value)">
+                    <select class="form-control" #neighborhood (change)="callNeighborhood(neighborhood.value)">
                       <option value="" disabled selected hidden>and Neighborhood...</option>
                       <option *ngFor=" let n of neighborhoods" [value]="n.neighborhood_code">{{n.name}}</option>
                     </select>
