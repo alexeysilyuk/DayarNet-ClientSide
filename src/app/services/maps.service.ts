@@ -50,9 +50,13 @@ import { Injectable } from '@angular/core';
     addMarker(latLng: google.maps.LatLng, title?: string, contentString?: string) {
         if (this.map != null && latLng != null) {
             // Creates the marker.
+            var image = 'http://homes.winnipegfreepress.com/images/maplegend_showhome.png';
+
             let marker = new google.maps.Marker({
                 position: latLng,
-                title: title
+                title: title,
+                animation: google.maps.Animation.DROP,
+                icon: image
             });
             // Adds the marker to the map.
             marker.setMap(this.map);
@@ -65,6 +69,14 @@ import { Injectable } from '@angular/core';
                     maxWidth: width
                 });
                 // Makes the info window visible.
+                // marker.addListener('mouseover', function(){
+                //     if (marker.getAnimation() !== null) {
+                //         marker.setAnimation(null);
+                //       } else {
+                //         marker.setAnimation(google.maps.Animation.BOUNCE);
+                //       }
+                // });
+
                 marker.addListener('click', function () {
                     infoWindow.open(this.map, marker);
                 });
@@ -74,6 +86,9 @@ import { Injectable } from '@angular/core';
             this.markers.push(marker);
         }
     }
+
+
+      
 
     deleteMarkers() {
         // Removes the markers from the map.
