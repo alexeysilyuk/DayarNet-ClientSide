@@ -326,22 +326,20 @@ openBasicActions() {
 }
 
 
-  saveDira() {
+  SaveDira() {
     this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood);
     this.diraService.saveDira(this.dira).subscribe(
       (responce) => {
        console.log(responce)
-       if (responce['status'] === 'OK') { 
-         this.diraAdded = true;
-         this.DiraMessage = 'Your Data is added. Thanks for using our service. This windows will automaticly close after 5 seconds';
-         setTimeout(function () {
+       if (responce['status'] === 'OK') {
+        this.searchDirot == true;
+        this.noty.next({type:"success", mess: "Your Data is added. Thanks for using our service. This windows will automaticly close after 5 seconds"})
+         setTimeout(() => {
           $('.modal, .shadow').fadeOut();  
-          this.diraAdded = false;
-
            if(this.searchDirot == true) {
              this.startSearchDirot();
            }
-
+           this.flatForm.reset();
         }, 5000);
 
        }
