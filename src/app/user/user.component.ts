@@ -33,6 +33,12 @@ export class UserComponent implements OnInit {
        this.registerObj.username = this.loginForm.value.username;
        this.registerObj.password = this.loginForm.value.password;
        this.registerObj.email = this.loginForm.value.email;
+
+       this.http.post('http://localhost:8080/User/register', this.registerObj).subscribe(
+        (responce) => {
+          console.log(responce);
+        }
+       );
    }
 
 
