@@ -433,7 +433,9 @@ openBasicActions() {
 
   closeModal() { $('.shadow, .modal').fadeOut(); }
   startSteps() {  $('.shadow, .step0').fadeIn(); }
+
   openContact() { $('.shadow, .contacts').fadeIn(); }
+  openLogin() { $('.shadow, .loginBlocks').fadeIn(); }
   getPropertyType(v) { this.type = v;}
 
   openNoty(notyObj) { this.noty.next(notyObj); }

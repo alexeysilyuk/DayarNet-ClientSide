@@ -10,3 +10,20 @@ body {
     margin-top: 50px;
     height: 100vh;
 }
+
+.clear {
+clear: both;
+}
+
+input.ng-touched.ng-invalid, textarea.ng-touched.ng-invalid, select.ng-touched.ng-invalid {
+	border: 1px solid #ff4136;
+    -webkit-box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.075);
+}
+
+/* input.ng-touched.ng-valid, textarea.ng-touched.ng-valid, select.ng-touched.ng-valid {
+    border: 1px solid #28b62c;    
+    -webkit-box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.075);
+} */
+

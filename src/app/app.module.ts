@@ -19,6 +19,7 @@ import { HttpModule } from '@angular/http';
 import { HomeComponent } from './home/home.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import {DiraService} from './services/dira.service';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import {DiraService} from './services/dira.service';
         GoogleMapMarkerDirective,
         Noty,
         HomeComponent,
-        ContactUsComponent
+        ContactUsComponent,
+        UserComponent
     ],
     providers: [
         MapsService,

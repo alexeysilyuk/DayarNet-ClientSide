@@ -15,6 +15,22 @@
         </div>
 
 
+ <!-- Login modal windows -->
+ <div class="loginBlocks modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="closeModal()" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+        <h4 class="modal-title">Welcome to Dayar.net</h4>
+      </div>
+      <div class="modal-body">
+          <app-user (noty)="openNoty($event)"></app-user>
+      </div>
+    </div>
+  </div>
+</div>
+
 
         <header>
           <nav class="navbar navbar-default navbar-fixed-top">
@@ -55,15 +71,10 @@
                 <ul class="nav navbar-nav pull-right">
                     <!-- <li><a href="#" (click)="onSelect('home')">Home</a></li> -->
                     <li><a href="#" class="mailLink" (click)="openContact()" title="Contact us"><img src="/assets/images/contact.png"></a></li>
+
+                    <li><a href="#" class="mailLink" (click)="openLogin()" title="Login"><img src="/assets/images/login.png"></a></li>
                     <!-- <li><a href="#" title="Facebook"><img src="/assets/images/facebook.png"></a></li>
                     <li><a href="#" title="FAQ"><img src="/assets/images/icon_help.svg"></a></li> -->
-                  
-
-                <li>
-                  <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-                 
-                </li>
-
               </ul>
                 
             </div>
