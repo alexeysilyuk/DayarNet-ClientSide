@@ -110,6 +110,9 @@ export class HomeComponent implements OnInit {
 'מרתף/פרטר','דופלקס','טריפלקס','פרטי/קוטג','דו משפחתי','יחידת דיור','משק חקלאי/נחלה','מחסן','מגרש','דיור מוגן','בניין מגורים'];
 
 
+      userLoggedin : boolean = false;
+      userEmail : string = '';
+
 // step by step add flat property
 currentStep : number = 0;
 maxStep: number = 3;
@@ -138,7 +141,7 @@ stepTitle: string = 'תנאי שימוש באתר';
     this.maxZoom = 18;
     this.minZoom = 4;
 
-    // Initially the marker isn't set.
+    // Initially the marker isn't set
 
     this.address = '';
 
@@ -336,15 +339,18 @@ openBasicActions() {
         this.noty.next({type:"success", mess: "Your Data is added. Thanks for using our service. This windows will automaticly close after 5 seconds"})
          setTimeout(() => {
           $('.modal, .shadow').fadeOut();  
-           if(this.searchDirot == true) {
-             this.startSearchDirot();
-           }
+           
            this.flatForm.reset();
         }, 5000);
 
        }
 
-        else {}
+        else {
+          if (responce['message'] === 'Incorrect address') {
+            this.noty.next({type:"error", mess: "Adrres is incorrect please check again"});
+          }
+
+        }
 
      },
       (error) => console.log(error)
@@ -432,10 +438,21 @@ openBasicActions() {
 
 
   closeModal() { $('.shadow, .modal').fadeOut(); }
-  startSteps() {  $('.shadow, .step0').fadeIn(); }
+  
+  startSteps() {  if (this.userLoggedin) $('.shadow, .step0').fadeIn(); }
 
   openContact() { $('.shadow, .contacts').fadeIn(); }
-  openLogin() { $('.shadow, .loginBlocks').fadeIn(); }
+
+  openLogin() {
+    if (this.userLoggedin) {
+     $('.usermenu').show();
+    }
+
+    else {
+      $('.shadow, .loginBlocks').fadeIn();
+    }
+  }
+
   getPropertyType(v) { this.type = v;}
 
   openNoty(notyObj) { this.noty.next(notyObj); }
@@ -443,18 +460,34 @@ openBasicActions() {
 
   validateFlatForm(form: NgForm) {
     switch (this.currentStep) {
-      case 0: {
-        this.progress = 10;
-        this.leftMovePosition = -100;
-        this.currentStep++;
+      case 0: {  
+          this.progress = 10;
+          this.leftMovePosition = -100;
+          this.currentStep++; 
       break;
       }
 
       case 1: {
         if (form.controls.step1.valid) {
-        this.progress = 40;
-        this.leftMovePosition = -201;
-        this.currentStep++;
+
+            if (this.houseNumber <= 0) {
+              this.noty.next({type:"error", mess:"The fields can not be 0 or lover"});
+            }
+            else if(this.area <= 0) {
+              this.noty.next({type:"error", mess:"The arnona can not be negative number or 0"});
+            }
+            else if(this.rooms <= 0) {
+              this.noty.next({type:"error", mess:"The rooms number can not be negative number or 0"});
+            }
+            else if(this.floor < 0) {
+              this.noty.next({type:"error", mess:"The floor number can not be negative number"});
+            }
+
+            else {
+              this.progress = 40;
+              this.leftMovePosition = -201;
+              this.currentStep++;
+            }
         }
         else {
           this.noty.next({type:"error", mess:"Please fill all fields correct"});
@@ -464,9 +497,20 @@ openBasicActions() {
 
       case 2: {
         if (form.controls.step2.valid) {
-        this.progress = 75;
-        this.leftMovePosition = -301;
-        this.currentStep++;
+
+          
+            if (this.arnona <= 0) {
+              this.noty.next({type:"error", mess:"The arnona can not be 0 or negative"});
+            } 
+
+            else if(this.price <= 0) {
+              this.noty.next({type:"error", mess:"The price can not be negative number or 0"});
+            }
+            else {
+              this.progress = 75;
+              this.leftMovePosition = -301;
+              this.currentStep++;
+            }
         }
         else {
           this.noty.next({type:"error", mess:"Please fill all fields correct"});
@@ -517,5 +561,12 @@ openBasicActions() {
     }
     
   }
+
+ 
+  setLogin(login) { 
+    this.userLoggedin = login.status;
+    this.email = login.email;
+    this.userEmail = login.email;
+   }
   
 }

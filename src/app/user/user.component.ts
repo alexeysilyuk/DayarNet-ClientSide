@@ -2,6 +2,9 @@ import { Component, ViewChild, EventEmitter, Output, OnInit } from '@angular/cor
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
+declare var googleUser: any; // googleUser
+
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -13,8 +16,26 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {}
 
+
+  // google api
+  onSignIn(googleUser) {
+    // Useful data for your client-side scripts:
+    var profile = googleUser.getBasicProfile();
+    console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+    console.log('Full Name: ' + profile.getName());
+    console.log('Given Name: ' + profile.getGivenName());
+    console.log('Family Name: ' + profile.getFamilyName());
+    console.log("Image URL: " + profile.getImageUrl());
+    console.log("Email: " + profile.getEmail());
+
+    // The ID token you need to pass to your backend:
+    var id_token = googleUser.getAuthResponse().id_token;
+};
+
+
   // noty object
   @Output() noty = new EventEmitter<{type:string, mess:string}>();
+  @Output() login = new EventEmitter<{status:boolean, email: string}>();
 
   // login form data
   @ViewChild('fLogin') loginForm : NgForm;
@@ -27,7 +48,24 @@ export class UserComponent implements OnInit {
 
        this.http.post('http://localhost:8080/User/login ', this.loginObj).subscribe(
         (responce) => {
-            console.log(responce);
+            
+          if(responce['status'] === "success") {
+            
+                        this.noty.next({type:"success", mess: "Your Data is added. Thanks for using our service. This windows will automaticly close after 5 seconds"});
+            
+                        //reset object and form
+                        this.login.next({status:true, email: this.loginObj.email});
+
+                        this.loginObj = { idUser: 0,  password: '', email: '' };
+                        this.loginForm.reset();
+            
+                        $('.loginBlocks, .shadow').fadeOut();
+                      }
+            
+                      else {
+                        this.noty.next({type:"error", mess: "Something wrong with your request"});
+                      }
+
         }
       );
    }

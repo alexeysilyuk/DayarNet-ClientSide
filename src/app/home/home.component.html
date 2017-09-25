@@ -25,7 +25,7 @@
         <h4 class="modal-title">Welcome to Dayar.net</h4>
       </div>
       <div class="modal-body">
-          <app-user (noty)="openNoty($event)"></app-user>
+          <app-user (login) = "setLogin($event)" (noty)="openNoty($event)"></app-user>
       </div>
     </div>
   </div>
@@ -62,19 +62,37 @@
           
                     <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12" *ngIf="basicActionsActive">
                     <button class="btn btn-default btn-sm" (click)="startSearchDirot()">Search</button>
-                    <button class="btn btn-default btn-sm" (click)="startSteps()">Add new</button>
+                    <button 
+                    class="btn btn-default btn-sm"
+                     [disabled] = "!userLoggedin" (click)="startSteps()"
+                     title="PLease log in to add new property"
+                     >Add new</button>
                     </div>
+
 
                  
                 </div>
 
                 <ul class="nav navbar-nav pull-right">
                     <!-- <li><a href="#" (click)="onSelect('home')">Home</a></li> -->
-                    <li><a href="#" class="mailLink" (click)="openContact()" title="Contact us"><img src="/assets/images/contact.png"></a></li>
+                    <li><a href="#" class="mailLink" (click)="openContact()" title="Contact us">
+                      <img src="/assets/images/contact.png"></a></li>
 
-                    <li><a href="#" class="mailLink" (click)="openLogin()" title="Login"><img src="/assets/images/login.png"></a></li>
-                    <!-- <li><a href="#" title="Facebook"><img src="/assets/images/facebook.png"></a></li>
-                    <li><a href="#" title="FAQ"><img src="/assets/images/icon_help.svg"></a></li> -->
+                    <li><a href="#" class="mailLink" (click)="openLogin()" title="Login"><img src="/assets/images/login.png"></a>
+                    </li>
+
+                    <div class="usermenu col-xs-6 col-lg-3 col-sm-4 col-md-3">
+                     <h5> {{userEmail}} </h5>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">My properties</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">My profile</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Exit</a></li>
+                          </ul>
+                        <div class="clear"></div>
+                      </div>
+
               </ul>
                 
             </div>
@@ -134,22 +152,22 @@
                     
                     <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3">
                       <label>House number:</label>
-                      <input type="number" id="houseNumber" required name="houseNumber" [(ngModel)]="houseNumber" class="form-control" placeholder="15">
+                      <input type="number" min="1" id="houseNumber" required name="houseNumber" [(ngModel)]="houseNumber" class="form-control" placeholder="15">
                       </div>
                     
                     <div class="col-xs-6 col-md-6 col-lg-6 col-sm-6">
                       <label>Rooms:</label> 
-                      <input type="number" id="rooms" required name="rooms" [(ngModel)]="rooms" class="form-control" placeholder="3">
+                      <input type="number" min="1" max="10" id="rooms" required name="rooms" [(ngModel)]="rooms" class="form-control" placeholder="3">
                       </div>
 
                     <div class="col-xs-6 col-md-6 col-lg-6 col-sm-6">
                       <label>Floor:</label>
-                      <input type="number" id="floor" required name="floor" [(ngModel)]="floor" class="form-control" placeholder="3">
+                      <input type="number" min="0" max="32" id="floor" required name="floor" [(ngModel)]="floor" class="form-control" placeholder="3">
                       </div>
                     
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                       <label>Area:</label>
-                      <input type="number" id="area" required name="area" [(ngModel)]="area" class="form-control" placeholder="Area...">
+                      <input type="number" min="10" max="200" id="area" required name="area" [(ngModel)]="area" class="form-control" placeholder="Area...">
                     </div>
 
                     <div class="clear"></div>
@@ -162,12 +180,10 @@
                   <input type="text" id="entranceDate" name="entranceDate" [(ngModel)]="entranceDate" class="form-control datepicker" placeholder="10/8/2017">
 
                   <label>Arnona:</label>
-                  <input type="number" id="arnona" name="arnona" required [(ngModel)]="arnona" class="form-control" placeholder="in ₪...">
+                  <input type="number" min="100" max="10000" id="arnona" name="arnona" required [(ngModel)]="arnona" class="form-control" placeholder="in ₪...">
 
                   <label>Price Per Month:</label>
-                  <input type="number" id="price" name="price" required [(ngModel)]="price" class="form-control" placeholder="in ₪...">
-
-                  <!-- (change) = "getPropertyType($event.target.value)" -->
+                  <input type="number" min="1000" max="40000" id="price" name="price" required [(ngModel)]="price" class="form-control" placeholder="in ₪...">
 
                   <label>Type:</label>
                   <select name="type" [(ngModel)]="type" required  id="type" class="form-control">
@@ -185,7 +201,7 @@
                   <input type="phone" id="phone" name="phone" required [(ngModel)]="phone" class="form-control" placeholder="05266544345">
 
                   <label>Contact email:</label>
-                  <input type="email" id="email" name="email" [(ngModel)]="email" email required class="form-control" placeholder="gmail@chucknorris.com">
+                  <input type="email" id="email" name="email" readonly [(ngModel)]="email" email required class="form-control" placeholder="gmail@chucknorris.com">
                 </div>
 
               </div>
