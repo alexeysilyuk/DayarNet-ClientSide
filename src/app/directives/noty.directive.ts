@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange, ElementRef, ViewEncapsulation } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange, ElementRef, ViewEncapsulation, trigger, state , style, transition, animate } from '@angular/core';
 
 
 
@@ -18,8 +18,14 @@ import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange
           position:fixed;
           top:15%;
           left:2%;
+
+          -webkit-transition: top 1s ease-out 0.5s;
+          -moz-transition: top 1s ease-out 0.5s;
+          -o-transition: top 1s ease-out 0.5s;
+          transition: top 1s ease-out 0.5s;
         }
       `]
+
       //encapsulation: ViewEncapsulation.None
 })
 export class Noty implements OnInit, OnChanges {

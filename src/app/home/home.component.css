@@ -45,4 +45,9 @@ label { margin-bottom: 5px;}
 	float: none;
 	vertical-align: top;
 	width: 100%;
+
+	-webkit-transition: top 1s ease-out 0.5s;
+	-moz-transition: top 1s ease-out 0.5s;
+	-o-transition: top 1s ease-out 0.5s;
+	transition: top 1s ease-out 0.5s;
  }
