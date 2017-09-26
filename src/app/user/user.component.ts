@@ -93,10 +93,45 @@ export class UserComponent implements OnInit {
 
      // fogot pass form data
   @ViewChild('fPassRepeair') passRepairForm : NgForm;
+  @ViewChild('fHash') fHashForm : NgForm;
+  @ViewChild('fPassword') fPasswordForm : NgForm;
   email: string;
+  hash: string;
+
+  currentForm: string = "email";
+
+   pass1: string;
+   pass2: string;
  
   onSubmitFogotPassword() {
        this.email = this.loginForm.value.email;
+
+       // http request
+       if (true) {
+         this.passRepairForm.reset();
+         this.currentForm = "hash";
+       }
+      
+   }
+
+   checkHash() {
+      this.hash = this.fHashForm.value.hash;
+      console.log(this.hash);
+
+      // http request
+      if (true) {
+        this.fHashForm.reset();
+        this.currentForm = "resetPass";
+      }
+
+   }
+
+
+   repeairPass() {
+     this.pass1 = this.fPasswordForm.value.pass1;
+     this.pass2 = this.fPasswordForm.value.pass2;
+
+     // http request
    }
 
 }
