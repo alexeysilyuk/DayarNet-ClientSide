@@ -153,9 +153,12 @@ stepTitle: string = 'תנאי שימוש באתר';
   }
 
   ngOnInit() {
+    
+
     this.getCurrentPosition();
     this.loadCity();
   }
+
 
   onNavigate(coponent: string) { this.componentDisplay = coponent; }
 

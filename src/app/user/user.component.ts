@@ -2,7 +2,8 @@ import { Component, ViewChild, EventEmitter, Output, OnInit } from '@angular/cor
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
-declare var googleUser: any; // googleUser
+import {onSignIn} from '../../assets/lib/googleAuth';
+
 
 
 @Component({
@@ -14,23 +15,11 @@ export class UserComponent implements OnInit {
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
-
-  // google api
-  onSignIn(googleUser) {
-    // Useful data for your client-side scripts:
-    var profile = googleUser.getBasicProfile();
-    console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-    console.log('Full Name: ' + profile.getName());
-    console.log('Given Name: ' + profile.getGivenName());
-    console.log('Family Name: ' + profile.getFamilyName());
-    console.log("Image URL: " + profile.getImageUrl());
-    console.log("Email: " + profile.getEmail());
-
-    // The ID token you need to pass to your backend:
-    var id_token = googleUser.getAuthResponse().id_token;
-};
+  
 
 
   // noty object
