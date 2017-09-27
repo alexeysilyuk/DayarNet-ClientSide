@@ -34,6 +34,7 @@ declare var $: any; // jQuery
 export class HomeComponent implements OnInit {
   @Output() noty = new EventEmitter<{type:string, mess:string}>();
 
+  manage_property_control = '';
 
   // Center map. Required.
   center: google.maps.LatLng;
@@ -450,6 +451,12 @@ openBasicActions() {
 
   openContact() { $('.shadow, .contacts').fadeIn(); }
 
+  exit() {
+    this.userEmail = '';
+    this.userLoggedin = false;
+    $('.usermenu').hide();
+  }
+
   openLogin() {
     if (this.userLoggedin) {
      $('.usermenu').show();
@@ -457,6 +464,22 @@ openBasicActions() {
 
     else {
       $('.shadow, .loginBlocks').fadeIn();
+    }
+  }
+
+  openManagePropertyApprove() {
+    if (this.userLoggedin) {
+      this.manage_property_control = 'new';
+      $('.usermenu').hide();
+      $('.manageProperty, .shadow').fadeIn();
+    }
+  }
+
+  openManagePropertyRemove() {
+    if (this.userLoggedin) {
+      this.manage_property_control = 'all';
+      $('.usermenu').hide();
+      $('.manageProperty, .shadow').fadeIn();
     }
   }
 

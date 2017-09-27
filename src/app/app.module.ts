@@ -20,6 +20,7 @@ import { HomeComponent } from './home/home.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import {DiraService} from './services/dira.service';
 import { UserComponent } from './user/user.component';
+import { ManagePropertyComponent } from './manage-property/manage-property.component';
 
 @NgModule({
     imports: [
@@ -36,7 +37,8 @@ import { UserComponent } from './user/user.component';
         Noty,
         HomeComponent,
         ContactUsComponent,
-        UserComponent
+        UserComponent,
+        ManagePropertyComponent
     ],
     providers: [
         MapsService,

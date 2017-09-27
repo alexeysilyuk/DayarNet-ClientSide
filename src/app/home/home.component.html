@@ -1,4 +1,21 @@
- <!-- Contact us modal windows -->
+ <!-- Manage Property modal windows -->
+ <div class="manageProperty modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="closeModal()" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+          <h4 class="modal-title">Manage Properties</h4>
+        </div>
+        <div class="modal-body">
+            <app-manage-property [controller] = "manage_property_control" (noty)="openNoty($event)"></app-manage-property>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- Contact us modal windows -->
         <div class="contacts modal">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -78,17 +95,17 @@
                     <li><a href="#" class="mailLink" (click)="openContact()" title="Contact us">
                       <img src="/assets/images/contact.png"></a></li>
 
-                    <li><a href="#" class="mailLink" (click)="openLogin()" title="Login"><img src="/assets/images/login.png"></a>
+                    <li><a href="#" class="mailLink" (click)="openLogin()" title="Login">
+                      <img src="/assets/images/login.png"></a>
                     </li>
 
                     <div class="usermenu col-xs-6 col-lg-3 col-sm-4 col-md-3">
                      <h5> {{userEmail}} </h5>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">My properties</a></li>
+                            <li><a href="#" (click) = "openManagePropertyApprove()">Approve</a></li>
+                            <li><a href="#" (click) = "openManagePropertyRemove()">Remove</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">My profile</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Exit</a></li>
+                            <li><a href="#" (click) = "exit()">Exit</a></li>
                           </ul>
                         <div class="clear"></div>
                       </div>

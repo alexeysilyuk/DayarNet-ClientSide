@@ -2,7 +2,6 @@ import { Component, ViewChild, EventEmitter, Output, OnInit } from '@angular/cor
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
-declare var window: any;
 declare var gapi: any;
 
 @Component({
@@ -16,8 +15,6 @@ export class UserComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {}
-
-  
 
 
   // noty object
@@ -37,7 +34,7 @@ export class UserComponent implements OnInit {
 
        this.http.post('http://localhost:8080/User/login ', this.loginObj).subscribe(
         (responce) => {
-            
+            console.log(responce);
           if(responce['status'] === "success") {
             
                         this.noty.next({type:"success", mess: "Your Data is added. Thanks for using our service. This windows will automaticly close after 5 seconds"});
@@ -94,9 +91,6 @@ export class UserComponent implements OnInit {
 
     }
 
-    else {
-      this.noty.next({type: "error", mess:"Error with your google request please try again"});
-    }
    }
 
   // register form data
