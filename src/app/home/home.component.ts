@@ -131,8 +131,8 @@ stepTitle: string = 'תנאי שימוש באתר';
     this.selectedNeighborhood = 0;
     this.searchDirot = false;
 
-    this.center = new google.maps.LatLng(41.910943, 12.476358);
-    this.zoom = 4;
+    this.center = new google.maps.LatLng(31.598214, 34.789267599999995);
+    this.zoom = 10;
 
     // Other options.
     this.disableDefaultUI = true;
@@ -153,9 +153,8 @@ stepTitle: string = 'תנאי שימוש באתר';
   }
 
   ngOnInit() {
-    
 
-    this.getCurrentPosition();
+   // this.getCurrentPosition();
     this.loadCity();
   }
 
@@ -177,6 +176,8 @@ stepTitle: string = 'תנאי שימוש באתר';
              // save user location
              this.user_lat = position.coords.latitude;
              this.user_lng = position.coords.longitude;
+
+             console.log( this.user_lat, this.user_lng);
 
             // Translates the location into address.
             this.geocoding.geocode(this.center).forEach(
@@ -442,7 +443,10 @@ openBasicActions() {
 
   closeModal() { $('.shadow, .modal').fadeOut(); }
   
-  startSteps() {  if (this.userLoggedin) $('.shadow, .step0').fadeIn(); }
+  startSteps() {  if (this.userLoggedin) {
+     $('.shadow, .step0').fadeIn(); 
+    }
+  }
 
   openContact() { $('.shadow, .contacts').fadeIn(); }
 
@@ -467,6 +471,7 @@ openBasicActions() {
           this.progress = 10;
           this.leftMovePosition = -100;
           this.currentStep++; 
+          this.getCurrentPosition();
       break;
       }
 

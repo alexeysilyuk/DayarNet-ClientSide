@@ -2,9 +2,8 @@ import { Component, ViewChild, EventEmitter, Output, OnInit } from '@angular/cor
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
-import {onSignIn} from '../../assets/lib/googleAuth';
-
-
+declare var window: any;
+declare var gapi: any;
 
 @Component({
   selector: 'app-user',
@@ -13,11 +12,10 @@ import {onSignIn} from '../../assets/lib/googleAuth';
 })
 export class UserComponent implements OnInit {
 
+
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   
 
@@ -27,6 +25,8 @@ export class UserComponent implements OnInit {
   @Output() login = new EventEmitter<{status:boolean, email: string}>();
 
   // login form data
+  
+
   @ViewChild('fLogin') loginForm : NgForm;
   loginObj = {idUser: 0, email: '', password: '' };
  
@@ -57,6 +57,46 @@ export class UserComponent implements OnInit {
 
         }
       );
+   }
+
+   googleLogin() {
+    // test google
+    let auth2 = gapi.auth2.getAuthInstance();
+    if (auth2.isSignedIn.get()) {
+    var profile = auth2.currentUser.get().getBasicProfile();
+    // console.log('ID: ' + profile.getId());
+    // console.log('Full Name: ' + profile.getName());
+    // console.log('Given Name: ' + profile.getGivenName());
+    // console.log('Family Name: ' + profile.getFamilyName());
+    // console.log('Image URL: ' + profile.getImageUrl());
+    // console.log('Email: ' + profile.getEmail());
+
+    this.loginObj.idUser = profile.getId();
+    this.loginObj.email = profile.getEmail();
+    this.loginObj.password = '';
+
+    console.log(this.loginObj);
+    this.http.post('http://localhost:8080/User/login ', this.loginObj).subscribe(
+      (responce) => {
+
+            if(responce['status'] === "success") {
+              this.noty.next({type: "success", mess:"Welcome " +profile.getName()+ " To Dayar.net"});
+
+              this.login.next({status:true, email: this.loginObj.email});
+              this.loginObj = { idUser: 0,  password: '', email: '' };
+              $('.loginBlocks, .shadow').fadeOut();
+            }
+
+            else {
+              this.noty.next({type:"error", mess: "Status of your request "+responce['status']});
+            }
+      });
+
+    }
+
+    else {
+      this.noty.next({type: "error", mess:"Error with your google request please try again"});
+    }
    }
 
   // register form data
