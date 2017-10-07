@@ -32,7 +32,7 @@ export class UserComponent implements OnInit {
        this.loginObj.password = this.loginForm.value.password;
 
 
-       this.http.post('http://localhost:8080/User/login ', this.loginObj).subscribe(
+       this.http.post('https://server.dayar.net/User/login ', this.loginObj).subscribe(
         (responce) => {
             console.log(responce);
           if(responce['status'] === "success") {
@@ -73,7 +73,7 @@ export class UserComponent implements OnInit {
     this.loginObj.password = '';
 
     console.log(this.loginObj);
-    this.http.post('http://localhost:8080/User/login ', this.loginObj).subscribe(
+    this.http.post('https://server.dayar.net/User/login ', this.loginObj).subscribe(
       (responce) => {
 
             if(responce['status'] === "success") {
@@ -102,7 +102,7 @@ export class UserComponent implements OnInit {
        this.registerObj.password = this.registerForm.value.password;
        this.registerObj.email = this.registerForm.value.email;
 
-       this.http.post('http://localhost:8080/User/register', this.registerObj).subscribe(
+       this.http.post('https://server.dayar.net/User/register', this.registerObj).subscribe(
         (responce) => {
           if(responce['status'] === "success") {
 

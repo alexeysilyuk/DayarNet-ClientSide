@@ -69,7 +69,7 @@ export class ContactUsComponent implements OnInit {
 
 
     else {
-        this.http.get('http://localhost:8080/Mail/send?from='+this.email+'&subject='+this.subject+'&message='+this.messageSend).subscribe(data => {
+        this.http.get('https://server.dayar.net/Mail/send?from='+this.email+'&subject='+this.subject+'&message='+this.messageSend).subscribe(data => {
             if(data['status'] === 'OK') {
 
               this.noty.next({type:"success", mess:"Your message send. Our managers connect with you as soon as possible. This window will close automaticly after 5 seconds"});

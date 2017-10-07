@@ -50,13 +50,14 @@ import { Injectable } from '@angular/core';
     addMarker(latLng: google.maps.LatLng, title?: string, contentString?: string) {
         if (this.map != null && latLng != null) {
             // Creates the marker.
-            var image = 'http://homes.winnipegfreepress.com/images/maplegend_showhome.png';
+            var image = {url :'/assets/images/marker.png',
+            scaledSize: new google.maps.Size(40,40)};
 
             let marker = new google.maps.Marker({
                 position: latLng,
                 title: title,
                 animation: google.maps.Animation.DROP,
-                icon: image
+                icon: image // scaled size
             });
             // Adds the marker to the map.
             marker.setMap(this.map);

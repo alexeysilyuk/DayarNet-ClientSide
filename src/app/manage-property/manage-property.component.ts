@@ -28,7 +28,7 @@ export class ManagePropertyComponent implements OnInit {
 
 
   loadAllProperties() {
-    this.http.get('http://localhost:8080/Properties/findAll').subscribe(data => {
+    this.http.get('https://server.dayar.net/Properties/findAll').subscribe(data => {
       // Read the result field from the JSON response.
       
       this.dirot = [];

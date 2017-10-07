@@ -2553,9 +2553,9 @@ output {
 .form-control {
   display: block;
   width: 100%;
-  height: 38px;
-  padding: 7px 12px;
-  font-size: 14px;
+  height: 40px;
+  padding: 7px 5px;
+  font-size: 15px;
   line-height: 1.42857143;
   color: #555555;
   background-color: #ffffff;
@@ -2575,14 +2575,14 @@ output {
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 .form-control::-moz-placeholder {
-  color: #999999;
+  color: #000000;
   opacity: 1;
 }
 .form-control:-ms-input-placeholder {
-  color: #999999;
+  color: #000000;
 }
 .form-control::-webkit-input-placeholder {
-  color: #999999;
+  color: #000000;
 }
 .form-control::-ms-expand {
   border: 0;
@@ -3061,26 +3061,26 @@ fieldset[disabled] a.btn {
   pointer-events: none;
 }
 .btn-default {
-  color: #555555;
-  background-color: #eeeeee;
+  color: #FFFFFF;
+  background-color: #ff6600;
   border-color: #e2e2e2;
 }
 .btn-default:focus,
 .btn-default.focus {
-  color: #555555;
-  background-color: #d5d5d5;
-  border-color: #a2a2a2;
+  color: #FFFFFF;
+  background-color: #fc883a;
+  border-color: #e2e2e2;
 }
 .btn-default:hover {
-  color: #555555;
-  background-color: #d5d5d5;
-  border-color: #c3c3c3;
+  color: #FFFFFF;
+  background-color: #fc883a;
+  border-color: #fc883a;
 }
 .btn-default:active,
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
-  color: #555555;
-  background-color: #d5d5d5;
+  color: #FFFFFF;
+  background-color: #fc883a;
   border-color: #c3c3c3;
 }
 .btn-default:active:hover,
@@ -3093,7 +3093,7 @@ fieldset[disabled] a.btn {
 .btn-default.active.focus,
 .open > .dropdown-toggle.btn-default.focus {
   color: #555555;
-  background-color: #c3c3c3;
+  background-color: #fc883a;
   border-color: #a2a2a2;
 }
 .btn-default:active,
@@ -3110,11 +3110,11 @@ fieldset[disabled] .btn-default:focus,
 .btn-default.disabled.focus,
 .btn-default[disabled].focus,
 fieldset[disabled] .btn-default.focus {
-  background-color: #eeeeee;
+  background-color: #fc883a;
   border-color: #e2e2e2;
 }
 .btn-default .badge {
-  color: #eeeeee;
+  color: #fc883a;
   background-color: #555555;
 }
 .btn-primary {
@@ -3130,7 +3130,7 @@ fieldset[disabled] .btn-default.focus {
 }
 .btn-primary:hover {
   color: #ffffff;
-  background-color: #106a8c;
+  background-color: #fc883a;
   border-color: #0c516c;
 }
 .btn-primary:active,
@@ -4169,7 +4169,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar {
   position: relative;
-  min-height: 50px;
+  min-height: 93px;
   margin-bottom: 20px;
   border: 1px solid transparent;
 }
@@ -4181,6 +4181,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 @media (min-width: 768px) {
   .navbar-header {
     float: left;
+    height: 93;
   }
 }
 .navbar-collapse {
@@ -4528,11 +4529,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
 .navbar-default .navbar-nav > .disabled > a:focus {
-  color: #eeeeee;
+  color: #fc883a;
   background-color: transparent;
 }
 .navbar-default .navbar-toggle {
-  border-color: #eeeeee;
+  border-color: #fc883a;
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
@@ -4976,7 +4977,7 @@ a.badge:focus {
   font-weight: 200;
 }
 .jumbotron > hr {
-  border-top-color: #e1e1e1;
+  border-top-color: #ff6600;
 }
 .container .jumbotron,
 .container-fluid .jumbotron {
@@ -6792,7 +6793,7 @@ button.close {
 .btn-default:hover,
 .btn-default:focus,
 .btn-group.open .dropdown-toggle.btn-default {
-  background-color: #eeeeee;
+  background-color: #f8904b;
   border-color: #e2e2e2;
 }
 .btn-primary:hover,

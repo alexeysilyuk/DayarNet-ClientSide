@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 
+import {enableProdMode} from '@angular/core';
+enableProdMode();
 
 import { GoogleMapDirective } from '../../app/directives/google-map.directive';
 import { GoogleMapMarkerDirective } from '../../app/directives/google-map-marker.directive';
@@ -256,7 +258,7 @@ stepTitle: string = 'תנאי שימוש באתר';
 
   loadCity() {
    // Make the HTTP request:
-   this.http.get('http://localhost:8080/Cities/findAll').subscribe(data => {
+   this.http.get('https://server.dayar.net/Cities/findAll').subscribe(data => {
     // Read the result field from the JSON response.
     var i = 0;
     for(i = 0; i < data['result'].length; i++) {
@@ -267,7 +269,7 @@ stepTitle: string = 'תנאי שימוש באתר';
 
   callCity(value) {
     // Make the HTTP request:
-    this.http.get('http://localhost:8080/Cities/find?by=code&value=' + value).subscribe(data => {
+    this.http.get('https://server.dayar.net/Cities/find?by=code&value=' + value).subscribe(data => {
         this.selectedCity = value;
         this.selectedNeighborhood = 0;
         // Read the result field from the JSON response.
@@ -280,7 +282,7 @@ stepTitle: string = 'תנאי שימוש באתר';
 
   loadNeibrhoodByCityCode(code) {
     // Make the HTTP request:
-    this.http.get('http://localhost:8080/Cities/Neighborhood/find?by=city&value='+ code).subscribe(data => {
+    this.http.get('https://server.dayar.net/Cities/Neighborhood/find?by=city&value='+ code).subscribe(data => {
       // Read the result field from the JSON response.
       this.neighborhoods = [];
 
@@ -312,7 +314,7 @@ stepTitle: string = 'תנאי שימוש באתר';
     this.selectedNeighborhood = value;
     this.openBasicActions();
 
-    this.http.get('http://localhost:8080/Cities/Neighborhood/find?by=n&value='+value).subscribe(data => {
+    this.http.get('https://server.dayar.net/Cities/Neighborhood/find?by=n&value='+value).subscribe(data => {
 
       this.center = new google.maps.LatLng(data['neighborhood'][0]['lat'], data['neighborhood'][0]['lng']);
       this.setMarker(this.center, data['neighborhood'][0]['name'], data['neighborhood'][0]['name']);
@@ -374,7 +376,7 @@ openBasicActions() {
     }
     
 
-    this.http.get('http://localhost:8080/Properties/find?code='+code).subscribe(data => {
+    this.http.get('https://server.dayar.net/Properties/find?code='+code).subscribe(data => {
     // Read the result field from the JSON response.
 
     console.log(data['result']);
@@ -383,8 +385,10 @@ openBasicActions() {
 
     if (data["status"] === "failure") {
       this.noty.next({type:"error", mess:"No dirot are found for your request"});
-
+  
     }
+
+    
 
     else {
       let i = 0;
