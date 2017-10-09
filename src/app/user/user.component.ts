@@ -11,6 +11,7 @@ declare var gapi: any;
 })
 export class UserComponent implements OnInit {
 
+  userFunction: string = 'login';
 
   constructor(private http: HttpClient) {}
 
@@ -20,6 +21,11 @@ export class UserComponent implements OnInit {
   // noty object
   @Output() noty = new EventEmitter<{type:string, mess:string}>();
   @Output() login = new EventEmitter<{status:boolean, email: string}>();
+
+  // navigation betwen tabs
+  setUserFunction(param) {
+    this.userFunction = param;
+  }
 
   // login form data
   
