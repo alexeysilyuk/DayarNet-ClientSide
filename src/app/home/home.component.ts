@@ -77,7 +77,9 @@ export class HomeComponent implements OnInit {
 
   // json object
   cities: City[] =  [];
+  citiesAutoComplete: string[] = [];
   neighborhoods: Neighborhood[] = [];
+  neighborhoodsAutoComplete: string[] = [];
   dirot: Dira[] = [];
   dira: Dira;
 
@@ -161,8 +163,24 @@ stepTitle: string = 'תנאי שימוש באתר';
 
   ngOnInit() {
 
-   // this.getCurrentPosition();
     this.loadCity();
+
+    // autocomplete
+      $( "#cityBox" ).autocomplete({ 
+          source: this.citiesAutoComplete,
+          select: (event, ui)=>  {
+            this.callCity(ui.item.value);
+          }
+       });
+
+      $( "#neighborhoodBox" ).autocomplete({ 
+          source: this.neighborhoodsAutoComplete,
+          select: (event, ui)=>  {
+            this.callNeighborhood(ui.item.value);
+          },
+       });
+
+
   }
 
 
@@ -267,21 +285,33 @@ stepTitle: string = 'תנאי שימוש באתר';
     var i = 0;
     for(i = 0; i < data['result'].length; i++) {
       this.cities.push( new City(data['result'][i]['code'], data['result'][i]['lng'], data['result'][i]['lat'], data['result'][i]['name']) );
+
+      this.citiesAutoComplete.push(data['result'][i]['name']);
     }
   });
 }
 
   callCity(value) {
-    // Make the HTTP request:
-    this.http.get(this.API_URL+'/Cities/find?by=code&value=' + value).subscribe(data => {
-        this.selectedCity = value;
-        this.selectedNeighborhood = 0;
-        // Read the result field from the JSON response.
-        this.center = new google.maps.LatLng(data['city'][0]['lat'], data['city'][0]['lng']);
-        this.setMarker(this.center, data['city'][0]['name'], data['city'][0]['name']);
-        this.zoom = 13;
-        this.loadNeibrhoodByCityCode(value);
+  
+    let v = 0;
+    this.cities.forEach(element => {
+      if(element.name === value) {
+        v = element.code;
+      }
     });
+
+    if (v !== 0) {
+      // Make the HTTP request:
+      this.http.get(this.API_URL+'/Cities/find?by=code&value=' + v).subscribe(data => {
+          this.selectedCity = v;
+          this.selectedNeighborhood = 0;
+          // Read the result field from the JSON response.
+          this.center = new google.maps.LatLng(data['city'][0]['lat'], data['city'][0]['lng']);
+          this.setMarker(this.center, data['city'][0]['name'], data['city'][0]['name']);
+          this.zoom = 13;
+          this.loadNeibrhoodByCityCode(v);
+      });
+    }
   }
 
   loadNeibrhoodByCityCode(code) {
@@ -292,12 +322,14 @@ stepTitle: string = 'תנאי שימוש באתר';
 
       if (data['neighborhoods'].length > 0) {
         this.cityHasNeighborhoods = true;
+        $('#neighborhoodBox').show();
       }
       else {
         this.cityHasNeighborhoods = false;
       }
 
       this.openBasicActions();
+
 
       var i = 0;
       for(i=0; i < data['neighborhoods'].length; i++) {
@@ -309,22 +341,35 @@ stepTitle: string = 'תנאי שימוש באתר';
             data['neighborhoods'][i]['name'],
             data['neighborhoods'][i]['city_code']
           ));
+
+          this.neighborhoodsAutoComplete.push(data['neighborhoods'][i]['name']);
       }
+
+      console.log(this.neighborhoodsAutoComplete);
     });
 
   }
 
   callNeighborhood(value) {
-    this.selectedNeighborhood = value;
-    this.openBasicActions();
 
-    this.http.get(this.API_URL+'/Cities/Neighborhood/find?by=n&value='+value).subscribe(data => {
-
-      this.center = new google.maps.LatLng(data['neighborhood'][0]['lat'], data['neighborhood'][0]['lng']);
-      this.setMarker(this.center, data['neighborhood'][0]['name'], data['neighborhood'][0]['name']);
-      this.zoom = 15;
+    let v = 0;
+    this.neighborhoods.forEach(element => {
+      if(element.name === value) {
+        v = element.neighborhood_code;
+      }
     });
 
+    if (v !== 0) {
+      this.selectedNeighborhood = v;
+      this.openBasicActions();
+
+      this.http.get(this.API_URL+'/Cities/Neighborhood/find?by=n&value='+v).subscribe(data => {
+
+        this.center = new google.maps.LatLng(data['neighborhood'][0]['lat'], data['neighborhood'][0]['lng']);
+        this.setMarker(this.center, data['neighborhood'][0]['name'], data['neighborhood'][0]['name']);
+        this.zoom = 15;
+      });
+    }
   }
 
 

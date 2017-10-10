@@ -7,7 +7,6 @@ label { margin-bottom: 5px;}
 
 .contacts, .loginBlocks { display: none; }
 
-
  .mainParams {
 	 padding-top:10px;
  }
@@ -70,3 +69,9 @@ label { margin-bottom: 5px;}
 	 -o-transition: top 1s ease-out 0.5s;
 	 transition: top 1s ease-out 0.5s;
  }
+
+ #cityBox::placeholder, #neighborhoodBox::placeholder{
+	 color:#999;
+ }
+
+ #neighborhoodBox { display:  none; }
