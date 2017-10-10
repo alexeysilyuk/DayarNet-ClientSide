@@ -10,7 +10,7 @@ import {Location} from '../location.model';
   styleUrls: ['./manage-property.component.css']
 })
 export class ManagePropertyComponent implements OnInit {
-
+  @Input() API_URL : string;
   @Output() noty = new EventEmitter<{type:string, mess:string}>();
 
   @Input() controller: string = 'all';
@@ -30,7 +30,7 @@ export class ManagePropertyComponent implements OnInit {
 
 
   loadAllProperties() {
-    this.http.get('https://server.dayar.net/Properties/findAll').subscribe(data => {
+    this.http.get(this.API_URL+'/Properties/findAll').subscribe(data => {
       // Read the result field from the JSON response.
       
       this.dirot = [];
@@ -81,7 +81,7 @@ export class ManagePropertyComponent implements OnInit {
       console.log(id);
       console.log(this.globalUser);
 
-       this.http.post('https://server.dayar.net/admin/approveProperty?id='+id, this.globalUser).subscribe(
+       this.http.post(this.API_URL+'/admin/approveProperty?id='+id, this.globalUser).subscribe(
       (responce) => {
 
             if(responce['status'] === "success") {
@@ -100,7 +100,7 @@ export class ManagePropertyComponent implements OnInit {
       console.log(id);
       console.log(this.globalUser);
 
-       this.http.post('https://server.dayar.net/admin/removeProperty?id='+id, this.globalUser).subscribe(
+       this.http.post(this.API_URL+'/admin/removeProperty?id='+id, this.globalUser).subscribe(
       (responce) => {
 
             if(responce['status'] === "success") {

@@ -7,6 +7,8 @@ import { Noty } from './directives/noty.directive';
 })
 export class AppComponent implements OnInit {
 
+  API_URL = 'https://server.dayar.net';
+
   componentDisplay = 'home';
 
   notyMessage: string;

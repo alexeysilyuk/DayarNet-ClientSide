@@ -1,4 +1,4 @@
-import { Component, ViewChild, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, ViewChild, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
@@ -22,6 +22,8 @@ export class UserComponent implements OnInit {
   @Output() noty = new EventEmitter<{type:string, mess:string}>();
   @Output() login = new EventEmitter<{status:boolean, email: string, password: string, isAdmin: boolean}>();
 
+  @Input() API_URL : string;
+
   // navigation betwen tabs
   setUserFunction(param) {
     this.userFunction = param;
@@ -38,7 +40,7 @@ export class UserComponent implements OnInit {
        this.loginObj.password = this.loginForm.value.password;
 
 
-       this.http.post('https://server.dayar.net/User/login ', this.loginObj).subscribe(
+       this.http.post(this.API_URL+'/User/login ', this.loginObj).subscribe(
         (responce) => {
             console.log(responce);
           if(responce['status'] === "success") {
@@ -79,7 +81,7 @@ export class UserComponent implements OnInit {
     this.loginObj.password = '';
 
 
-    this.http.post('https://server.dayar.net/User/login ', this.loginObj).subscribe(
+    this.http.post(this.API_URL+'/User/login ', this.loginObj).subscribe(
       (responce) => {
 
             if(responce['status'] === "success") {
@@ -108,7 +110,7 @@ export class UserComponent implements OnInit {
        this.registerObj.password = this.registerForm.value.password;
        this.registerObj.email = this.registerForm.value.email;
 
-       this.http.post('https://server.dayar.net/User/register', this.registerObj).subscribe(
+       this.http.post(this.API_URL+'/User/register', this.registerObj).subscribe(
         (responce) => {
           if(responce['status'] === "success") {
 
@@ -147,7 +149,7 @@ export class UserComponent implements OnInit {
        this.email = this.passRepairForm.value.email;
 
        // http request
-       this.http.get('https://server.dayar.net/User/restorePassword?email='+this.email).subscribe(
+       this.http.get(this.API_URL+'/User/restorePassword?email='+this.email).subscribe(
         (responce) => {
           if(responce['status'] === "success") {
             this.passRepairForm.reset();
@@ -172,7 +174,7 @@ export class UserComponent implements OnInit {
 
       // http request
 
-      this.http.get('https://server.dayar.net/User/checkRecoveryHash?email='+this.email+"&hash="+this.hash).subscribe(
+      this.http.get(this.API_URL+'/User/checkRecoveryHash?email='+this.email+"&hash="+this.hash).subscribe(
         (responce) => {
           if(responce['status'] === "success") {
             this.fHashForm.reset();
@@ -195,7 +197,7 @@ export class UserComponent implements OnInit {
     this.pass2 = this.fPasswordForm.value.pass2;
     let newPassword = this.pass1;
 
-    this.http.get('https://server.dayar.net/User/setNewPassword?email='+this.email+"&hash="+this.hash+"&password="+newPassword).subscribe(
+    this.http.get(this.API_URL+'/User/setNewPassword?email='+this.email+"&hash="+this.hash+"&password="+newPassword).subscribe(
       (responce) => {
         if(responce['status'] === "success") {
           this.fPasswordForm.reset();

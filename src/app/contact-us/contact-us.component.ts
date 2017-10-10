@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output,Input, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ContactUsComponent implements OnInit {
   @ViewChild('f') contactForm : NgForm;
+  @Input() API_URL : string;
   @Output() noty = new EventEmitter<{type:string, mess:string}>();
 
   name:  string;
@@ -69,7 +70,7 @@ export class ContactUsComponent implements OnInit {
 
 
     else {
-        this.http.get('https://server.dayar.net/Mail/send?from='+this.email+'&subject='+this.subject+'&message='+this.messageSend).subscribe(data => {
+        this.http.get(this.API_URL+'/Mail/send?from='+this.email+'&subject='+this.subject+'&message='+this.messageSend).subscribe(data => {
             if(data['status'] === 'OK') {
 
               this.noty.next({type:"success", mess:"Your message send. Our managers connect with you as soon as possible. This window will close automaticly after 5 seconds"});

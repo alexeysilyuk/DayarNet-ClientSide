@@ -1,4 +1,4 @@
 <!-- Noty -->
 <noty [notyMessage] = "notyMessage" [notyType] = "notyType" (close) = "closeNoty($event)" [notyShow] = "notyShow"></noty>
 
-<app-home (noty)="openNoty($event)" *ngIf=" componentDisplay === 'home' "></app-home>
+<app-home [API_URL] = "API_URL" (noty)="openNoty($event)" *ngIf=" componentDisplay === 'home' "></app-home>

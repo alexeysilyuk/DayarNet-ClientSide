@@ -8,7 +8,7 @@
           <h4 class="modal-title">Manage Properties</h4>
         </div>
         <div class="modal-body">
-            <app-manage-property [globalUser] = "globalUser" [controller] = "manage_property_control" (noty)="openNoty($event)"></app-manage-property>
+            <app-manage-property [API_URL] = "API_URL"  [globalUser] = "globalUser" [controller] = "manage_property_control" (noty)="openNoty($event)"></app-manage-property>
         </div>
       </div>
     </div>
@@ -25,7 +25,7 @@
                 <h4 class="modal-title">Contact us</h4>
               </div>
               <div class="modal-body">
-                  <app-contact-us (noty)="openNoty($event)"></app-contact-us>
+                  <app-contact-us [API_URL] = "API_URL" (noty)="openNoty($event)"></app-contact-us>
               </div>
             </div>
           </div>
@@ -42,7 +42,7 @@
         <h4 class="modal-title">Welcome to Dayar.net</h4>
       </div>
       <div class="modal-body">
-          <app-user (login) = "setLogin($event)" (noty)="openNoty($event)"></app-user>
+          <app-user [API_URL] = "API_URL" (login) = "setLogin($event)" (noty)="openNoty($event)"></app-user>
       </div>
     </div>
   </div>
@@ -272,6 +272,7 @@
           <table class="table table-striped table-hover ">
   <thead>
     <tr>
+      <th>#</th>
       <th>Type</th>
       <th>Adress</th>
       <th>Price</th>
@@ -283,8 +284,9 @@
       <th></th>
     </tr>
   </thead>
-  <tbody *ngFor="let d of dirot">
+  <tbody *ngFor="let d of dirot; let i = index">
     <tr>
+      <td>{{ i+1 }}</td>
       <td>{{ d.type }}</td>
       <td>{{ d.street }} {{d.houseNumber}}</td>
       <td>{{ d.pricePerMonth }}</td>
@@ -299,25 +301,7 @@
 </table>
 
 
-        <!--<div class="searchResult" *ngFor="let d of dirot">
-
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <p class="text-warning">{{d.street}} <strong>{{d.houseNumber}}</strong></p>
-            <p>{{d.rooms}} rooms</p>
-            <div class="col-lg-4 col-md-4 col-sm-4">Arnona: {{d.arnona}} ₪</div>
-            <div class="col-lg-4 col-md-4 col-sm-4">Price: {{d.pricePerMonth}} ₪/month</div>
-          </div>
-
-          <div class="panel-footer">
-            <div class="col-lg-4 col-md-4 col-sm-4"><b>{{d.baal}}</b> </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 text-info">{{d.phoneNumber}}</div>
-            <div class="col-lg-4 col-md-4 col-sm-4 text-primary">{{d.contactEmail}} </div>
-            <div class="clear"></div>
-          </div>
-        </div>
-
-      </div>-->
+       
 
       </div>
 
