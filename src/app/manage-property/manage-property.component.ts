@@ -85,7 +85,26 @@ export class ManagePropertyComponent implements OnInit {
       (responce) => {
 
             if(responce['status'] === "success") {
-              this.noty.next({type: "success", mess:""});
+              this.noty.next({type: "success", mess:"Approved"});
+
+            }
+
+            else {
+              this.noty.next({type:"error", mess: "Status of your request "+responce['status']});
+            }
+      });
+  }
+
+
+    removeProperty(id: string) {
+      console.log(id);
+      console.log(this.globalUser);
+
+       this.http.post('https://server.dayar.net/admin/removeProperty?id='+id, this.globalUser).subscribe(
+      (responce) => {
+
+            if(responce['status'] === "success") {
+              this.noty.next({type: "success", mess:"Deleted"});
 
             }
 
