@@ -1,7 +1,31 @@
     <div *ngIf="controller === 'all' ">
       <br>
         <h4>All Properties ( {{misparDirot}} )</h4>
-          <div *ngFor="let d of dirot"> 
+
+          <table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>Adress</th>
+      <th>Rooms #</th>
+      <th>Floor</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let d of dirot">
+    <tr>
+      <td>{{ d.street }} {{d.houseNumber}}</td>
+      <td>{{ d.rooms }}</td>
+      <td>{{ d.floor }}</td>
+      <td>{{ d.pricePerMonth }}</td>
+      <td><button class="btn btn-danger btn-sm" (click) = "removeProperty(d.id)">Remove</button></td>
+    </tr>
+
+  </tbody>
+</table> 
+
+
+          <!--<div *ngFor="let d of dirot"> 
                   <div class="panel panel-default">
                     <div class="panel-body">
                       <p class="text-warning">{{d.street}} <strong>{{d.houseNumber}}</strong></p>
@@ -22,7 +46,7 @@
                       <div class="clear"></div>
                     </div>
                   </div>
-          </div>
+          </div>-->
           
               
 
@@ -32,7 +56,31 @@
     <div *ngIf= "controller === 'new' ">
         <br> 
         <h4>New Properties ( {{misparNewDirot}} )</h4>
-        <div *ngFor="let d of dirotNew"> 
+        
+          <table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>Adress</th>
+      <th>Rooms #</th>
+      <th>Floor</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let d of dirotNew">
+    <tr>
+      <td>{{ d.street }} {{d.houseNumber}}</td>
+      <td>{{ d.rooms }}</td>
+      <td>{{ d.floor }}</td>
+      <td>{{ d.pricePerMonth }}</td>
+      <td><button class="btn btn-success btn-sm" (click) = "approveProperty(d.id)">Approve</button></td>
+    </tr>
+
+  </tbody>
+</table> 
+
+
+        <!--<div *ngFor="let d of dirotNew"> 
             <div class="panel panel-default">
               <div class="panel-body">
                 <p class="text-warning">{{d.street}} <strong>{{d.houseNumber}}</strong></p>
@@ -53,7 +101,8 @@
                   <div class="clear"></div>
                 </div>
             </div>
-    </div>
+    </div>-->
+
     </div>
   
   

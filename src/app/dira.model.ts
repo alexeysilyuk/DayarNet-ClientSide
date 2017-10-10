@@ -1,6 +1,7 @@
 import {Location} from './location.model';
 
 export class Dira {
+  public id: string;
   public street: string;
   public rooms: number;
   public area: number;
@@ -31,7 +32,8 @@ export class Dira {
                entranceDate: string, 
                type: string,
                location: Location,
-               neighborhood_code: number) {
+               neighborhood_code: number,
+               id: string) {
     this.street = street;
     this.rooms = rooms;
     this.area = area;
@@ -47,6 +49,7 @@ export class Dira {
     this.type = type;
     this.tenantLocation = location;
     this.neighborhood_code = neighborhood_code;
+    this.id = id;
 
   }
 }

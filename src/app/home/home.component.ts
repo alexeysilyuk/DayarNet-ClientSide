@@ -115,6 +115,9 @@ export class HomeComponent implements OnInit {
 
       userLoggedin : boolean = false;
       userEmail : string = '';
+      userisAdmin: boolean = false;
+
+      globalUser = {email: '', password: ''};
 
 // step by step add flat property
 currentStep : number = 0;
@@ -337,7 +340,7 @@ openBasicActions() {
 
 
   SaveDira() {
-    this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood);
+    this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood, '1111');
     this.diraService.saveDira(this.dira).subscribe(
       (responce) => {
        console.log(responce)
@@ -408,7 +411,7 @@ openBasicActions() {
           data['result'][i]['floor'],
           data['result'][i]['entranceDate'],
           data['result'][i]['type'],
-          new Location(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), data['result'][i]['neighborhood_code']),
+          new Location(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), data['result'][i]['neighborhood_code'], data['result'][i]['id']),
            );
 
         // this.positions.push(new google.maps.LatLng(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']));
@@ -602,6 +605,11 @@ openBasicActions() {
     this.userLoggedin = login.status;
     this.email = login.email;
     this.userEmail = login.email;
+    //this.userisAdmin = login.isAdmin;
+    this.userisAdmin = true;
+
+
+    this.globalUser = {email: login.email, password: login.password};
    }
   
 }

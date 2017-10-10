@@ -20,7 +20,7 @@ export class UserComponent implements OnInit {
 
   // noty object
   @Output() noty = new EventEmitter<{type:string, mess:string}>();
-  @Output() login = new EventEmitter<{status:boolean, email: string}>();
+  @Output() login = new EventEmitter<{status:boolean, email: string, password: string, isAdmin: boolean}>();
 
   // navigation betwen tabs
   setUserFunction(param) {
@@ -46,7 +46,7 @@ export class UserComponent implements OnInit {
                         this.noty.next({type:"success", mess: "Your Data is added. Thanks for using our service. This windows will automaticly close after 5 seconds"});
             
                         //reset object and form
-                        this.login.next({status:true, email: this.loginObj.email});
+                        this.login.next({status:true, email: this.loginObj.email, password: this.loginObj.password, isAdmin: responce['admin']});
 
                         this.loginObj = { googleID: 0,  password: '', email: '' };
                         this.loginForm.reset();
@@ -78,14 +78,14 @@ export class UserComponent implements OnInit {
     this.loginObj.email = profile.getEmail();
     this.loginObj.password = '';
 
-    console.log(this.loginObj);
+
     this.http.post('https://server.dayar.net/User/login ', this.loginObj).subscribe(
       (responce) => {
 
             if(responce['status'] === "success") {
               this.noty.next({type: "success", mess:"Welcome " +profile.getName()+ " To Dayar.net"});
 
-              this.login.next({status:true, email: this.loginObj.email});
+            this.login.next({status:true, email: this.loginObj.email, password:this.loginObj.password, isAdmin: responce['admin']});
               this.loginObj = { googleID: 0,  password: '', email: '' };
               $('.loginBlocks, .shadow').fadeOut();
             }

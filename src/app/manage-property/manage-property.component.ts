@@ -14,6 +14,8 @@ export class ManagePropertyComponent implements OnInit {
   @Output() noty = new EventEmitter<{type:string, mess:string}>();
 
   @Input() controller: string = 'all';
+  @Input() globalUser: {email: string, password: string};
+
   dirot: Dira[] = [];
   dirotNew: Dira[] = [];
 
@@ -57,7 +59,7 @@ export class ManagePropertyComponent implements OnInit {
             data['result'][i]['floor'],
             data['result'][i]['entranceDate'],
             data['result'][i]['type'],
-            new Location(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), data['result'][i]['neighborhood_code']);
+            new Location(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), data['result'][i]['neighborhood_code'], data['result'][i]['id']);
 
           this.dirot.push(diraObj);
   
@@ -72,6 +74,25 @@ export class ManagePropertyComponent implements OnInit {
   
       }
     });
+  }
+
+
+  approveProperty(id: string) {
+      console.log(id);
+      console.log(this.globalUser);
+
+       this.http.post('https://server.dayar.net/admin/approveProperty?id='+id, this.globalUser).subscribe(
+      (responce) => {
+
+            if(responce['status'] === "success") {
+              this.noty.next({type: "success", mess:""});
+
+            }
+
+            else {
+              this.noty.next({type:"error", mess: "Status of your request "+responce['status']});
+            }
+      });
   }
 
 }
