@@ -31,7 +31,7 @@ export class UserComponent implements OnInit {
   
 
   @ViewChild('fLogin') loginForm : NgForm;
-  loginObj = {idUser: 0, email: '', password: '' };
+  loginObj = {googleID: 0, email: '', password: '' };
  
   onSubmitLogin() {
        this.loginObj.email = this.loginForm.value.email;
@@ -48,7 +48,7 @@ export class UserComponent implements OnInit {
                         //reset object and form
                         this.login.next({status:true, email: this.loginObj.email});
 
-                        this.loginObj = { idUser: 0,  password: '', email: '' };
+                        this.loginObj = { googleID: 0,  password: '', email: '' };
                         this.loginForm.reset();
             
                         $('.loginBlocks, .shadow').fadeOut();
@@ -74,7 +74,7 @@ export class UserComponent implements OnInit {
     // console.log('Image URL: ' + profile.getImageUrl());
     // console.log('Email: ' + profile.getEmail());
 
-    this.loginObj.idUser = profile.getId();
+    this.loginObj.googleID = profile.getId();
     this.loginObj.email = profile.getEmail();
     this.loginObj.password = '';
 
@@ -86,7 +86,7 @@ export class UserComponent implements OnInit {
               this.noty.next({type: "success", mess:"Welcome " +profile.getName()+ " To Dayar.net"});
 
               this.login.next({status:true, email: this.loginObj.email});
-              this.loginObj = { idUser: 0,  password: '', email: '' };
+              this.loginObj = { googleID: 0,  password: '', email: '' };
               $('.loginBlocks, .shadow').fadeOut();
             }
 
@@ -101,7 +101,7 @@ export class UserComponent implements OnInit {
 
   // register form data
   @ViewChild('fRegister') registerForm : NgForm;
-  registerObj = { idUser: 0, password: '', email: '' };
+  registerObj = { googleID: 0, password: '', email: '' };
  
   onSubmitRegister() {
        //this.registerObj.username = this.loginForm.value.username;
@@ -115,7 +115,7 @@ export class UserComponent implements OnInit {
             this.noty.next({type:"success", mess: "Your Data is added. Thanks for using our service. This windows will automaticly close after 5 seconds"});
 
             //reset object and form
-            this.registerObj = { idUser: 0,  password: '', email: '' };
+            this.registerObj = { googleID: 0,  password: '', email: '' };
             this.registerForm.reset();
 
             $('.loginBlocks, .shadow').fadeOut();
