@@ -31,7 +31,7 @@ export class UserComponent implements OnInit {
   
 
   @ViewChild('fLogin') loginForm : NgForm;
-  loginObj = {googleID: 0, email: '', password: '' };
+  loginObj = {googleID: undefined, email: '', password: '' };
  
   onSubmitLogin() {
        this.loginObj.email = this.loginForm.value.email;
@@ -101,10 +101,10 @@ export class UserComponent implements OnInit {
 
   // register form data
   @ViewChild('fRegister') registerForm : NgForm;
-  registerObj = { googleID: 0, password: '', email: '' };
+  registerObj = { name: '',password: '', email: '' };
  
   onSubmitRegister() {
-       //this.registerObj.username = this.loginForm.value.username;
+       this.registerObj.name = this.registerForm.value.name;
        this.registerObj.password = this.registerForm.value.password;
        this.registerObj.email = this.registerForm.value.email;
 
@@ -115,7 +115,7 @@ export class UserComponent implements OnInit {
             this.noty.next({type:"success", mess: "Your Data is added. Thanks for using our service. This windows will automaticly close after 5 seconds"});
 
             //reset object and form
-            this.registerObj = { googleID: 0,  password: '', email: '' };
+            this.registerObj = { name: '',  password: '', email: '' };
             this.registerForm.reset();
 
             $('.loginBlocks, .shadow').fadeOut();
@@ -144,13 +144,25 @@ export class UserComponent implements OnInit {
    pass2: string;
  
   onSubmitFogotPassword() {
-       this.email = this.loginForm.value.email;
+       this.email = this.passRepairForm.value.email;
 
        // http request
-       if (true) {
-         this.passRepairForm.reset();
-         this.currentForm = "hash";
-       }
+       this.http.get('https://server.dayar.net/User/restorePassword?email='+this.email).subscribe(
+        (responce) => {
+          if(responce['status'] === "success") {
+            this.passRepairForm.reset();
+            this.currentForm = "hash";
+            this.noty.next({type:"success", mess: "Recovery email been sended to your adress."});
+       
+          }
+
+          else {
+            this.noty.next({type:"error", mess: "Your email address is not exists in database. "});
+          }
+
+        }
+       );
+
       
    }
 
@@ -159,17 +171,47 @@ export class UserComponent implements OnInit {
       console.log(this.hash);
 
       // http request
-      if (true) {
-        this.fHashForm.reset();
-        this.currentForm = "resetPass";
-      }
+
+      this.http.get('https://server.dayar.net/User/checkRecoveryHash?email='+this.email+"&hash="+this.hash).subscribe(
+        (responce) => {
+          if(responce['status'] === "success") {
+            this.fHashForm.reset();
+            this.currentForm = "resetPass";      
+          }
+
+          else {
+            this.noty.next({type:"error", mess: "Email or recovery hash is incorrect!"});
+          }
+
+        }
+       );
+
 
    }
 
 
    repeairPass() {
-     this.pass1 = this.fPasswordForm.value.pass1;
-     this.pass2 = this.fPasswordForm.value.pass2;
+    this.pass1 = this.fPasswordForm.value.pass1;
+    this.pass2 = this.fPasswordForm.value.pass2;
+    let newPassword = this.pass1;
+
+    this.http.get('https://server.dayar.net/User/setNewPassword?email='+this.email+"&hash="+this.hash+"&password="+newPassword).subscribe(
+      (responce) => {
+        if(responce['status'] === "success") {
+          this.fPasswordForm.reset();
+          this.currentForm = "email";
+          this.userFunction="login";
+          this.noty.next({type:"success", mess: "Password been changed successfully!"});
+     
+        }
+
+        else {
+          this.noty.next({type:"error", mess: "Something wrong with your request"});
+        }
+
+      }
+     );
+
 
      // http request
    }
