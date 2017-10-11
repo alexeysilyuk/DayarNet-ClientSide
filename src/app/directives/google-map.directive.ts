@@ -79,7 +79,7 @@ export class GoogleMapDirective implements OnInit, OnChanges {
             minZoom: <number>this.minZoom,
             styles: this.styles,
             zoom: <number>this.zoom,
-            //gestureHandling: 'greedy'
+            gestureHandling: 'greedy'
         });
     }
 

@@ -1,3 +1,45 @@
+  <div *ngIf="misparDirot > 0" class="sidebar col-lg-5 col-sm-6 col-md-6 col-xs-9">
+
+        <h2>Search Result ( {{ misparDirot }}):</h2>
+        <br>
+          <table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Type</th>
+      <th>Adress</th>
+      <th>Price</th>
+      <th>Rooms #</th>
+      <th>Floor</th>
+      <th>Arnona</th>
+
+      
+      <th></th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let d of dirot; let i = index">
+    <tr>
+      <td>{{ i+1 }}</td>
+      <td>{{ d.type }}</td>
+      <td>{{ d.street }} {{d.houseNumber}}</td>
+      <td>{{ d.pricePerMonth }}</td>
+      <td>{{ d.rooms }}</td>
+      <td>{{ d.floor }}</td>
+      <td>{{ d.arnona }}</td>
+      
+      <td></td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+       
+
+     
+
+  </div>
+  
   <!-- Manage Property modal windows -->
  <div class="manageProperty modal">
     <div class="modal-dialog">
@@ -241,75 +283,8 @@
                 </div>
                 
               </div>
-            </div>
+            </div>      
           </form>
-
-
-
-
-
-
-      <div class="dirotSearch col-sm-8" *ngIf="searchDirot">
-        <h2>Search Result ( {{ misparDirot }}):</h2>
-
-        <ul class="nav nav-pills">
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-              Options <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu hide">
-              <li><a href="">Display Approved</a></li>
-              <li><a href="">Display New</a></li>
-              <li><a href="">Display All</a></li>
-              <li class="divider"></li>
-              <li><a href="#" (click)="closeSearchDirot()">Close Search</a></li>
-            </ul>
-          </li>
-        </ul>
-
-        <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="misparDirot === 0">
-          {{ searchRes }}
-        </div>
-
-
-        <br>
-
-          <table class="table table-striped table-hover ">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Type</th>
-      <th>Adress</th>
-      <th>Price</th>
-      <th>Rooms #</th>
-      <th>Floor</th>
-      <th>Arnona</th>
-
-      
-      <th></th>
-    </tr>
-  </thead>
-  <tbody *ngFor="let d of dirot; let i = index">
-    <tr>
-      <td>{{ i+1 }}</td>
-      <td>{{ d.type }}</td>
-      <td>{{ d.street }} {{d.houseNumber}}</td>
-      <td>{{ d.pricePerMonth }}</td>
-      <td>{{ d.rooms }}</td>
-      <td>{{ d.floor }}</td>
-      <td>{{ d.arnona }}</td>
-      
-      <td></td>
-    </tr>
-
-  </tbody>
-</table>
-
-
-       
-
-      </div>
-
 
 
     </div>
