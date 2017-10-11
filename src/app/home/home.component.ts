@@ -420,7 +420,6 @@ openBasicActions() {
 
 
   startSearchDirot() {
-    this.searchDirot = true;
     let code = 0;
     if (this.selectedCity!==0){
       code=this.selectedCity;
@@ -433,7 +432,6 @@ openBasicActions() {
     this.http.get(this.API_URL+'/Properties/find?code='+code).subscribe(data => {
     // Read the result field from the JSON response.
 
-    console.log(data['result']);
     this.dirot = [];
      this.misparDirot = 0;
 
@@ -445,6 +443,7 @@ openBasicActions() {
     
 
     else {
+      this.searchDirot = true;
       let i = 0;
       for(i = 0; i < data['result'].length; i++) {
         this.dirot.push( 

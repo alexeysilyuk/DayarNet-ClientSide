@@ -1,6 +1,6 @@
-  <div *ngIf="misparDirot > 0" class="sidebar col-lg-5 col-sm-6 col-md-6 col-xs-9">
+  <div *ngIf="searchDirot" class="sidebar col-lg-5 col-sm-6 col-md-6 col-xs-9">
 
-        <button aria-hidden="true" class="close" data-dismiss="modal" style='color:#000;' type="button">×</button>
+        <button aria-hidden="true" class="close" data-dismiss="modal" style='color:#000;' type="button" (click) = "closeSearchDirot()">×</button>
         <h2 class="searchPR">Search Result ( {{ misparDirot }}):</h2>
         <br>
           <table class="table table-striped table-hover ">
