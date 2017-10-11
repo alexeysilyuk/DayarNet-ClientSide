@@ -53,7 +53,7 @@
           <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
 
-              <div class="navbar-header">
+              <div class="">
                 <a href="#" class="navbar-brand">
                     <img src="/assets/images/logo.png" class="navbar-left" width="256" height="101" alt=""></a>
               </div>
@@ -76,7 +76,7 @@
                       <option *ngFor=" let n of neighborhoods" [value]="n.neighborhood_code">{{n.name}}</option>
                     </select>-->
 
-                      <input type="text" #neighborhood placeholder="Neighborhood..." class="form-control" id="neighborhoodBox">
+                      <input type="text" #neighborhood placeholder="Neighborhood..."  class="form-control" id="neighborhoodBox" [(ngModel)] = "autoClean">
 
                     </div>
                   

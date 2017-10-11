@@ -82,6 +82,7 @@ export class HomeComponent implements OnInit {
   neighborhoodsAutoComplete: string[] = [];
   dirot: Dira[] = [];
   dira: Dira;
+  autoClean: string = '';
 
 
   // user location
@@ -319,6 +320,7 @@ stepTitle: string = 'תנאי שימוש באתר';
     this.http.get(this.API_URL+'/Cities/Neighborhood/find?by=city&value='+ code).subscribe(data => {
       // Read the result field from the JSON response.
       this.neighborhoods = [];
+      this.neighborhoodsAutoComplete.splice(this.neighborhoods.length);
 
       if (data['neighborhoods'].length > 0) {
         this.cityHasNeighborhoods = true;
@@ -326,8 +328,10 @@ stepTitle: string = 'תנאי שימוש באתר';
       }
       else {
         this.cityHasNeighborhoods = false;
+        $('#neighborhoodBox').hide();
       }
 
+      this.autoClean = '';
       this.openBasicActions();
 
 
@@ -345,7 +349,7 @@ stepTitle: string = 'תנאי שימוש באתר';
           this.neighborhoodsAutoComplete.push(data['neighborhoods'][i]['name']);
       }
 
-      console.log(this.neighborhoodsAutoComplete);
+     // console.log(this.neighborhoodsAutoComplete);
     });
 
   }
