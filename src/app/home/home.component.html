@@ -94,8 +94,7 @@
                  
                 </div>
 
-                <ul class="nav navbar-nav pull-right">
-                    <!-- <li><a href="#" (click)="onSelect('home')">Home</a></li> -->
+                <ul class="userFunction nav navbar-nav pull-right">
                     <li><a href="#" class="mailLink" (click)="openContact()" title="Contact us">
                       <img src="/assets/images/email.png" height="40" width="40"></a></li>
 
@@ -104,7 +103,7 @@
                     </li>
 
                     <div class="usermenu">
-                        <ul class="dropdown-menu" role="menu">
+                        <ul class="subUserFunction dropdown-menu" role="menu">
                             <li><a href="#"><b>{{userEmail}}</b></a></li>
                             <li class="divider"></li>
                             <li><a href="#" *ngIf="userisAdmin" (click) = "openManagePropertyApprove()">Approve</a></li>

@@ -71,6 +71,15 @@ label { margin-bottom: 5px;}
 	 width: 100%;
  }
 
+ .userFunction li {
+	 float: left;
+ }
+ .subUserFunction li {
+	 float: none !important;
+	 display: block;
+	 width: 100%;
+ }
+
  #cityBox::placeholder, #neighborhoodBox::placeholder{
 	 color:#999;
  }
