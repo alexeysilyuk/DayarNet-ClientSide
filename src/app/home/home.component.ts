@@ -83,6 +83,7 @@ export class HomeComponent implements OnInit {
   dirot: Dira[] = [];
   dira: Dira;
   autoClean: string = '';
+  userOpenSwitch = false;
 
 
   // user location
@@ -516,7 +517,16 @@ openBasicActions() {
 
   openLogin() {
     if (this.userLoggedin) {
-     $('.usermenu').show();
+
+      if(!this.userOpenSwitch) {
+        $('.usermenu').show();
+        this.userOpenSwitch = true;
+      }
+      else {
+        $('.usermenu').hide();
+        this.userOpenSwitch = false;
+      }
+
     }
 
     else {

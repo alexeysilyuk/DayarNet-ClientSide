@@ -8,8 +8,9 @@ label { margin-bottom: 5px;}
 .contacts, .loginBlocks { display: none; }
 
  .mainParams {
-	 padding-top:10px;
+	 padding-top:20px;
  }
+
  .mainParams select {
 	 background: transparent;
 	 border: none;
@@ -59,15 +60,15 @@ label { margin-bottom: 5px;}
 	 position: absolute;
 	 display: none;
 	 transform: translateY(20px);
-	 padding: 15px;
-	 padding-top: 0px;
-	 margin-top: 30px;
+	 padding: 0px;
+	 right:0%;
 	 background: #fff;
-	 border-radius: 8px;
-	 -webkit-transition: top 1s ease-out 0.5s;
-	 -moz-transition: top 1s ease-out 0.5s;
-	 -o-transition: top 1s ease-out 0.5s;
-	 transition: top 1s ease-out 0.5s;
+	 width: 300px;
+	 margin-top:2%;
+ }
+ .usermenu ul {
+	 padding: 0px;
+	 width: 100%;
  }
 
  #cityBox::placeholder, #neighborhoodBox::placeholder{
