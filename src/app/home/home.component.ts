@@ -84,6 +84,7 @@ export class HomeComponent implements OnInit {
   dira: Dira;
   autoClean: string = '';
   userOpenSwitch = false;
+  addFormControl: string = '';
 
 
   // user location
@@ -669,6 +670,11 @@ openBasicActions() {
 
 
     this.globalUser = {email: login.email, password: login.password};
+   }
+
+   addNewCity() {
+     $(".addNewCityNeibrhood").fadeIn();
+     this.addFormControl = 'city';
    }
   
 }

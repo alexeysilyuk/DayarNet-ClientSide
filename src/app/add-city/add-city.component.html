@@ -1,0 +1,9 @@
+<p class="info">If you do not find your city or neighborhood <b>in list</b> you may add it</p>
+
+    <form *ngIf = "controller === 'city' " (ngSubmit) = "onSubmitAddCity()" #CityNeibrhood="ngForm">
+      <div class="form-group">
+        <label for="city">New City</label>
+        <input type="text" id="city" required class="form-control" ngModel name="city" #city = "ngModel">
+      </div>
+      <button class="btn" [disabled] = "!CityNeibrhood.valid" [ngClass]="(CityNeibrhood.valid) ? 'btn-primary' : 'btn-default' " type="submit">Send</button>
+  </form>
