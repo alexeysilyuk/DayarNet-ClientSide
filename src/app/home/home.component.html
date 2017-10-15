@@ -46,7 +46,8 @@
           <h4 class="modal-title">Add New</h4>
         </div>
         <div class="modal-body">
-          <app-add-city [API_URL] = "API_URL" (noty)="openNoty($event)" [controller] = "addFormControl"></app-add-city>
+          <app-add-city [API_URL] = "API_URL" (noty)="openNoty($event)"
+          [citySend] = "selectedCityName" [controller] = "addFormControl"></app-add-city>
         </div>
       </div>
     </div>
@@ -64,7 +65,7 @@
           <h4 class="modal-title">Manage Properties</h4>
         </div>
         <div class="modal-body">
-            <app-manage-property [API_URL] = "API_URL"  [globalUser] = "globalUser" [controller] = "manage_property_control" (noty)="openNoty($event)"></app-manage-property>
+            <app-manage-property [API_URL] = "API_URL"  [globalUser] = "globalUser" [switchLoad] = "manage_switch_load" [controller] = "manage_property_control" (noty)="openNoty($event)"></app-manage-property>
         </div>
       </div>
     </div>
@@ -122,10 +123,10 @@
                     <option *ngFor=" let city of cities" [value]="city.code">{{city.name}}</option>
                   </select>-->
                   
-                <input type="text" #c placeholder="City..." class="form-control" id="cityBox" style="float:left; width:90%;">
+                <input type="text" #c placeholder="City..." class="form-control" id="cityBox" style="float:left; width:80%;">
 
-                        <button class="close"  title="Add new city"
-                        style="line-height:38px; vertical-align: middle; border: 1px solid #FF6600; border-radius: 2px; padding-left: 2.5%; padding-right: 2.5%; color:#FF6600; display: inline-block;" (click)= "addNewCity()">+</button>
+                        <button *ngIf = "userLoggedin" class="close"  title="Add new city"
+                        style="line-height:38px; vertical-align: middle; border: 1px solid #FF6600; border-radius: 2px; padding-left: 10px; padding-right: 10px; color:#FF6600; display: inline-block;" (click)= "addNewCity()">+</button>
                 </div> 
 
            
@@ -135,7 +136,10 @@
                       <option *ngFor=" let n of neighborhoods" [value]="n.neighborhood_code">{{n.name}}</option>
                     </select>-->
 
-                      <input type="text" #neighborhood placeholder="Neighborhood..."  class="form-control" id="neighborhoodBox" [(ngModel)] = "autoClean">
+                      <input type="text" #neighborhood placeholder="Neighborhood..."  class="form-control" id="neighborhoodBox" style="float:left; width:80%;" [(ngModel)] = "autoClean">
+
+                      <button *ngIf = "userLoggedin && cityHasNeighborhoods" class="close"  title="Add new neighborhood"
+                        style="line-height:38px; vertical-align: middle; border: 1px solid #FF6600; border-radius: 2px; padding-left: 10px; padding-right: 10px; color:#FF6600; display: inline-block;" (click)= "addNewNeighborhood()">+</button>
 
                     </div>
                   

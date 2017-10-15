@@ -12,8 +12,13 @@ export class AddCityComponent implements OnInit {
   
   @Input() API_URL : string;
   @Input() controller: string = '';
+  @Input() citySend: string = '';
+
+  @ViewChild('CityNeibrhood') cityForm : NgForm;
+  @ViewChild('NeibrhoodForm') NeibrhoodForm : NgForm;
 
   city: string = '';
+  nbh: string = '';
 
   constructor(private http: HttpClient) { }
 
@@ -21,8 +26,29 @@ export class AddCityComponent implements OnInit {
   }
 
   onSubmitAddCity() {
-       this.http.get(this.API_URL+'/Cities/addNewCity?name='+this.city).subscribe(data => {
-         console.log(data);
+     this.city = this.cityForm.value.city;
+       this.http.get(this.API_URL+'/User/addNewCity?name='+this.city).subscribe(data => {
+         if(data['status'] === 'success') {
+           this.noty.next({type:"success", mess: data['msg']});
+           $(".addNewCityNeibrhood").fadeOut();
+         }
+         else {
+           this.noty.next({type:"error", mess: data['msg']});
+         }
+        });
+  }
+
+
+  onSubmitAddNeighborhood() {
+    this.nbh = this.NeibrhoodForm.value.nbh;
+       this.http.get(this.API_URL+'/User/addNewNeighborhood?city='+this.citySend+'&name='+this.nbh).subscribe(data => {
+          if(data['status'] === 'success') {
+           this.noty.next({type:"success", mess: data['msg'] });
+           $(".addNewCityNeibrhood").fadeOut();
+         }
+         else {
+           this.noty.next({type:"error", mess: data['msg']});
+         }
         });
   }
 

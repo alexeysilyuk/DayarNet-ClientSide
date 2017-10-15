@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, OnChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import {Dira} from '../dira.model';
@@ -9,12 +9,13 @@ import {Location} from '../location.model';
   templateUrl: './manage-property.component.html',
   styleUrls: ['./manage-property.component.css']
 })
-export class ManagePropertyComponent implements OnInit {
+export class ManagePropertyComponent implements OnInit, OnChanges {
   @Input() API_URL : string;
   @Output() noty = new EventEmitter<{type:string, mess:string}>();
 
   @Input() controller: string = 'all';
   @Input() globalUser: {email: string, password: string};
+  @Input() switchLoad: boolean;
 
   dirot: Dira[] = [];
   dirotNew: Dira[] = [];
@@ -25,12 +26,18 @@ export class ManagePropertyComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    
+  }
+
+  ngOnChanges() {
+    if(this.switchLoad) {
     this.loadAllProperties();
+    }
   }
 
 
   loadAllProperties() {
-    this.http.get(this.API_URL+'/Properties/findAll').subscribe(data => {
+    this.http.post(this.API_URL+'/admin/ShowAllProperties', this.globalUser).subscribe(data => {
       // Read the result field from the JSON response.
       
       this.dirot = [];

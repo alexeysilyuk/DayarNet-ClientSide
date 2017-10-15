@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
   @Output() noty = new EventEmitter<{type:string, mess:string}>();
 
   manage_property_control = '';
+  manage_switch_load  = false;
 
   // Center map. Required.
   center: google.maps.LatLng;
@@ -87,6 +88,7 @@ export class HomeComponent implements OnInit {
   addFormControl: string = '';
 
 
+
   // user location
   user_lat: number;
   user_lng: number;
@@ -110,6 +112,7 @@ export class HomeComponent implements OnInit {
   selectedCity: number;
   selectedNeighborhood: number;
 
+  selectedCityName: string = '';
   cityHasNeighborhoods:boolean;
 
   diraAdded: boolean = false;
@@ -205,7 +208,7 @@ stepTitle: string = 'תנאי שימוש באתר';
              this.user_lat = position.coords.latitude;
              this.user_lng = position.coords.longitude;
 
-             console.log( this.user_lat, this.user_lng);
+             //console.log( this.user_lat, this.user_lng);
 
             // Translates the location into address.
             this.geocoding.geocode(this.center).forEach(
@@ -308,6 +311,9 @@ stepTitle: string = 'תנאי שימוש באתר';
       this.http.get(this.API_URL+'/Cities/find?by=code&value=' + v).subscribe(data => {
           this.selectedCity = v;
           this.selectedNeighborhood = 0;
+          this.selectedCityName = value;
+
+          
           // Read the result field from the JSON response.
           this.center = new google.maps.LatLng(data['city'][0]['lat'], data['city'][0]['lng']);
           this.setMarker(this.center, data['city'][0]['name'], data['city'][0]['name']);
@@ -536,6 +542,7 @@ openBasicActions() {
 
   openManagePropertyApprove() {
     if (this.userLoggedin) {
+      this.manage_switch_load = true;
       this.manage_property_control = 'new';
       $('.usermenu').hide();
       $('.manageProperty, .shadow').fadeIn();
@@ -544,6 +551,7 @@ openBasicActions() {
 
   openManagePropertyRemove() {
     if (this.userLoggedin) {
+      this.manage_switch_load = true;
       this.manage_property_control = 'all';
       $('.usermenu').hide();
       $('.manageProperty, .shadow').fadeIn();
@@ -675,6 +683,11 @@ openBasicActions() {
    addNewCity() {
      $(".addNewCityNeibrhood").fadeIn();
      this.addFormControl = 'city';
+   }
+
+    addNewNeighborhood() {
+     $(".addNewCityNeibrhood").fadeIn();
+     this.addFormControl = 'neighborhood';
    }
   
 }
