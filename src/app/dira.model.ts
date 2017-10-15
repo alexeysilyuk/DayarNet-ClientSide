@@ -7,9 +7,9 @@ export class Dira {
   public area: number;
   public arnona: number;
   public pricePerMonth: number;
-  public baal: string;
-  public phoneNumber: string;
-  public contactEmail: string;
+  public tennantName: string;
+  public tennantPhone: string;
+  public tennantEmail: string;
   public city_code: number;
   public houseNumber: number;
   public floor: number;
@@ -39,9 +39,9 @@ export class Dira {
     this.area = area;
     this.arnona = arnona;
     this.pricePerMonth = pricePerMonth;
-    this.baal = baal;
-    this.phoneNumber = phoneNumber;
-    this.contactEmail = contactEmail;
+    this.tennantName = baal;
+    this.tennantPhone = phoneNumber;
+    this.tennantEmail = contactEmail;
     this.city_code = city_code;
     this.houseNumber = houseNumber;
     this.floor = floor;

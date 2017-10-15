@@ -33,7 +33,7 @@ export class AddCityComponent implements OnInit {
            $(".addNewCityNeibrhood").fadeOut();
          }
          else {
-           this.noty.next({type:"error", mess: data['msg']});
+           this.noty.next({type:"warning", mess: data['msg']});
          }
         });
   }
@@ -47,7 +47,7 @@ export class AddCityComponent implements OnInit {
            $(".addNewCityNeibrhood").fadeOut();
          }
          else {
-           this.noty.next({type:"error", mess: data['msg']});
+           this.noty.next({type:"warning", mess: data['msg']});
          }
         });
   }

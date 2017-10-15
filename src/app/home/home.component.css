@@ -80,7 +80,7 @@ label { margin-bottom: 5px;}
 	 width: 100%;
  }
 
- #cityBox::placeholder, #neighborhoodBox::placeholder{
+ #cityBox::placeholder, #neighborhoodBox::placeholder, .step input::placeholder {
 	 color:#999;
  }
 

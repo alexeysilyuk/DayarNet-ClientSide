@@ -214,6 +214,7 @@
 
                
                 <div class="formBody">
+                  
                   <!-- step 0 -->
                 <div class="step" [style.marginLeft]="leftMovePosition + '%'">
                   <div class="alert alert-dismissible alert-warning">
@@ -224,8 +225,39 @@
                 </div>
 
 
-                  <!-- step 1 -->
-                  <div class="step form-group" id="step1" ngModelGroup = "step1" #step1="ngModelGroup">
+                <!-- step 1 -->
+                <div class="step form-group" id="step1" ngModelGroup = "step1" #step1="ngModelGroup">
+                  <label>Name owner:</label>
+                  <input type="text" id="baal" name="baal" required [(ngModel)]="baal" class="form-control" placeholder="Boby Jones">
+
+                  <label>Phone number:</label>
+                  <input type="phone" id="phone" name="phone" required [(ngModel)]="phone" class="form-control" placeholder="05266544345">
+
+                  <label>Contact email:</label>
+                  <input type="email" id="email" name="email" readonly [(ngModel)]="email" email required class="form-control" placeholder="gmail@chucknorris.com">
+                </div>
+
+
+                <!-- step 2 -->
+                <div class="step form-group" id="step2" ngModelGroup = "step2" #step2="ngModelGroup">
+                  <label>Entrance Date:</label>
+                  <input type="text" id="entranceDate" name="entranceDate" class="form-control datepicker" placeholder="10/8/2017">
+
+                  <label>Arnona:</label>
+                  <input type="number" min="100" max="10000" id="arnona" name="arnona" required [(ngModel)]="arnona" class="form-control" placeholder="in ₪...">
+
+                  <label>Price Per Month:</label>
+                  <input type="number" min="1000" max="40000" id="price" name="price" required [(ngModel)]="price" class="form-control" placeholder="in ₪...">
+
+                  <label>Type:</label>
+                  <select name="type" [(ngModel)]="type" required  id="type" class="form-control">
+                    <option disabled value="">Please choose...</option>
+                    <option *ngFor="let t of propertyTypes" value="{{t}}">{{t}}</option>
+                  </select>
+                </div>
+
+                  <!-- step 3 -->
+                  <div class="step form-group" id="step3" ngModelGroup = "step3" #step3="ngModelGroup">
                     <div class="col-xs-9 col-lg-9 col-md-9 col-sm-9">
                       <label>Adress:</label>
                       <input type="text" id="street" required  name="street" [(ngModel)]="street" class="form-control" placeholder="Jabotinski">
@@ -255,34 +287,16 @@
                     <br>
                 </div>
 
-                <!-- step 2 -->
-                <div class="step form-group" id="step2" ngModelGroup = "step2" #step2="ngModelGroup">
-                  <label>Entrance Date:</label>
-                  <input type="text" id="entranceDate" name="entranceDate" [(ngModel)]="entranceDate" class="form-control datepicker" placeholder="10/8/2017">
+                <!-- step 4 -->
+                <div class="step" id="step4" ngModelGroup = "step4" #step4="ngModelGroup">
+                  
+                  <div class="alert alert-dismissible alert-warning">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>תסימו לב</strong> 
+                  פה יהיה מלל 
+                  </div>
+                    SOME TEXT HERE
 
-                  <label>Arnona:</label>
-                  <input type="number" min="100" max="10000" id="arnona" name="arnona" required [(ngModel)]="arnona" class="form-control" placeholder="in ₪...">
-
-                  <label>Price Per Month:</label>
-                  <input type="number" min="1000" max="40000" id="price" name="price" required [(ngModel)]="price" class="form-control" placeholder="in ₪...">
-
-                  <label>Type:</label>
-                  <select name="type" [(ngModel)]="type" required  id="type" class="form-control">
-                    <option disabled value="">Please choose...</option>
-                    <option *ngFor="let t of propertyTypes" value="{{t}}">{{t}}</option>
-                  </select>
-                </div>
-
-                <!-- step 3 -->
-                <div class="step form-group" id="step3" ngModelGroup = "step3" #step3="ngModelGroup">
-                  <label>Name owner:</label>
-                  <input type="text" id="baal" name="baal" required [(ngModel)]="baal" class="form-control" placeholder="Boby Jones">
-
-                  <label>Phone number:</label>
-                  <input type="phone" id="phone" name="phone" required [(ngModel)]="phone" class="form-control" placeholder="05266544345">
-
-                  <label>Contact email:</label>
-                  <input type="email" id="email" name="email" readonly [(ngModel)]="email" email required class="form-control" placeholder="gmail@chucknorris.com">
                 </div>
 
               </div>
@@ -296,6 +310,8 @@
                   <button type="button" (click)= "validateFlatForm(addform)" class="btn btn-primary" *ngIf="currentStep < 3">Next →</button>
                   <button type="submit" class="btn btn-success" *ngIf="currentStep === 3"
                   [disabled] = "!addform.valid"> Save </button>
+                  <button type="button" class="btn btn-primary" *ngIf="currentStep === 4"
+                   (click)="closeModal()" data-dismiss="modal">Finish</button>
                 </div>
 
                 </div>

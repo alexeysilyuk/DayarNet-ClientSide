@@ -65,7 +65,7 @@ export class ContactUsComponent implements OnInit {
   onSubmit() {
     // captha
     if (! this.robotCheck()) {
-      this.noty.next({type:"error", mess:"Security code is wrong"});
+      this.noty.next({type:"warning", mess:"Security code is wrong"});
      } 
 
 
@@ -80,8 +80,6 @@ export class ContactUsComponent implements OnInit {
                 $('.shadow, .contacts').fadeOut();
               }, 5000);
               
-
-              // this.message = 'Your message send. Our managers connect with you as soon as possible. This window will close automaticly after 5 seconds';
             }
         });
       }

@@ -171,6 +171,19 @@ stepTitle: string = 'תנאי שימוש באתר';
 
     this.loadCity();
 
+
+ $ ( () => {  
+    // datapicker
+    $( ".datepicker" ).datepicker({ 
+        dateFormat: 'dd/mm/yy',
+        showButtonPanel: true,
+        changeMonth: true,
+        changeYear: true,
+        currentText: 'תאריך נוכחי',
+        closeText : 'סגור חלון',
+        yearRange: '2014:2017'
+    });
+
     // autocomplete
       $( "#cityBox" ).autocomplete({ 
           source: this.citiesAutoComplete,
@@ -185,6 +198,8 @@ stepTitle: string = 'תנאי שימוש באתר';
             this.callNeighborhood(ui.item.value);
           },
        });
+
+    });
 
 
   }
@@ -201,8 +216,9 @@ stepTitle: string = 'תנאי שימוש באתר';
         (position: Position) => {
           if (this.center.lat() !== position.coords.latitude && this.center.lng() !== position.coords.longitude) {
             // New center object: triggers OnChanges.
-            this.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            this.zoom = 11;
+           
+           // this.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+           // this.zoom = 11;
 
              // save user location
              this.user_lat = position.coords.latitude;
@@ -415,7 +431,7 @@ openBasicActions() {
 
         else {
           if (responce['message'] === 'Incorrect address') {
-            this.noty.next({type:"error", mess: "Adrres is incorrect please check again"});
+            this.noty.next({type:"warning", mess: "Adrres is incorrect please check again"});
           }
 
         }
@@ -443,7 +459,7 @@ openBasicActions() {
      this.misparDirot = 0;
 
     if (data["status"] === "failure") {
-      this.noty.next({type:"error", mess:"No dirot are found for your request"});
+      this.noty.next({type:"warning", mess:"No dirot are found for your request"});
   
     }
 
@@ -575,30 +591,14 @@ openBasicActions() {
 
       case 1: {
         if (form.controls.step1.valid) {
-
-            if (this.houseNumber <= 0) {
-              this.noty.next({type:"error", mess:"The fields can not be 0 or lover"});
-            }
-            else if(this.area <= 0) {
-              this.noty.next({type:"error", mess:"The arnona can not be negative number or 0"});
-            }
-            else if(this.rooms <= 0) {
-              this.noty.next({type:"error", mess:"The rooms number can not be negative number or 0"});
-            }
-            else if(this.floor < 0) {
-              this.noty.next({type:"error", mess:"The floor number can not be negative number"});
-            }
-
-            else {
               this.progress = 40;
               this.leftMovePosition = -201;
               this.currentStep++;
-            }
         }
         else {
-          this.noty.next({type:"error", mess:"Please fill all fields correct"});
+          this.noty.next({type:"warning", mess:"Please fill all fields correct"});
         }
-      break;
+        break;
       }
 
       case 2: {
@@ -606,11 +606,11 @@ openBasicActions() {
 
           
             if (this.arnona <= 0) {
-              this.noty.next({type:"error", mess:"The arnona can not be 0 or negative"});
+              this.noty.next({type:"warning", mess:"The arnona can not be 0 or negative"});
             } 
 
             else if(this.price <= 0) {
-              this.noty.next({type:"error", mess:"The price can not be negative number or 0"});
+              this.noty.next({type:"warning", mess:"The price can not be negative number or 0"});
             }
             else {
               this.progress = 75;
@@ -619,7 +619,35 @@ openBasicActions() {
             }
         }
         else {
-          this.noty.next({type:"error", mess:"Please fill all fields correct"});
+          this.noty.next({type:"warning", mess:"Please fill all fields correct"});
+        }
+      break;
+      }
+
+      case 3: {
+        if (form.controls.step3.valid) {
+
+            if (this.houseNumber <= 0) {
+              this.noty.next({type:"warning", mess:"The fields can not be 0 or lover"});
+            }
+            else if(this.area <= 0) {
+              this.noty.next({type:"warning", mess:"The arnona can not be negative number or 0"});
+            }
+            else if(this.rooms <= 0) {
+              this.noty.next({type:"warning", mess:"The rooms number can not be negative number or 0"});
+            }
+            else if(this.floor < 0) {
+              this.noty.next({type:"warning", mess:"The floor number can not be negative number"});
+            }
+
+            else {
+              this.progress = 90;
+              this.leftMovePosition = -401;
+              this.currentStep++;
+            }
+        }
+        else {
+          this.noty.next({type:"warning", mess:"Please fill all fields correct"});
         }
       break;
       }

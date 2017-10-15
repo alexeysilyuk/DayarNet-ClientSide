@@ -6,7 +6,7 @@ import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange
 @Component({
     selector: 'noty',
     template: `
-    <div class = "noty col-xs-12 col-sm-4 col-md-3 col-lg-3 alert {{notyType}}" 
+    <div class = "noty col-xs-10 col-sm-6 col-md-4 col-lg-4 alert {{notyType}}" 
     *ngIf="notyShow">
     <button type="button" (click) = "closeNoty()" class="close">&times;</button>
     {{notyMessage}}
@@ -35,12 +35,14 @@ export class Noty implements OnInit, OnChanges {
 
    @Output() close = new EventEmitter<boolean>();
  
-   closeNoty() { this.close.next(false); }
-
+  
     constructor() {}
 
     ngOnInit() {}
+
     ngOnChanges() {}
+
+     closeNoty() { this.close.next(false); }
 
    
 }

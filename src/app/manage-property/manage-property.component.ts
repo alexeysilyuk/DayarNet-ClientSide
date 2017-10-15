@@ -44,7 +44,7 @@ export class ManagePropertyComponent implements OnInit, OnChanges {
        this.misparDirot = 0;
   
       if (data["status"] === "failure") {
-        this.noty.next({type:"error", mess:"No dirot are found for your request"});
+        this.noty.next({type:"warning", mess:"No dirot are found for your request"});
   
       }
   
@@ -97,7 +97,7 @@ export class ManagePropertyComponent implements OnInit, OnChanges {
             }
 
             else {
-              this.noty.next({type:"error", mess: "Status of your request "+responce['status']});
+              this.noty.next({type:"warning", mess: "Status of your request "+responce['status']});
             }
       });
   }
@@ -116,7 +116,7 @@ export class ManagePropertyComponent implements OnInit, OnChanges {
             }
 
             else {
-              this.noty.next({type:"error", mess: "Status of your request "+responce['status']});
+              this.noty.next({type:"warning", mess: "Status of your request "+responce['status']});
             }
       });
   }
