@@ -57,7 +57,7 @@ export class UserComponent implements OnInit {
                       }
             
                       else {
-                        this.noty.next({type:"error", mess: "Something wrong with your request"});
+                        this.noty.next({type:"warning", mess: "Something wrong with your request"});
                       }
 
         }
@@ -93,7 +93,7 @@ export class UserComponent implements OnInit {
             }
 
             else {
-              this.noty.next({type:"error", mess: "Status of your request "+responce['status']});
+              this.noty.next({type:"warning", mess: "Status of your request "+responce['status']});
             }
       });
 
@@ -125,7 +125,7 @@ export class UserComponent implements OnInit {
           }
 
           else {
-            this.noty.next({type:"error", mess: "Something wrong with your request"});
+            this.noty.next({type:"warning", mess: "Something wrong with your request"});
           }
 
         }
@@ -160,7 +160,7 @@ export class UserComponent implements OnInit {
           }
 
           else {
-            this.noty.next({type:"error", mess: "Your email address is not exists in database. "});
+            this.noty.next({type:"warning", mess: "Your email address is not exists in database. "});
           }
 
         }
@@ -183,7 +183,7 @@ export class UserComponent implements OnInit {
           }
 
           else {
-            this.noty.next({type:"error", mess: "Email or recovery hash is incorrect!"});
+            this.noty.next({type:"warning", mess: "Email or recovery hash is incorrect!"});
           }
 
         }
@@ -209,7 +209,7 @@ export class UserComponent implements OnInit {
         }
 
         else {
-          this.noty.next({type:"error", mess: "Something wrong with your request"});
+          this.noty.next({type:"warning", mess: "Something wrong with your request"});
         }
 
       }

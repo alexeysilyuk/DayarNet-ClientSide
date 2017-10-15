@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
   @Output() noty = new EventEmitter<{type:string, mess:string}>();
 
   manage_property_control = '';
+  manage_switch_load  = false;
 
   // Center map. Required.
   center: google.maps.LatLng;
@@ -86,7 +87,6 @@ export class HomeComponent implements OnInit {
   userOpenSwitch = false;
   addFormControl: string = '';
 
-
   // user location
   user_lat: number;
   user_lng: number;
@@ -110,6 +110,7 @@ export class HomeComponent implements OnInit {
   selectedCity: number;
   selectedNeighborhood: number;
 
+  selectedCityName: string = '';
   cityHasNeighborhoods:boolean;
 
   diraAdded: boolean = false;
@@ -127,7 +128,7 @@ export class HomeComponent implements OnInit {
 
 // step by step add flat property
 currentStep : number = 0;
-maxStep: number = 3;
+maxStep: number = 4;
 progress: number = 0;
 leftMovePosition:number = 0;
 stepTitle: string = 'תנאי שימוש באתר';
@@ -168,6 +169,19 @@ stepTitle: string = 'תנאי שימוש באתר';
 
     this.loadCity();
 
+
+ $ ( () => {  
+    // datapicker
+    $( ".datepicker" ).datepicker({ 
+        dateFormat: 'dd/mm/yy',
+        showButtonPanel: true,
+        changeMonth: true,
+        changeYear: true,
+        currentText: 'תאריך נוכחי',
+        closeText : 'סגור חלון',
+        yearRange: '2014:2017'
+    });
+
     // autocomplete
       $( "#cityBox" ).autocomplete({ 
           source: this.citiesAutoComplete,
@@ -182,6 +196,8 @@ stepTitle: string = 'תנאי שימוש באתר';
             this.callNeighborhood(ui.item.value);
           },
        });
+
+    });
 
 
   }
@@ -198,14 +214,15 @@ stepTitle: string = 'תנאי שימוש באתר';
         (position: Position) => {
           if (this.center.lat() !== position.coords.latitude && this.center.lng() !== position.coords.longitude) {
             // New center object: triggers OnChanges.
-            this.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            this.zoom = 11;
+           
+           // this.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+           // this.zoom = 11;
 
              // save user location
              this.user_lat = position.coords.latitude;
              this.user_lng = position.coords.longitude;
 
-             console.log( this.user_lat, this.user_lng);
+             //console.log( this.user_lat, this.user_lng);
 
             // Translates the location into address.
             this.geocoding.geocode(this.center).forEach(
@@ -308,6 +325,9 @@ stepTitle: string = 'תנאי שימוש באתר';
       this.http.get(this.API_URL+'/Cities/find?by=code&value=' + v).subscribe(data => {
           this.selectedCity = v;
           this.selectedNeighborhood = 0;
+          this.selectedCityName = value;
+
+          
           // Read the result field from the JSON response.
           this.center = new google.maps.LatLng(data['city'][0]['lat'], data['city'][0]['lng']);
           this.setMarker(this.center, data['city'][0]['name'], data['city'][0]['name']);
@@ -392,24 +412,33 @@ openBasicActions() {
 
 
   SaveDira() {
+<<<<<<< HEAD
     this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood);
+=======
+        // display step 4
+          this.progress = 95;
+          this.currentStep++;
+          this.leftMovePosition = -401;
+
+
+    this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood, '1111');
+>>>>>>> 3ef13dc0beae996c328d6472c56208b95b6e992c
     this.diraService.saveDira(this.dira).subscribe(
       (responce) => {
        console.log(responce)
-       if (responce['status'] === 'OK') {
-        this.searchDirot == true;
-        this.noty.next({type:"success", mess: "Your Data is added. Thanks for using our service. This windows will automaticly close after 5 seconds"})
-         setTimeout(() => {
-          $('.modal, .shadow').fadeOut();  
-           
-           this.flatForm.reset();
-        }, 5000);
 
+       this.flatForm.reset();
+
+       if (responce['status'] === 'OK') {
+        
+        this.noty.next({type:"success", mess: "Your Data is added. Thanks for using our service. This windows will automaticly close after 5 seconds"})
+         
+          
        }
 
         else {
           if (responce['message'] === 'Incorrect address') {
-            this.noty.next({type:"error", mess: "Adrres is incorrect please check again"});
+            this.noty.next({type:"warning", mess: "Adrres is incorrect please check again"});
           }
 
         }
@@ -437,7 +466,7 @@ openBasicActions() {
      this.misparDirot = 0;
 
     if (data["status"] === "failure") {
-      this.noty.next({type:"error", mess:"No dirot are found for your request"});
+      this.noty.next({type:"warning", mess:"No dirot are found for your request"});
   
     }
 
@@ -500,7 +529,14 @@ openBasicActions() {
   }
 
 
-  closeModal() { $('.shadow, .modal').fadeOut(); }
+  closeModal() {
+     $('.shadow, .modal').fadeOut(); 
+        this.currentStep = 0;
+        this.progress = 0;
+        this.leftMovePosition = -0;
+
+        this.flatForm.reset();
+}
   
   startSteps() {  if (this.userLoggedin) {
      $('.shadow, .step0').fadeIn(); 
@@ -536,6 +572,7 @@ openBasicActions() {
 
   openManagePropertyApprove() {
     if (this.userLoggedin) {
+      this.manage_switch_load = true;
       this.manage_property_control = 'new';
       $('.usermenu').hide();
       $('.manageProperty, .shadow').fadeIn();
@@ -544,6 +581,7 @@ openBasicActions() {
 
   openManagePropertyRemove() {
     if (this.userLoggedin) {
+      this.manage_switch_load = true;
       this.manage_property_control = 'all';
       $('.usermenu').hide();
       $('.manageProperty, .shadow').fadeIn();
@@ -567,30 +605,14 @@ openBasicActions() {
 
       case 1: {
         if (form.controls.step1.valid) {
-
-            if (this.houseNumber <= 0) {
-              this.noty.next({type:"error", mess:"The fields can not be 0 or lover"});
-            }
-            else if(this.area <= 0) {
-              this.noty.next({type:"error", mess:"The arnona can not be negative number or 0"});
-            }
-            else if(this.rooms <= 0) {
-              this.noty.next({type:"error", mess:"The rooms number can not be negative number or 0"});
-            }
-            else if(this.floor < 0) {
-              this.noty.next({type:"error", mess:"The floor number can not be negative number"});
-            }
-
-            else {
               this.progress = 40;
               this.leftMovePosition = -201;
               this.currentStep++;
-            }
         }
         else {
-          this.noty.next({type:"error", mess:"Please fill all fields correct"});
+          this.noty.next({type:"warning", mess:"Please fill all fields correct"});
         }
-      break;
+        break;
       }
 
       case 2: {
@@ -598,11 +620,11 @@ openBasicActions() {
 
           
             if (this.arnona <= 0) {
-              this.noty.next({type:"error", mess:"The arnona can not be 0 or negative"});
+              this.noty.next({type:"warning", mess:"The arnona can not be 0 or negative"});
             } 
 
             else if(this.price <= 0) {
-              this.noty.next({type:"error", mess:"The price can not be negative number or 0"});
+              this.noty.next({type:"warning", mess:"The price can not be negative number or 0"});
             }
             else {
               this.progress = 75;
@@ -611,7 +633,30 @@ openBasicActions() {
             }
         }
         else {
-          this.noty.next({type:"error", mess:"Please fill all fields correct"});
+          this.noty.next({type:"warning", mess:"Please fill all fields correct"});
+        }
+      break;
+      }
+
+      case 3: {
+        if (form.controls.step3.valid) {
+
+            if (this.houseNumber <= 0) {
+              this.noty.next({type:"warning", mess:"The fields can not be 0 or lover"});
+            }
+            else if(this.area <= 0) {
+              this.noty.next({type:"warning", mess:"The arnona can not be negative number or 0"});
+            }
+            else if(this.rooms <= 0) {
+              this.noty.next({type:"warning", mess:"The rooms number can not be negative number or 0"});
+            }
+            else if(this.floor < 0) {
+              this.noty.next({type:"warning", mess:"The floor number can not be negative number"});
+            }
+
+        }
+        else {
+          this.noty.next({type:"warning", mess:"Please fill all fields correct"});
         }
       break;
       }
@@ -673,8 +718,18 @@ openBasicActions() {
    }
 
    addNewCity() {
-     $(".addNewCityNeibrhood").fadeIn();
+     $(".shadow, .addNewCityNeibrhood").fadeIn();
      this.addFormControl = 'city';
    }
+
+    addNewNeighborhood() {
+     $(".shadow, .addNewCityNeibrhood").fadeIn();
+     this.addFormControl = 'neighborhood';
+   }
+
+   openCityBox() {
+     $(".shadow, .infoBoxCN").fadeIn();
+   }
+
   
 }

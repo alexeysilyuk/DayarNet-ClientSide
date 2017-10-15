@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, OnChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import {Dira} from '../dira.model';
@@ -15,6 +15,7 @@ export class ManagePropertyComponent implements OnInit {
 
   @Input() controller: string = 'all';
   @Input() globalUser: {email: string, password: string};
+  @Input() switchLoad: boolean;
 
   dirot: Dira[] = [];
   dirotNew: Dira[] = [];
@@ -25,19 +26,28 @@ export class ManagePropertyComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.loadAllProperties();
+    
   }
+
+  // ngOnChanges() {
+  //   if(this.switchLoad) {
+  //   this.loadAllProperties();
+  //   }
+  // }
 
 
   loadAllProperties() {
-    this.http.get(this.API_URL+'/Properties/findAll').subscribe(data => {
+    this.http.post(this.API_URL+'/admin/ShowAllProperties', this.globalUser).subscribe(data => {
       // Read the result field from the JSON response.
       
       this.dirot = [];
        this.misparDirot = 0;
+
+       this.dirotNew = [];
+       this.misparNewDirot = 0;
   
       if (data["status"] === "failure") {
-        this.noty.next({type:"error", mess:"No dirot are found for your request"});
+        this.noty.next({type:"warning", mess:"No dirot are found for your request"});
   
       }
   
@@ -59,7 +69,7 @@ export class ManagePropertyComponent implements OnInit {
             data['result'][i]['floor'],
             data['result'][i]['entranceDate'],
             data['result'][i]['type'],
-            new Location(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), data['result'][i]['neighborhood_code'], data['result'][i]['id']);
+            new Location(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), data['result'][i]['neighborhood_code']);
 
           this.dirot.push(diraObj);
   
@@ -90,7 +100,7 @@ export class ManagePropertyComponent implements OnInit {
             }
 
             else {
-              this.noty.next({type:"error", mess: "Status of your request "+responce['status']});
+              this.noty.next({type:"warning", mess: "Status of your request "+responce['status']});
             }
       });
   }
@@ -109,7 +119,7 @@ export class ManagePropertyComponent implements OnInit {
             }
 
             else {
-              this.noty.next({type:"error", mess: "Status of your request "+responce['status']});
+              this.noty.next({type:"warning", mess: "Status of your request "+responce['status']});
             }
       });
   }
