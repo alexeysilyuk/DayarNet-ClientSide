@@ -1,6 +1,6 @@
 {
-  "name": "dayrnet",
-  "version": "0.0.0",
+  "name": "dayarnet",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",

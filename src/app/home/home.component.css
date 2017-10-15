@@ -99,7 +99,8 @@ label { margin-bottom: 5px;}
 	position: absolute;
  }
 
-.searchPR {margin-top: 0px;}
+.searchPR {margin-top: 0px;
+text-align: right;}
 
 
 @media screen and (max-width: 767px) {

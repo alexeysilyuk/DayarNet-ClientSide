@@ -112,6 +112,7 @@ export class UserComponent implements OnInit {
 
        this.http.post(this.API_URL+'/User/register', this.registerObj).subscribe(
         (responce) => {
+          console.log(responce);
           if(responce['status'] === "success") {
 
             this.noty.next({type:"success", mess: "Your Data is added. Thanks for using our service. This windows will automaticly close after 5 seconds"});

@@ -392,7 +392,7 @@ openBasicActions() {
 
 
   SaveDira() {
-    this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood, '1111');
+    this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood);
     this.diraService.saveDira(this.dira).subscribe(
       (responce) => {
        console.log(responce)
@@ -462,26 +462,26 @@ openBasicActions() {
           data['result'][i]['floor'],
           data['result'][i]['entranceDate'],
           data['result'][i]['type'],
-          new Location(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), data['result'][i]['neighborhood_code'], data['result'][i]['id']),
+          new Location(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), data['result'][i]['neighborhood_code']),
            );
 
         // this.positions.push(new google.maps.LatLng(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']));
 
         // display on a google map
         let adress = this.dirot[i].street + ' ' + this.dirot[i].houseNumber;
-        let info = '<h4>' + adress + '</h4> <br /> Price: <i>'
+        let info = '<table class="table  table-striped table-condensed">	<thead>	<tr> <th class="success">' + adress + '</th></tr> </thead> <tbody> <tr>    <td> Price: </td><td>'
          + this.dirot[i].pricePerMonth
-         + '₪/month</i> <br /> Arnona: <i>' 
+         + '₪/month</td></tr><tr class="active"><td> Arnona: </td> <td>' 
          + this.dirot[i].arnona 
-         + '₪</i> <br /> Rooms: <i>' 
+         + '₪</td></tr><tr class="active"> <td> Rooms: </td> <td>' 
          + this.dirot[i].rooms
-         + '</i> <br /> Area: <i>'
+         + '</td></tr><tr class="active"><td>  Area:</td><td>'
          + this.dirot[i].area
-         + 'm<sup>2</sup></i> <br /> Floor: <i>'
+         + 'm<sup>2</sup></td></tr> <tr class="active"><td>Floor: '
          + this.dirot[i].floor
-         + '</i> <br />Type: <i>'
+         + '</td><td> <tr class="active"><td>Type:'
          + this.dirot[i].type
-         + '</i>';
+         + '</td></tr></tbody></table>';
 
 
         this.maps.addMarker(new google.maps.LatLng(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), adress, info);

@@ -21,7 +21,7 @@ export class AddCityComponent implements OnInit {
   }
 
   onSubmitAddCity() {
-       this.http.get(this.API_URL+'/Cities/addNewCity?name='+this.city).subscribe(data => {
+       this.http.get(this.API_URL+'/User/addNewCity?name='+this.city).subscribe(data => {
          console.log(data);
         });
   }
