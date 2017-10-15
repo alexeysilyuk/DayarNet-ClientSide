@@ -5,7 +5,7 @@ label { margin-bottom: 5px;}
 .clear { clear: both }
 
 
-.contacts, .loginBlocks, .addNewCityNeibrhood { display: none; }
+.contacts, .loginBlocks, .addNewCityNeibrhood, .infoBoxCN { display: none; }
 
  .mainParams {
 	 padding-top:20px;

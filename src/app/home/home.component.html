@@ -1,4 +1,23 @@
-    <!-- Add new City/Neibrhood  modal windows -->
+    <!-- [?]  City/Neibrhood  modal windows -->
+ <div class="infoBoxCN modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="closeModal()" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+          <h4 class="modal-title">Info Box</h4>
+        </div>
+        <div class="modal-body">
+         
+            <p>If you don't find your city or neighborhood in list please login in to your profile and add your city or neighborhood</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- [+] City/Neibrhood  modal windows -->
  <div class="addNewCityNeibrhood modal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -89,6 +108,9 @@
 
                         <button *ngIf = "userLoggedin" class="close"  title="Add new city"
                         style="line-height:38px; vertical-align: middle; border: 1px solid #FF6600; border-radius: 2px; padding-left: 10px; padding-right: 10px; color:#FF6600; display: inline-block;" (click)= "addNewCity()">+</button>
+
+                        <button *ngIf = "!userLoggedin" class="close"  title="Not found your city in list"
+                        style="line-height:38px; vertical-align: middle; border: 1px solid #FF6600; border-radius: 2px; padding-left: 10px; padding-right: 10px; color:#FF6600; display: inline-block;" (click)= "openCityBox()">?</button>
                 </div> 
 
            
@@ -306,7 +328,7 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" (click)="closeModal()" data-dismiss="modal">Cancel</button>
                   <button type="button" class="btn btn-primary" (click)= "backTrackFlatForm(addform)"
-                  *ngIf="currentStep > 0">← Back</button>
+                  *ngIf="currentStep > 0 && currentStep !== 4">← Back</button>
                   <button type="button" (click)= "validateFlatForm(addform)" class="btn btn-primary" *ngIf="currentStep < 3">Next →</button>
                   <button type="submit" class="btn btn-success" *ngIf="currentStep === 3"
                   [disabled] = "!addform.valid"> Save </button>

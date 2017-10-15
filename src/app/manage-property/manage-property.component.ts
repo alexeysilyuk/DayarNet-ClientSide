@@ -9,7 +9,7 @@ import {Location} from '../location.model';
   templateUrl: './manage-property.component.html',
   styleUrls: ['./manage-property.component.css']
 })
-export class ManagePropertyComponent implements OnInit, OnChanges {
+export class ManagePropertyComponent implements OnInit {
   @Input() API_URL : string;
   @Output() noty = new EventEmitter<{type:string, mess:string}>();
 
@@ -29,11 +29,11 @@ export class ManagePropertyComponent implements OnInit, OnChanges {
     
   }
 
-  ngOnChanges() {
-    if(this.switchLoad) {
-    this.loadAllProperties();
-    }
-  }
+  // ngOnChanges() {
+  //   if(this.switchLoad) {
+  //   this.loadAllProperties();
+  //   }
+  // }
 
 
   loadAllProperties() {
@@ -42,6 +42,9 @@ export class ManagePropertyComponent implements OnInit, OnChanges {
       
       this.dirot = [];
        this.misparDirot = 0;
+
+       this.dirotNew = [];
+       this.misparNewDirot = 0;
   
       if (data["status"] === "failure") {
         this.noty.next({type:"warning", mess:"No dirot are found for your request"});

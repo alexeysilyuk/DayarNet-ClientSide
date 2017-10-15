@@ -87,8 +87,6 @@ export class HomeComponent implements OnInit {
   userOpenSwitch = false;
   addFormControl: string = '';
 
-
-
   // user location
   user_lat: number;
   user_lng: number;
@@ -130,7 +128,7 @@ export class HomeComponent implements OnInit {
 
 // step by step add flat property
 currentStep : number = 0;
-maxStep: number = 3;
+maxStep: number = 4;
 progress: number = 0;
 leftMovePosition:number = 0;
 stepTitle: string = 'תנאי שימוש באתר';
@@ -414,19 +412,24 @@ openBasicActions() {
 
 
   SaveDira() {
+        // display step 4
+          this.progress = 95;
+          this.currentStep++;
+          this.leftMovePosition = -401;
+
+
     this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood, '1111');
     this.diraService.saveDira(this.dira).subscribe(
       (responce) => {
        console.log(responce)
+
+       this.flatForm.reset();
+
        if (responce['status'] === 'OK') {
         
         this.noty.next({type:"success", mess: "Your Data is added. Thanks for using our service. This windows will automaticly close after 5 seconds"})
-         setTimeout(() => {
-          $('.modal, .shadow').fadeOut();  
-           
-           this.flatForm.reset();
-        }, 5000);
-
+         
+          
        }
 
         else {
@@ -522,7 +525,14 @@ openBasicActions() {
   }
 
 
-  closeModal() { $('.shadow, .modal').fadeOut(); }
+  closeModal() {
+     $('.shadow, .modal').fadeOut(); 
+        this.currentStep = 0;
+        this.progress = 0;
+        this.leftMovePosition = -0;
+
+        this.flatForm.reset();
+}
   
   startSteps() {  if (this.userLoggedin) {
      $('.shadow, .step0').fadeIn(); 
@@ -640,11 +650,6 @@ openBasicActions() {
               this.noty.next({type:"warning", mess:"The floor number can not be negative number"});
             }
 
-            else {
-              this.progress = 90;
-              this.leftMovePosition = -401;
-              this.currentStep++;
-            }
         }
         else {
           this.noty.next({type:"warning", mess:"Please fill all fields correct"});
@@ -709,13 +714,18 @@ openBasicActions() {
    }
 
    addNewCity() {
-     $(".addNewCityNeibrhood").fadeIn();
+     $(".shadow, .addNewCityNeibrhood").fadeIn();
      this.addFormControl = 'city';
    }
 
     addNewNeighborhood() {
-     $(".addNewCityNeibrhood").fadeIn();
+     $(".shadow, .addNewCityNeibrhood").fadeIn();
      this.addFormControl = 'neighborhood';
    }
+
+   openCityBox() {
+     $(".shadow, .infoBoxCN").fadeIn();
+   }
+
   
 }
