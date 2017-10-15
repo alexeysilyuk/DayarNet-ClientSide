@@ -403,7 +403,7 @@ openBasicActions() {
       (responce) => {
        console.log(responce)
        if (responce['status'] === 'OK') {
-        this.searchDirot == true;
+        
         this.noty.next({type:"success", mess: "Your Data is added. Thanks for using our service. This windows will automaticly close after 5 seconds"})
          setTimeout(() => {
           $('.modal, .shadow').fadeOut();  

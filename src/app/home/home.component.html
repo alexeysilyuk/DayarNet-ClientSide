@@ -1,41 +1,3 @@
-  <div *ngIf="searchDirot" class="sidebar col-lg-5 col-sm-6 col-md-6 col-xs-9">
-
-        <button aria-hidden="true" class="close" data-dismiss="modal" style='color:#000;' type="button" (click) = "closeSearchDirot()">×</button>
-        <h2 class="searchPR">Search Result ( {{ misparDirot }}):</h2>
-        <br>
-          <table class="table table-striped table-hover ">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Type</th>
-      <th>Adress</th>
-      <th>Price</th>
-      <th>Rooms #</th>
-      <th>Floor</th>
-      <th>Arnona</th>
-
-      
-      <th></th>
-    </tr>
-  </thead>
-  <tbody *ngFor="let d of dirot; let i = index">
-    <tr>
-      <td>{{ i+1 }}</td>
-      <td>{{ d.type }}</td>
-      <td>{{ d.street }} {{d.houseNumber}}</td>
-      <td>{{ d.pricePerMonth }}</td>
-      <td>{{ d.rooms }}</td>
-      <td>{{ d.floor }}</td>
-      <td>{{ d.arnona }}</td>
-      
-      <td></td>
-    </tr>
-
-  </tbody>
-</table>
-  </div>
-
-
     <!-- Add new City/Neibrhood  modal windows -->
  <div class="addNewCityNeibrhood modal">
     <div class="modal-dialog">
@@ -186,8 +148,9 @@
 
 <!-- Main container with map -->
   <div class="row">
-          
-      <div class="col-sm-12">
+
+  
+      <div [ngClass]="(searchDirot) ? 'col-lg-8 col-sm-6 col-md-6 col-xs-3' : 'col-lg-12 col-sm-12 col-md-12 col-xs-12' "> 
         <!--these properties are required: center, zoom-->
         <google-map [center]="center" [zoom]="zoom" [disableDefaultUI]="disableDefaultUI" [disableDoubleClickZoom]="disableDoubleClickZoom"
                     [mapTypeId]="mapTypeId" [maxZoom]="maxZoom" [minZoom]="minZoom" [styles]="styles">
@@ -198,7 +161,41 @@
       </div> 
 
 
+      <div [ngClass]="(searchDirot) ? 'sidebar col-lg-4 col-sm-6 col-md-6 col-xs-9' : 'noSearchDirot' " >
+         <button aria-hidden="true" class="close" data-dismiss="modal" style='color:#000; font-size:40px !important' type="button" (click) = "closeSearchDirot()">×</button>
+        <h2 class="searchPR">Search Result ( {{ misparDirot }}):</h2>
+        <br>
+      <table class="table table-striped table-hover ">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Type</th>
+          <th>Adress</th>
+          <th>Price</th>
+          <th>Rooms #</th>
+          <th>Floor</th>
+          <th>Arnona</th>
+        </tr>
+      </thead>
 
+      <tbody *ngFor="let d of dirot; let i = index">
+        <tr>
+          <td>{{ i+1 }}</td>
+          <td>{{ d.type }}</td>
+          <td>{{ d.street }} {{d.houseNumber}}</td>
+          <td>{{ d.pricePerMonth }}</td>
+          <td>{{ d.rooms }}</td>
+          <td>{{ d.floor }}</td>
+          <td>{{ d.arnona }}</td>
+        </tr>
+
+      </tbody>
+    </table>
+      </div>
+
+   </div>
+
+ 
 <!-- STEP BY STEP ADD FLAT -->
       <form (ngSubmit) = "SaveDira()" #addform="ngForm">
           <div class="step0 modal">
@@ -306,6 +303,3 @@
               </div>
             </div>      
           </form>
-
-
-    </div>
