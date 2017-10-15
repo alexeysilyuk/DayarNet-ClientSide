@@ -26,10 +26,6 @@ export class AddCityComponent implements OnInit {
   }
 
   onSubmitAddCity() {
-<<<<<<< HEAD
-       this.http.get(this.API_URL+'/User/addNewCity?name='+this.city).subscribe(data => {
-         console.log(data);
-=======
      this.city = this.cityForm.value.city;
        this.http.get(this.API_URL+'/User/addNewCity?name='+this.city).subscribe(data => {
          if(data['status'] === 'success') {
@@ -53,7 +49,6 @@ export class AddCityComponent implements OnInit {
          else {
            this.noty.next({type:"warning", mess: data['msg']});
          }
->>>>>>> 3ef13dc0beae996c328d6472c56208b95b6e992c
         });
   }
 

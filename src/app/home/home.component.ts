@@ -412,17 +412,13 @@ openBasicActions() {
 
 
   SaveDira() {
-<<<<<<< HEAD
-    this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood);
-=======
         // display step 4
           this.progress = 95;
           this.currentStep++;
           this.leftMovePosition = -401;
 
 
-    this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood, '1111');
->>>>>>> 3ef13dc0beae996c328d6472c56208b95b6e992c
+          this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood);
     this.diraService.saveDira(this.dira).subscribe(
       (responce) => {
        console.log(responce)
