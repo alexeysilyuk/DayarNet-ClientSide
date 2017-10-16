@@ -48,7 +48,7 @@ export class UserComponent implements OnInit {
                         this.noty.next({type:"success", mess: "Your Data is added. Thanks for using our service. This windows will automaticly close after 5 seconds"});
             
                         //reset object and form
-                        this.login.next({status:true, email: this.loginObj.email, password: this.loginObj.password, isAdmin: responce['admin']});
+                        this.login.next({status:true, email: this.loginObj.email, password: this.loginObj.password, isAdmin: responce['isAdmin']});
 
                         this.loginObj = { googleID: 0,  password: '', email: '' };
                         this.loginForm.reset();
