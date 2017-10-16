@@ -183,7 +183,7 @@
       </div> 
 
 
-      <div [ngClass]="(searchDirot) ? 'sidebar col-lg-3 col-sm-4 col-md-4 col-xs-6' : 'noSearchDirot' " >
+      <div style="margin-left: -15px; border-left:4px solid #999; height:100%;" [ngClass]="(searchDirot) ? 'sidebar col-lg-3 col-sm-4 col-md-4 col-xs-6' : 'noSearchDirot' " >
          <button aria-hidden="true" class="close" data-dismiss="modal" style='color:#000; font-size:40px !important' type="button" (click) = "closeSearchDirot()">×</button>
         <h2 class="searchPR">Search Result ( {{ misparDirot }}):</h2>
         <br>

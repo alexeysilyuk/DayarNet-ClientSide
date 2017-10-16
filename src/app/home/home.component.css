@@ -120,14 +120,14 @@ text-align: left;}
 }
 
 .accordion div p {
-	margin-top: 3px;
-	margin-bottom: 3px;
+	margin-top: 2px;
+	margin-bottom: 2px;
 }
 
 .accordion h5 {
 	font-weight: bold;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-top: 7px;
+	padding-bottom: 7px;
 	background: #ff6600;
 	color: #fff; 
 	cursor: pointer;
@@ -135,6 +135,7 @@ text-align: left;}
 	border-left: 2px solid #ccc;
 	border-right: 2px solid #ccc;
 	margin-bottom: 0px;
+	margin-top: 5px;
 }
 
 .accordion .indexAcc {
