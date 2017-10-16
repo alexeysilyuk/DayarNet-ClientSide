@@ -30,7 +30,7 @@ export class AddCityComponent implements OnInit {
        this.http.get(this.API_URL+'/User/addNewCity?name='+this.city).subscribe(data => {
          if(data['status'] === 'success') {
            this.noty.next({type:"success", mess: data['msg']});
-           $(".addNewCityNeibrhood").fadeOut();
+           $(".addNewCityNeibrhood, .shadow").fadeOut();
          }
          else {
            this.noty.next({type:"warning", mess: data['msg']});
@@ -44,7 +44,7 @@ export class AddCityComponent implements OnInit {
        this.http.get(this.API_URL+'/User/addNewNeighborhood?city='+this.citySend+'&name='+this.nbh).subscribe(data => {
           if(data['status'] === 'success') {
            this.noty.next({type:"success", mess: data['msg'] });
-           $(".addNewCityNeibrhood").fadeOut();
+           $(".addNewCityNeibrhood, .shadow").fadeOut();
          }
          else {
            this.noty.next({type:"warning", mess: data['msg']});

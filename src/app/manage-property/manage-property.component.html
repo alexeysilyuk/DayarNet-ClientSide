@@ -5,6 +5,7 @@
           <table class="table table-striped table-hover ">
   <thead>
     <tr>
+      <th></th>
       <th>Adress</th>
       <th>Rooms #</th>
       <th>Floor</th>
@@ -12,13 +13,14 @@
       <th></th>
     </tr>
   </thead>
-  <tbody *ngFor="let d of dirot">
+  <tbody *ngFor="let d of dirot; let i = index">
     <tr>
+      <td>{{ i + 1}}</td>
       <td>{{ d.street }} {{d.houseNumber}}</td>
       <td>{{ d.rooms }}</td>
       <td>{{ d.floor }}</td>
       <td>{{ d.pricePerMonth }}</td>
-      <td><button class="btn btn-danger btn-sm" (click) = "removeProperty(d.id)">Remove</button></td>
+      <td><button class="btn btn-danger btn-sm" (click) = "removeProperty(d.ik, i)">Remove</button></td>
     </tr>
 
   </tbody>
@@ -33,6 +35,7 @@
           <table class="table table-striped table-hover ">
   <thead>
     <tr>
+      <th></th>
       <th>Adress</th>
       <th>Rooms #</th>
       <th>Floor</th>
@@ -40,13 +43,14 @@
       <th></th>
     </tr>
   </thead>
-  <tbody *ngFor="let d of dirotNew">
+  <tbody *ngFor="let d of dirotNew; let i = index">
     <tr>
+      <td> {{ i +1}}</td>
       <td>{{ d.street }} {{d.houseNumber}}</td>
       <td>{{ d.rooms }}</td>
       <td>{{ d.floor }}</td>
       <td>{{ d.pricePerMonth }}</td>
-      <td><button class="btn btn-success btn-sm" (click) = "approveProperty(d.id)">Approve</button></td>
+      <td><button class="btn btn-success btn-sm" (click) = "approveProperty(d.ik, i)">Approve</button></td>
     </tr>
 
   </tbody>

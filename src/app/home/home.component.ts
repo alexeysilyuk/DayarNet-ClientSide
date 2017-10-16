@@ -371,7 +371,6 @@ stepTitle: string = 'תנאי שימוש באתר';
           this.neighborhoodsAutoComplete.push(data['neighborhoods'][i]['name']);
       }
 
-     // console.log(this.neighborhoodsAutoComplete);
     });
 
   }
@@ -412,24 +411,21 @@ openBasicActions() {
 
 
   SaveDira() {
-        // display step 4
-          this.progress = 95;
-          this.currentStep++;
-          this.leftMovePosition = -401;
-
-
-          this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood);
+      
+          this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood, '');
     this.diraService.saveDira(this.dira).subscribe(
       (responce) => {
        console.log(responce)
 
        this.flatForm.reset();
 
-       if (responce['status'] === 'OK') {
-        
-        this.noty.next({type:"success", mess: "Your Data is added. Thanks for using our service. This windows will automaticly close after 5 seconds"})
-         
-          
+       if (responce['status'] === 'success') {
+
+         // display step 4
+          this.progress = 95;
+          this.currentStep++;
+          this.leftMovePosition = -401;
+                  
        }
 
         else {
@@ -462,6 +458,7 @@ openBasicActions() {
      this.misparDirot = 0;
 
     if (data["status"] === "failure") {
+      this.searchDirot = false;
       this.noty.next({type:"warning", mess:"No dirot are found for your request"});
   
     }
@@ -487,14 +484,14 @@ openBasicActions() {
           data['result'][i]['floor'],
           data['result'][i]['entranceDate'],
           data['result'][i]['type'],
-          new Location(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), data['result'][i]['neighborhood_code']),
+          new Location(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), data['result'][i]['neighborhood_code'], ''),
            );
 
         // this.positions.push(new google.maps.LatLng(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']));
 
         // display on a google map
         let adress = this.dirot[i].street + ' ' + this.dirot[i].houseNumber;
-        let info = '<table class="table  table-striped table-condensed">	<thead>	<tr> <th class="success">' + adress + '</th></tr> </thead> <tbody> <tr>    <td> Price: </td><td>'
+        let info = '<table class="table table-striped table-condensed" style="font-size:16px;">	<thead>	<tr> <th class="success">' + adress + '</th></tr> </thead> <tbody> <tr>    <td> Price: </td><td>'
          + this.dirot[i].pricePerMonth
          + '₪/month</td></tr><tr class="active"><td> Arnona: </td> <td>' 
          + this.dirot[i].arnona 
@@ -512,7 +509,7 @@ openBasicActions() {
         this.maps.addMarker(new google.maps.LatLng(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), adress, info);
       }
       this.misparDirot = data['result'].length;
-      this.noty.next({type:"success", mess:"For your request we found: "+this.misparDirot+" results"});
+      
 
     }
   });
