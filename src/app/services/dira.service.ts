@@ -10,7 +10,7 @@ export class DiraService {
       // const headers = new HttpHeaders();
       // headers.append('Content-Type', 'application/json');
 
-
+      console.log(dira);
       return this.http.post('https://server.dayar.net/Properties/new', dira);
 
       // return this.http.post('https://angular-learn-d6372.firebaseio.com/data.json', dira);

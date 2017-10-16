@@ -110,3 +110,10 @@ text-align: right;}
 		padding-top: 300px;
 	}	
 }
+
+#accordion div {
+	display: none;
+}
+
+
+

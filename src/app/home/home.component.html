@@ -187,7 +187,26 @@
          <button aria-hidden="true" class="close" data-dismiss="modal" style='color:#000; font-size:40px !important' type="button" (click) = "closeSearchDirot()">×</button>
         <h2 class="searchPR">Search Result ( {{ misparDirot }}):</h2>
         <br>
-      <table class="table table-striped table-hover ">
+
+
+
+<div id="accordion" *ngFor="let d of dirot; let i = index">
+
+  <h5>{{ i+1 }} {{ d.type }} {{ d.street }} {{d.houseNumber}}</h5>
+  
+  <div>
+    <p><b>#</b>: {{ i+1 }}</p>
+    <p><b>Type</b>: {{ d.type }}</p>
+    <p><b>Adress</b>: {{ d.street }} {{d.houseNumber}}</p>
+    <p><b>Price</b>: {{ d.pricePerMonth }}</p>
+    <p><b>Rooms</b>: {{ d.rooms }}</p>
+    <p><b>Floor</b>: {{ d.floor }}</p>
+    <p><b>Arnona</b>: {{ d.arnona }}</p>
+  </div>
+  
+</div>
+
+      <!--<table class="table table-striped table-hover ">
       <thead>
         <tr>
           <th>#</th>
@@ -212,7 +231,7 @@
         </tr>
 
       </tbody>
-    </table>
+    </table>-->
       </div>
 
    </div>
@@ -263,7 +282,7 @@
                 <!-- step 2 -->
                 <div class="step form-group" id="step2" ngModelGroup = "step2" #step2="ngModelGroup">
                   <label>Entrance Date:</label>
-                  <input type="text" id="entranceDate" name="entranceDate" class="form-control datepicker" placeholder="10/8/2017">
+                  <input type="text" id="entranceDate" name="entranceDate" class="form-control datepicker" [(ngModel)]="entranceDate"  placeholder="10/8/2017">
 
                   <label>Arnona:</label>
                   <input type="number" min="100" max="10000" id="arnona" name="arnona" required [(ngModel)]="arnona" class="form-control" placeholder="in ₪...">

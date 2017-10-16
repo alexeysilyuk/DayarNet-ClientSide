@@ -197,6 +197,11 @@ stepTitle: string = 'תנאי שימוש באתר';
           },
        });
 
+       $( "#accordion" ).accordion({
+      collapsible: true
+      });
+
+    
     });
 
 
@@ -412,6 +417,10 @@ openBasicActions() {
 
   SaveDira() {
       
+    
+    this.entranceDate = $( "#entranceDate" ).datepicker( "getDate" );
+    
+
           this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood, '');
     this.diraService.saveDira(this.dira).subscribe(
       (responce) => {
@@ -467,6 +476,7 @@ openBasicActions() {
 
     else {
       this.searchDirot = true;
+
       let i = 0;
       for(i = 0; i < data['result'].length; i++) {
         this.dirot.push( 
