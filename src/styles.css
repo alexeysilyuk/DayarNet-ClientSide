@@ -6,14 +6,23 @@ body {
     overflow: hidden;
 }
 
-.ui-widget-content {
+/*.ui-widget-content {
 	position: fixed !important;
     max-height: 200px;
     overflow-y: auto;
-    /* prevent horizontal scrollbar */
     overflow-x: hidden;
 	z-index: 1050 !important;
-  }
+  }*/
+
+
+.ui-autocomplete {
+    position: fixed !important;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+	z-index: 1050 !important;
+}
+
 
 #map {
     margin-top: 50px;
