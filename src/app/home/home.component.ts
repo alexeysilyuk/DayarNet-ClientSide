@@ -713,8 +713,8 @@ openBasicActions() {
     this.userLoggedin = login.status;
     this.email = login.email;
     this.userEmail = login.email;
-    //this.userisAdmin = login.isAdmin;
-    this.userisAdmin = true;
+    this.userisAdmin = login.isAdmin;
+   
 
 
     this.globalUser = {email: login.email, password: login.password};
