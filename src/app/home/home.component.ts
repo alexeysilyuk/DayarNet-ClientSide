@@ -169,7 +169,8 @@ stepTitle: string = 'תנאי שימוש באתר';
     this.loadCity();
 
 
- $ ( () => {  
+ //$ ( () => {  
+   
     // datapicker
     $( ".datepicker" ).datepicker({ 
         dateFormat: 'dd/mm/yy',
@@ -201,7 +202,7 @@ stepTitle: string = 'תנאי שימוש באתר';
       });
 
     
-    });
+    //});
 
 
   }
@@ -326,7 +327,7 @@ stepTitle: string = 'תנאי שימוש באתר';
 
     if (v !== 0) {
       // Make the HTTP request:
-      this.http.get(this.API_URL+'/Cities/find?by=code&value=' + v).subscribe(data => {
+          this.http.get(this.API_URL+'/Cities/find?by=code&value=' + v).subscribe(data => {
           this.selectedCity = v;
           this.selectedNeighborhood = 0;
           this.selectedCityName = value;
