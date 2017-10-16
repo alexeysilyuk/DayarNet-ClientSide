@@ -21,7 +21,6 @@ import { NgForm } from '@angular/forms';
 import {City } from '../city.model';
 import {Neighborhood } from '../neighborhood.model';
 import {Dira} from '../dira.model';
-import {DiraService} from '../services/dira.service';
 import {Location} from '../location.model';
 
 
@@ -138,7 +137,7 @@ stepTitle: string = 'תנאי שימוש באתר';
   componentDisplay = 'home';
 
 
-  constructor(public maps: MapsService, private geolocation: GeolocationService, private geocoding: GeocodingService, private http: HttpClient, private diraService: DiraService) {
+  constructor(public maps: MapsService, private geolocation: GeolocationService, private geocoding: GeocodingService, private http: HttpClient) {
 
     this.selectedCity = 0;
     this.selectedNeighborhood = 0;
@@ -422,11 +421,11 @@ openBasicActions() {
     
 
           this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood, '');
-    this.diraService.saveDira(this.dira).subscribe(
-      (responce) => {
-       console.log(responce)
 
-       this.flatForm.reset();
+          this.http.post('https://server.dayar.net/Properties/new', this.dira).subscribe(
+      (responce) => {
+        console.log(this.dira);
+       console.log(responce)
 
        if (responce['status'] === 'success') {
 
@@ -434,7 +433,8 @@ openBasicActions() {
           this.progress = 95;
           this.currentStep++;
           this.leftMovePosition = -401;
-                  
+          
+          this.flatForm.reset();      
        }
 
         else {
@@ -718,6 +718,7 @@ openBasicActions() {
 
 
     this.globalUser = {email: login.email, password: login.password};
+
    }
 
    addNewCity() {

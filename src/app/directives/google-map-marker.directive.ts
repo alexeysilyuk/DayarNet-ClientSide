@@ -5,7 +5,7 @@ import { MapsService } from '../services/maps.service';
 @Directive({
     selector: 'google-map-marker'
 })
-export class GoogleMapMarkerDirective implements OnChanges {
+export class GoogleMapMarkerDirective   {
 
     /**
      * Marker position. Required.
@@ -26,9 +26,9 @@ export class GoogleMapMarkerDirective implements OnChanges {
      * This method is invoked when the marker properties change.
      */
 
-     ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
-    //     // Creates the marker and the info window.
-    //     if (changes['position']) { this.maps.addMarker(this.position, this.title, this.content); };
-     }
+    //  ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
+    // //     // Creates the marker and the info window.
+    // //     if (changes['position']) { this.maps.addMarker(this.position, this.title, this.content); };
+    //  }
 
 }

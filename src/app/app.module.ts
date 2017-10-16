@@ -18,7 +18,6 @@ import { HttpModule } from '@angular/http';
 
 import { HomeComponent } from './home/home.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
-import {DiraService} from './services/dira.service';
 import { UserComponent } from './user/user.component';
 import { ManagePropertyComponent } from './manage-property/manage-property.component';
 import { AddCityComponent } from './add-city/add-city.component';
@@ -45,8 +44,7 @@ import { AddCityComponent } from './add-city/add-city.component';
     providers: [
         MapsService,
         GeolocationService,
-        GeocodingService,
-        DiraService
+        GeocodingService
     ],
     bootstrap: [AppComponent]
 })

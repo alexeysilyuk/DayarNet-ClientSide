@@ -30,7 +30,6 @@ export class ManagePropertyComponent implements OnInit {
   }
 
   ngOnChanges(changes : SimpleChanges) {
-    console.log("ngOnChanges called");
     if(this.switchLoad) {
     this.loadAllProperties();
     this.switchLoad = false;

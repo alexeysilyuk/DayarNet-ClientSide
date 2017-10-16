@@ -28,7 +28,7 @@ import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange
 
       //encapsulation: ViewEncapsulation.None
 })
-export class Noty implements OnInit, OnChanges {
+export class Noty implements OnInit {
    @Input() notyMessage : string;
    @Input() notyType : string;
    @Input() notyShow : boolean;
@@ -39,8 +39,6 @@ export class Noty implements OnInit, OnChanges {
     constructor() {}
 
     ngOnInit() {}
-
-    ngOnChanges() {}
 
      closeNoty() { this.close.next(false); }
 
