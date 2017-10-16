@@ -269,10 +269,10 @@
                 <!-- step 1 -->
                 <div class="step form-group" id="step1" ngModelGroup = "step1" #step1="ngModelGroup">
                   <label>Name owner:</label>
-                  <input type="text" id="baal" name="baal" required [(ngModel)]="baal" class="form-control" placeholder="Harry Potter">
+                  <input type="text" id="baal" name="baal" required [(ngModel)]="baal" class="form-control">
 
                   <label>Phone number:</label>
-                  <input type="phone" id="phone" name="phone" required [(ngModel)]="phone" class="form-control" placeholder="05266544345">
+                  <input type="phone" id="phone" name="phone" required [(ngModel)]="phone" class="form-control">
 
                   <!--<label>Contact email:</label>
                   <input type="email" id="email" name="email" readonly [(ngModel)]="email" email required class="form-control" placeholder="gmail@chucknorris.com">-->
@@ -282,13 +282,13 @@
                 <!-- step 2 -->
                 <div class="step form-group" id="step2" ngModelGroup = "step2" #step2="ngModelGroup">
                   <label>Entrance Date:</label>
-                  <input type="text" id="entranceDate" name="entranceDate" class="form-control datepicker" [(ngModel)]="entranceDate"  placeholder="10/8/2017">
+                  <input type="text" id="entranceDate" name="entranceDate" class="form-control datepicker" [(ngModel)]="entranceDate" >
 
                   <label>Arnona:</label>
-                  <input type="number" min="100" max="10000" id="arnona" name="arnona" required [(ngModel)]="arnona" class="form-control" placeholder="in ₪...">
+                  <input type="number" min="100" max="10000" id="arnona" name="arnona" required [(ngModel)]="arnona" class="form-control">
 
                   <label>Price Per Month:</label>
-                  <input type="number" min="1000" max="40000" id="price" name="price" required [(ngModel)]="price" class="form-control" placeholder="in ₪...">
+                  <input type="number" min="1000" max="40000" id="price" name="price" required [(ngModel)]="price" class="form-control">
 
                   <label>Type:</label>
                   <select name="type" [(ngModel)]="type" required  id="type" class="form-control">
@@ -301,27 +301,27 @@
                   <div class="step form-group" id="step3" ngModelGroup = "step3" #step3="ngModelGroup">
                     <div class="col-xs-9 col-lg-9 col-md-9 col-sm-9">
                       <label>Adress:</label>
-                      <input type="text" id="street" required  name="street" [(ngModel)]="street" class="form-control" placeholder="Jabotinski">
+                      <input type="text" id="street" required  name="street" [(ngModel)]="street" class="form-control">
                     </div>
                     
                     <div class="col-xs-3 col-lg-3 col-md-3 col-sm-3">
                       <label>House number:</label>
-                      <input type="number" min="1" id="houseNumber" required name="houseNumber" [(ngModel)]="houseNumber" class="form-control" placeholder="15">
+                      <input type="number" min="1" id="houseNumber" required name="houseNumber" [(ngModel)]="houseNumber" class="form-control">
                       </div>
                     
                     <div class="col-xs-6 col-md-6 col-lg-6 col-sm-6">
                       <label>Rooms:</label> 
-                      <input type="number" min="1" max="10" id="rooms" required name="rooms" [(ngModel)]="rooms" class="form-control" placeholder="3">
+                      <input type="number" min="1" max="10" id="rooms" required name="rooms" [(ngModel)]="rooms" class="form-control">
                       </div>
 
                     <div class="col-xs-6 col-md-6 col-lg-6 col-sm-6">
                       <label>Floor:</label>
-                      <input type="number" min="0" max="32" id="floor" required name="floor" [(ngModel)]="floor" class="form-control" placeholder="3">
+                      <input type="number" min="0" max="32" id="floor" required name="floor" [(ngModel)]="floor" class="form-control">
                       </div>
                     
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                       <label>Area:</label>
-                      <input type="number" min="10" max="200" id="area" required name="area" [(ngModel)]="area" class="form-control" placeholder="Area...">
+                      <input type="number" min="10" max="200" id="area" required name="area" [(ngModel)]="area" class="form-control">
                     </div>
 
                     <div class="clear"></div>
