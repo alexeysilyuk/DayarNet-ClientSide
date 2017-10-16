@@ -102,7 +102,7 @@ label { margin-bottom: 5px;}
  }
 
 .searchPR {margin-top: 0px;
-text-align: right;}
+text-align: left;}
 
 
 @media screen and (max-width: 767px) {
@@ -111,9 +111,44 @@ text-align: right;}
 	}	
 }
 
-#accordion div {
+.accordion div {
 	display: none;
+	border-bottom: 2px solid #ccc;
+	border-left: 2px solid #ccc;
+	border-right: 2px solid #ccc;
+	padding-left: 10px;
 }
 
+.accordion div p {
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.accordion h5 {
+	font-weight: bold;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background: #ff6600;
+	color: #fff; 
+	cursor: pointer;
+	border-top: 2px solid #ccc;
+	border-left: 2px solid #ccc;
+	border-right: 2px solid #ccc;
+	margin-bottom: 0px;
+}
+
+.accordion .indexAcc {
+	margin-left:10px;
+	width: 10%;
+}
+
+.accordion .addressAcc {
+	width: 70%;
+}
+
+.accordion .priceAcc {
+	width: 20%;
+	text-align: right;
+}
 
 

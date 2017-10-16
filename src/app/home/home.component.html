@@ -172,7 +172,7 @@
   <div class="row">
 
   
-      <div [ngClass]="(searchDirot) ? 'col-lg-8 col-sm-6 col-md-6 col-xs-3' : 'col-lg-12 col-sm-12 col-md-12 col-xs-12' "> 
+      <div [ngClass]="(searchDirot) ? 'col-lg-9 col-sm-8 col-md-8 col-xs-6' : 'col-lg-12 col-sm-12 col-md-12 col-xs-12' "> 
         <!--these properties are required: center, zoom-->
         <google-map [center]="center" [zoom]="zoom" [disableDefaultUI]="disableDefaultUI" [disableDoubleClickZoom]="disableDoubleClickZoom"
                     [mapTypeId]="mapTypeId" [maxZoom]="maxZoom" [minZoom]="minZoom" [styles]="styles">
@@ -183,19 +183,21 @@
       </div> 
 
 
-      <div [ngClass]="(searchDirot) ? 'sidebar col-lg-4 col-sm-6 col-md-6 col-xs-9' : 'noSearchDirot' " >
+      <div [ngClass]="(searchDirot) ? 'sidebar col-lg-3 col-sm-4 col-md-4 col-xs-6' : 'noSearchDirot' " >
          <button aria-hidden="true" class="close" data-dismiss="modal" style='color:#000; font-size:40px !important' type="button" (click) = "closeSearchDirot()">×</button>
         <h2 class="searchPR">Search Result ( {{ misparDirot }}):</h2>
         <br>
 
 
 
-<div id="accordion" *ngFor="let d of dirot; let i = index">
+<div  class="accordion" *ngFor="let d of dirot; let i = index">
 
-  <h5>{{ i+1 }} {{ d.type }} {{ d.street }} {{d.houseNumber}}</h5>
+  <h5 title="click to see more details" (click) = "toggleAccardion(i)">
+    <span class="indexAcc">{{ i+1 }}. </span>
+     <span class="addressAcc">{{ d.street }} / {{d.houseNumber}} </span>
+     </h5>
   
-  <div>
-    <p><b>#</b>: {{ i+1 }}</p>
+  <div id="propertyAcc{{i}}">
     <p><b>Type</b>: {{ d.type }}</p>
     <p><b>Adress</b>: {{ d.street }} {{d.houseNumber}}</p>
     <p><b>Price</b>: {{ d.pricePerMonth }}</p>
@@ -249,7 +251,6 @@
                   <div class="progress">
                     <div class="progress-bar" [style.width]="progress + '%'"></div>
                   </div>
-#
                 </div>
                 <div class="modal-body">
 

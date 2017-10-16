@@ -170,7 +170,7 @@ stepTitle: string = 'תנאי שימוש באתר';
 
 
  //$ ( () => {  
-   
+
     // datapicker
     $( ".datepicker" ).datepicker({ 
         dateFormat: 'dd/mm/yy',
@@ -197,14 +197,13 @@ stepTitle: string = 'תנאי שימוש באתר';
           },
        });
 
-       $( "#accordion" ).accordion({
-      collapsible: true
-      });
-
     
     //});
+  }
 
-
+  // accordion 
+  toggleAccardion(i: number) {
+    $("#propertyAcc"+i).slideToggle();
   }
 
 
