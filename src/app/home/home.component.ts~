@@ -422,7 +422,7 @@ openBasicActions() {
 
           this.dira = new Dira(this.street, this.rooms, this.area, this.arnona, this.price, this.baal, this.phone, this.email, this.selectedCity, this.houseNumber, this.floor, this.entranceDate, this.type, new Location(this.user_lng, this.user_lat), this.selectedNeighborhood, '');
 
-          this.http.post(this.API_URL+'/Properties/new', this.dira).subscribe(
+          this.http.post('https://server.dayar.net/Properties/new', this.dira).subscribe(
       (responce) => {
         console.log(this.dira);
        console.log(responce)

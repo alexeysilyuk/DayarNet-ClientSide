@@ -69,8 +69,9 @@ function onSignIn(googleUser) {
 */
 
 	var d = new Date();
-	d.setTime(d.getTime() + (1*24*60*60*1000));
+	d.setTime(d.getTime() + (exdays*24*60*60*1000));
 	var expires = "expires="+ d.toUTCString();	
+console.log(expires);
 
 	document.cookie = "gUsername="+profile.getName()+"; "+expires+" path=/";
 	document.cookie = "gEmail="+profile.getEmail()+"; "+expires+" path=/";

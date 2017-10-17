@@ -67,8 +67,8 @@ export class UserComponent implements OnInit {
    googleLogin() {
     // test google
 
-	let x = document.cookie;
-	console.log(x);
+	//let x = document.cookie;
+	//console.log(x);
 
 
     let auth2 = gapi.auth2.getAuthInstance();

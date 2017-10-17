@@ -104,6 +104,8 @@ export class ManagePropertyComponent implements OnInit {
             if(responce['status'] === "success") {
               this.dirotNew = this.dirotNew.splice(i-1, i);
               this.misparNewDirot--;
+              this.noty.next({type: "success", mess:"Approved"});
+
             }
 
             else {
@@ -121,6 +123,10 @@ export class ManagePropertyComponent implements OnInit {
             if(responce['status'] === "success") {
               this.dirot = this.dirot.splice(i-1, i);
               this.misparDirot--;
+
+              this.noty.next({type: "success", mess:"Deleted"});
+
+
             }
 
             else {

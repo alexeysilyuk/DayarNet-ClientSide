@@ -36,7 +36,7 @@
          [ngClass]="(fLogin.valid) ? 'btn-primary' : 'btn-default' "
           type="submit">Sign in</button>
 
-        <div class="g-signin2 pull-right" data-onsuccess="onSignIn" (click)="googleLogin()" 
+        <div class="g-signin2 pull-right" data-onsuccess="onSignIn" (mouseup)="googleLogin()" 
   data-theme="light"></div>
  
   </form>
