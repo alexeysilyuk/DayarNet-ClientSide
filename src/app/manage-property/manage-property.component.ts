@@ -19,9 +19,11 @@ export class ManagePropertyComponent implements OnInit {
 
   dirot: Dira[] = [];
   dirotNew: Dira[] = [];
+  myDirot: Dira[] = [];
 
   misparDirot = 0;
   misparNewDirot = 0;  
+  misparMyDirot = 0;
 
   constructor(private http: HttpClient) { }
 
@@ -31,9 +33,12 @@ export class ManagePropertyComponent implements OnInit {
 
   ngOnChanges(changes : SimpleChanges) {
     if(this.switchLoad) {
-    this.loadAllProperties();
+    this.loadAllProperties(); 
+    this.loadMyProperties();
     this.switchLoad = false;
     }
+
+   
   }
 
 
@@ -51,7 +56,7 @@ export class ManagePropertyComponent implements OnInit {
        this.misparNewDirot = 0;
   
       if (data["status"] === "failure") {
-        this.noty.next({type:"warning", mess:"No dirot are found for your request"});
+       // this.noty.next({type:"warning", mess:"No dirot are found for your request"});
   
       }
   
@@ -89,8 +94,8 @@ export class ManagePropertyComponent implements OnInit {
         }
         this.misparDirot = data['result'].length;
 
+        
         this.switchLoad = true;
-  
       }
     });
   }
@@ -98,12 +103,29 @@ export class ManagePropertyComponent implements OnInit {
 
   approveProperty(id: string, i:number) {
 
+        this.switchLoad = false;
        this.http.post(this.API_URL+'/admin/approveProperty?id='+id, this.globalUser).subscribe(
       (responce) => {
 
             if(responce['status'] === "success") {
-              this.dirotNew = this.dirotNew.splice(i-1, i);
-              this.misparNewDirot--;
+              this.loadAllProperties();
+             this.loadMyProperties();
+            }
+
+            else {
+              this.noty.next({type:"warning", mess: "Status of your request "+responce['status']});
+            }
+      });
+  }
+
+    denyProperty(id: string, i:number) {
+      this.switchLoad = false;
+       this.http.post(this.API_URL+'/admin/denyProperty?id='+id, this.globalUser).subscribe(
+      (responce) => {
+
+            if(responce['status'] === "success") {
+              this.loadAllProperties();
+             this.loadMyProperties();
             }
 
             else {
@@ -114,19 +136,68 @@ export class ManagePropertyComponent implements OnInit {
 
 
     removeProperty(id: string, i:number) {
-
+      this.switchLoad = false;
        this.http.post(this.API_URL+'/admin/removeProperty?id='+id, this.globalUser).subscribe(
       (responce) => {
 
             if(responce['status'] === "success") {
-              this.dirot = this.dirot.splice(i-1, i);
-              this.misparDirot--;
+             this.loadAllProperties();
+             this.loadMyProperties();
             }
 
             else {
               this.noty.next({type:"warning", mess: "Status of your request "+responce['status']});
             }
       });
+  }
+
+
+   loadMyProperties() {
+    this.http.post(this.API_URL+'/User/myProperties', this.globalUser).subscribe(data => {
+      // Read the result field from the JSON response.
+      
+     
+
+    this.myDirot = [];
+    this.misparMyDirot = 0;
+  
+      if (data["status"] === "failure") {
+       // this.noty.next({type:"warning", mess:"No dirot are found for your request"});
+  
+      }
+  
+      else {
+        let i = 0;
+        for(i = 0; i < data['result'].length; i++) {
+
+
+          let diraObj = new Dira(
+            data['result'][i]['street'],
+            data['result'][i]['rooms'], 
+            data['result'][i]['area'],
+            data['result'][i]['arnona'],
+            data['result'][i]['pricePerMonth'],
+            'test',
+            '05299988777', 
+            'mail@test.com',
+            data['result'][i]['city_code'], 
+            data['result'][i]['houseNumber'],
+            data['result'][i]['floor'],
+            data['result'][i]['entranceDate'],
+            data['result'][i]['type'],
+            new Location(data['result'][i]['location']['lat'], data['result'][i]['location']['lng']), data['result'][i]['neighborhood_code'], 
+            data['result'][i]['status']); 
+
+            this.myDirot.push(diraObj);     
+            
+        }
+        
+
+        this.misparMyDirot = data['result'].length;
+        this.switchLoad = true;
+  
+      }
+    });
   }
 
 }

@@ -625,6 +625,16 @@ openBasicActions() {
     }
   }
 
+
+    openMyProperties() {
+    if (this.userLoggedin) {
+      this.manage_switch_load = true;
+      this.manage_property_control = 'myProperties';
+      $('.usermenu').hide();
+      $('.manageProperty, .shadow').fadeIn();
+    }
+  }
+
   getPropertyType(v) { this.type = v;}
 
   openNoty(notyObj) { this.noty.next(notyObj); }

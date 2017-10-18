@@ -51,9 +51,9 @@ export class UserComponent implements OnInit {
                         //reset object and form
                         this.login.next({status:true, email: this.loginObj.email, password: this.loginObj.password, isAdmin: responce['isAdmin']});
 
-                        this.setCookie("rEmail",this.loginObj.email, 1);
-                        this.setCookie("rPassword",this.loginObj.password, 1);
-                        this.setCookie("risAdmin",responce['isAdmin'], 1);
+                        this.setCookie("rEmail",this.loginObj.email, 7);
+                        this.setCookie("rPassword",this.loginObj.password, 7);
+                        this.setCookie("risAdmin",responce['isAdmin'], 7);
 
                         this.loginObj = { googleID: 0,  password: '', email: '' };
                         this.loginForm.reset();
