@@ -106,11 +106,10 @@
                   
                 <input type="text" #c placeholder="City..." class="form-control" id="cityBox" style="float:left; width:80%;">
 
-                        <button *ngIf = "userLoggedin" class="close"  title="Add new city"
-                        style="line-height:38px; vertical-align: middle; border: 1px solid #FF6600; border-radius: 2px; padding-left: 10px; padding-right: 10px; color:#FF6600; display: inline-block;" (click)= "addNewCity()">+</button>
+                        <button *ngIf = "userLoggedin" class=" btnViewBlock close"  title="Add new city"
+                         (click)= "addNewCity()">+</button>
 
-                        <button *ngIf = "!userLoggedin" class="close"  title="Not found your city in list"
-                        style="line-height:38px; vertical-align: middle; border: 1px solid #FF6600; border-radius: 2px; padding-left: 10px; padding-right: 10px; color:#FF6600; display: inline-block;" (click)= "openCityBox()">?</button>
+                        <button *ngIf = "!userLoggedin" class="btnViewBlock close"  title="Not found your city in list" (click)= "openCityBox()">?</button>
                 </div> 
 
            
@@ -122,8 +121,8 @@
 
                       <input type="text" #neighborhood placeholder="Neighborhood..."  class="form-control" id="neighborhoodBox" style="float:left; width:80%;" [(ngModel)] = "autoClean">
 
-                      <button *ngIf = "userLoggedin && cityHasNeighborhoods" class="close"  title="Add new neighborhood"
-                        style="line-height:38px; vertical-align: middle; border: 1px solid #FF6600; border-radius: 2px; padding-left: 10px; padding-right: 10px; color:#FF6600; display: inline-block;" (click)= "addNewNeighborhood()">+</button>
+                      <button *ngIf = "userLoggedin && cityHasNeighborhoods" class="btnViewBlock close"  title="Add new neighborhood"
+                         (click)= "addNewNeighborhood()">+</button>
 
                     </div>
                   

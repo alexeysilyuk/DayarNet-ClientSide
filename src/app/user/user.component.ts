@@ -18,6 +18,7 @@ export class UserComponent implements OnInit {
   ngOnInit() {}
 
 
+
   // noty object
   @Output() noty = new EventEmitter<{type:string, mess:string}>();
   @Output() login = new EventEmitter<{status:boolean, email: string, password: string, isAdmin: boolean}>();
@@ -50,10 +51,15 @@ export class UserComponent implements OnInit {
                         //reset object and form
                         this.login.next({status:true, email: this.loginObj.email, password: this.loginObj.password, isAdmin: responce['isAdmin']});
 
+                        this.setCookie("rEmail",this.loginObj.email, 1);
+                        this.setCookie("rPassword",this.loginObj.password, 1);
+                        this.setCookie("risAdmin",responce['isAdmin'], 1);
+
                         this.loginObj = { googleID: 0,  password: '', email: '' };
                         this.loginForm.reset();
             
                         $('.loginBlocks, .shadow').fadeOut();
+
                       }
             
                       else {
@@ -66,10 +72,6 @@ export class UserComponent implements OnInit {
 
    googleLogin() {
     // test google
-
-	let x = document.cookie;
-	console.log(x);
-
 
     let auth2 = gapi.auth2.getAuthInstance();
 
@@ -100,6 +102,14 @@ export class UserComponent implements OnInit {
     }
 
    }
+
+
+    setCookie(cname, cvalue, exdays) {
+      let d = new Date();
+      d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+      let expires = "expires="+d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
 
   // register form data
   @ViewChild('fRegister') registerForm : NgForm;

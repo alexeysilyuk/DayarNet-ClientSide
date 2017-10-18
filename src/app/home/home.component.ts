@@ -18,10 +18,10 @@ import { NgForm } from '@angular/forms';
 
 //import { Http, Headers } from '@angular/http';
 
-import {City } from '../city.model';
-import {Neighborhood } from '../neighborhood.model';
-import {Dira} from '../dira.model';
-import {Location} from '../location.model';
+import {City } from '../model/city.model';
+import {Neighborhood } from '../model/neighborhood.model';
+import {Dira} from '../model/dira.model';
+import {Location} from '../model/location.model';
 
 
 declare var $: any; // jQuery
@@ -165,6 +165,13 @@ stepTitle: string = 'תנאי שימוש באתר';
   }
 
   ngOnInit() {
+    if (this.getCookie("gEmail")) {
+      this.setLogin( {status:true, email: this.getCookie("gEmail"), password: '', isAdmin: false} );
+    }
+
+    if (this.getCookie("rEmail")) {
+      this.setLogin( {status:true, email: this.getCookie("rEmail"), password: this.getCookie("rPassword"), isAdmin: this.getCookie("risAdmin")} );
+    }
 
     this.loadCity();
 
@@ -206,6 +213,24 @@ stepTitle: string = 'תנאי שימוש באתר';
     $("#propertyAcc"+i).slideToggle();
   }
 
+ getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+deleteCookie(cname) {
+  document.cookie = cname+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
 
   onNavigate(coponent: string) { this.componentDisplay = coponent; }
 
@@ -552,6 +577,15 @@ openBasicActions() {
     this.userEmail = '';
     this.userLoggedin = false;
     $('.usermenu').hide();
+
+    this.deleteCookie("gUsername");
+    this.deleteCookie("gEmail");
+    this.deleteCookie("gPassword");
+
+    this.deleteCookie("rEmail");
+    this.deleteCookie("rPassword");
+    this.deleteCookie("risAdmin");
+
   }
 
   openLogin() {

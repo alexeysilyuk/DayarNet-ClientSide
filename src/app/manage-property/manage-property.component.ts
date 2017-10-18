@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, Input, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import {Dira} from '../dira.model';
-import {Location} from '../location.model';
+import {Dira} from '../model/dira.model';
+import {Location} from '../model/location.model';
 
 @Component({
   selector: 'app-manage-property',
